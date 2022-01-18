@@ -10,9 +10,9 @@ import {LUISUnblockSetup} from '../../utils/luisAppSetup';
 
 import i18n from '../locales/i18nConfig';
 
-import { CallbackBotDialog, CALLBACK_BOT_DIALOG } from '../callbackBotDialog';
+import { CallbackBotDialog, CALLBACK_BOT_DIALOG } from '../callbackDialogs/callbackBotDialog';
 
-import { CallbackBotDetails } from '../callbackBotDetails';
+import { CallbackBotDetails } from '../callbackDialogs/callbackBotDetails';
 const TEXT_PROMPT = 'TEXT_PROMPT';
 export const CONFIRM_HOME_ADDRESS_STEP = 'CONFIRM_HOME_ADDRESS_STEP';
 const CONFIRM_HOME_ADDRESS_STEP_WATERFALL_STEP =

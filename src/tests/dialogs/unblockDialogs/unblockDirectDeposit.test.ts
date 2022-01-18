@@ -23,24 +23,24 @@ import {
   TwoTextBlock,
   TextBlock,
   adaptiveCard,
-} from '../../cards';
-import { MainDialog } from '../../dialogs/mainDialog';
-import i18n from '../../dialogs/locales/i18nConfig';
+} from '../../../cards';
+import { MainDialog } from '../../../dialogs/mainDialog';
+import i18n from '../../../dialogs/locales/i18nConfig';
 import assert from 'assert';
 import chai from 'chai';
 import * as tsSinon from 'ts-sinon';
 import {
   UnblockBotDialog,
   UNBLOCK_BOT_DIALOG,
-} from '../../dialogs/unblockDialogs/unblockBotDialog';
+} from '../../../dialogs/unblockDialogs/unblockBotDialog';
 
 chai.use(require('sinon-chai'));
 import { expect } from 'chai';
-import { ConfirmLookIntoStep } from '../../dialogs/unblockDialogs/unblockLookup';
+import { ConfirmLookIntoStep } from '../../../dialogs/unblockDialogs/unblockLookup';
 import {
   CONFIRM_DIRECT_DEPOSIT_STEP,
   UnblockDirectDepositStep,
-} from '../../dialogs/unblockDialogs/unblockDirectDeposit';
+} from '../../../dialogs/unblockDialogs/unblockDirectDeposit';
 
 /**
  * An waterfall dialog derived from MainDialog for testing

@@ -8,7 +8,7 @@ import {
 
 import { LuisRecognizer } from 'botbuilder-ai';
 
-import i18n from './locales/i18nConfig';
+import { i18n } from './locales/i18nConfig';
 import { GET_USER_PHONE_NUMBER_STEP } from './getUserPhoneNumberStep';
 import { CallbackBotDetails } from './callbackBotDetails';
 import { CallbackRecognizer } from './calllbackDialogs/callbackRecognizer';
@@ -127,6 +127,8 @@ export class ConfirmPhoneStep extends ComponentDialog {
     // Top intent tell us which cognitive service to use.
     const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
 
+    const closeMsg = i18n.__('getUserBothContactsConfirmMsg');
+
     switch (intent) {
       // Proceed
       // Not - adding these extra intent checks because of a bug with the french happy path
@@ -135,7 +137,11 @@ export class ConfirmPhoneStep extends ComponentDialog {
         console.log('INTENT: ', intent);
         callbackBotDetails.confirmPhoneStep = true;
         const confirmMsg = i18n.__('getUserPhoneConfirmMsg');
-        await stepContext.context.sendActivity(confirmMsg);
+        if (callbackBotDetails.preferredEmailAndText === true) {
+          await stepContext.context.sendActivity(closeMsg);
+        } else {
+          await stepContext.context.sendActivity(confirmMsg);
+        }
         return await stepContext.endDialog(callbackBotDetails);
 
       // Don't Proceed
@@ -143,6 +149,8 @@ export class ConfirmPhoneStep extends ComponentDialog {
       case 'promptConfirmNo':
         console.log('INTENT: ', intent);
         callbackBotDetails.confirmPhoneStep = false;
+
+        // await stepContext.context.sendActivity(closeMsg);
 
         // return await stepContext.endDialog(callbackBotDetails);
         return await stepContext.replaceDialog(

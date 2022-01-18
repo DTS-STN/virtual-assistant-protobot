@@ -9,20 +9,20 @@ import {
 } from 'botbuilder-dialogs';
 
 import { DialogTestClient, DialogTestLogger } from 'botbuilder-testing';
-import { MainDialog } from '../../dialogs/mainDialog';
-import i18n from '../../dialogs/locales/i18nConfig';
+import { MainDialog } from '../../../dialogs/mainDialog';
+import i18n from '../../../dialogs/locales/i18nConfig';
 import assert from 'assert';
 import chai from 'chai';
 import * as tsSinon from 'ts-sinon';
 import {
   UnblockBotDialog,
   UNBLOCK_BOT_DIALOG
-} from '../../dialogs/unblockDialogs/unblockBotDialog';
+} from '../../../dialogs/unblockDialogs/unblockBotDialog';
 
 chai.use(require('sinon-chai'));
 import { expect } from 'chai';
-import { CallbackRecognizer } from '../../dialogs/calllbackDialogs/callbackRecognizer';
-import { ConfirmLookIntoStep } from '../../dialogs/unblockDialogs/unblockLookup';
+import { CallbackRecognizer } from '../../../dialogs/callbackDialogs/callbackRecognizer';
+import { ConfirmLookIntoStep } from '../../../dialogs/unblockDialogs/unblockLookup';
 
 /**
  * An waterfall dialog derived from MainDialog for testing

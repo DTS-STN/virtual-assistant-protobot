@@ -7,7 +7,7 @@ import {
 
 import { LuisRecognizer } from 'botbuilder-ai';
 
-import i18n from './locales/i18nConfig';
+import { i18n } from './locales/i18nConfig';
 import { CallbackRecognizer } from './calllbackDialogs/callbackRecognizer';
 import { CONFIRM_PHONE_STEP } from './confirmPhoneStep';
 import { CONFIRM_EMAIL_STEP } from './confirmEmailStep';
@@ -66,6 +66,11 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
       // Throw the master error flag
       callbackDetails.masterError = true;
       // End the dialog and pass the updated details state machine
+      // Set master error message to send
+      const errorMsg = i18n.__('masterErrorMsg');
+
+      // Send master error message
+      await stepContext.context.sendActivity(errorMsg);
       return await stepContext.endDialog(callbackDetails);
     }
 
@@ -135,6 +140,7 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
     const sendEmailMsg = i18n.__('confirmEmailStepStandMsg');
     const sendTextMsg = i18n.__('confirmPhoneStepStandMsg');
     const sendBothMsg = i18n.__('getPreferredMethodOfContactStepSendBothMsg');
+    const NoNotificationMsg = i18n.__('NoNotificationMsg');
 
     // Top intent tell us which cognitive service to use.
     const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
@@ -146,7 +152,7 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
         console.log('INTENT choose email: ', intent);
         callbackBotDetails.getPreferredMethodOfContactStep = true;
         callbackBotDetails.preferredEmail = true;
-        console.log('text retry 11111');
+
         return await stepContext.replaceDialog(
           CONFIRM_EMAIL_STEP,
           callbackBotDetails
@@ -157,19 +163,28 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
         console.log('INTENT: ', intent);
         callbackBotDetails.getPreferredMethodOfContactStep = true;
         callbackBotDetails.preferredText = true;
+        // callbackBotDetails.confirmPhoneStep = null;
+        // await stepContext.context.sendActivity(sendTextMsg);
         return await stepContext.replaceDialog(
           CONFIRM_PHONE_STEP,
           callbackBotDetails
         );
+      // return await stepContext.endDialog(callbackBotDetails);
 
       // Proceed with Both Messages
       case 'promptConfirmChoiceBoth':
         console.log('INTENT: ', intent);
         callbackBotDetails.getPreferredMethodOfContactStep = true;
         callbackBotDetails.preferredEmailAndText = true;
+        // await stepContext.context.sendActivity(sendBothMsg);
 
         return await stepContext.endDialog(callbackBotDetails);
 
+      case 'promptConfirmChoiceNone':
+        // user don't want to receive notification. use this case
+        console.log('INTENT: ', intent);
+        await stepContext.context.sendActivity(NoNotificationMsg);
+        return await stepContext.endDialog(callbackBotDetails);
       // Could not understand / None intent
       default: {
         // Catch all

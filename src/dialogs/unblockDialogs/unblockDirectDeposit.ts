@@ -15,8 +15,8 @@ import {
   adaptiveCard}
 from '../../cards'
 
-import { CallbackBotDialog, CALLBACK_BOT_DIALOG } from '../callbackBotDialog';
-import { CallbackBotDetails } from '../callbackBotDetails';
+import { CallbackBotDialog, CALLBACK_BOT_DIALOG } from '../callbackDialogs/callbackBotDialog';
+import { CallbackBotDetails } from '../callbackDialogs/callbackBotDetails';
 
 const TEXT_PROMPT = 'TEXT_PROMPT';
 const CHOICE_PROMPT = 'CHOICE_PROMPT';

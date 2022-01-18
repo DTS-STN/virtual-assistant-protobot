@@ -9,8 +9,9 @@ import {
 
 import { CallbackBotDetails } from './callbackBotDetails';
 import { CallbackRecognizer } from './calllbackDialogs/callbackRecognizer';
+import { CONFIRM_EMAIL_STEP } from './confirmEmailStep';
 import { GET_PREFERRED_METHOD_OF_CONTACT_STEP } from './getPreferredMethodOfContactStep';
-import i18n from './locales/i18nConfig';
+import { i18n } from './locales/i18nConfig';
 
 const TEXT_PROMPT = 'TEXT_PROMPT';
 export const GET_USER_EMAIL_STEP = 'GET_USER_EMAIL_STEP';
@@ -88,7 +89,6 @@ export class GetUserEmailStep extends ComponentDialog {
       } else {
         promptMsg = standardMsg;
       }
-      console.log('come 222222');
       return await stepContext.prompt(TEXT_PROMPT, promptMsg);
     }
     return await stepContext.next(false);

@@ -10,7 +10,7 @@ import { CallbackBotDetails } from './callbackBotDetails';
 import { CallbackRecognizer } from './calllbackDialogs/callbackRecognizer';
 import { GET_PREFERRED_METHOD_OF_CONTACT_STEP } from './getPreferredMethodOfContactStep';
 
-import i18n from './locales/i18nConfig';
+import { i18n } from './locales/i18nConfig';
 
 const TEXT_PROMPT = 'TEXT_PROMPT';
 export const GET_USER_PHONE_NUMBER_STEP = 'GET_USER_PHONE_NUMBER_STEP';
@@ -45,7 +45,11 @@ export class GetUserPhoneNumberStep extends ComponentDialog {
     const callbackBotDetails = stepContext.options as CallbackBotDetails;
 
     // Set the text for the prompt
-    const standardMsg = i18n.__('getUserPhoneStepStandardMsg');
+    let standardMsg;
+    if (callbackBotDetails.confirmCallbackPhoneNumberStep === false) {
+      standardMsg = i18n.__('getCallbackPhoneNumberStandardMsg');
+    }
+    else standardMsg = i18n.__('getUserPhoneStepStandardMsg');
 
     // Set the text for the retry prompt
     const retryMsg = i18n.__('getUserPhoneNumberFormatErrorMsg');
@@ -54,25 +58,29 @@ export class GetUserPhoneNumberStep extends ComponentDialog {
     if (
       callbackBotDetails.errorCount.getUserPhoneNumberStep >= MAX_ERROR_COUNT
     ) {
-      const errorMsg = i18n.__('emailFormatMaxErrorMsg');
+      if (callbackBotDetails.confirmCallbackPhoneNumberStep === false) {
+        //   Throw the master error flag
+        callbackBotDetails.masterError = true;
+        //  Send master error message
+        // Set master error message to send
+        const errorMsg = i18n.__('masterErrorMsg');
+        await stepContext.context.sendActivity(errorMsg);
+        // End the dialog and pass the updated details state machine
+        return await stepContext.endDialog(callbackBotDetails);
+      } else {
+        const errorMsg = i18n.__('phoneNumberFormatMaxErrorMsg');
 
-      // Send master error message
-      // await stepContext.context.sendActivity(errorMsg);
+        const promptOptions = i18n.__('confirmEmailStepErrorPromptOptions');
 
-      const promptOptions = i18n.__('confirmEmailStepErrorPromptOptions');
-
-      const promptDetails = {
-        prompt: ChoiceFactory.forChannel(
-          stepContext.context,
-          promptOptions,
-          errorMsg
-        )
-      };
-      return await stepContext.prompt(TEXT_PROMPT, promptDetails);
-      // Throw the master error flag
-      // callbackBotDetails.masterError = true;
-      // End the dialog and pass the updated details state machine
-      // return await stepContext.endDialog(callbackBotDetails);
+        const promptDetails = {
+          prompt: ChoiceFactory.forChannel(
+            stepContext.context,
+            promptOptions,
+            errorMsg
+          )
+        };
+        return await stepContext.prompt(TEXT_PROMPT, promptDetails);
+      }
     }
 
     // Check the user state to see if callbackBotDetails.getUserPhoneNumberStep is set to null or -1
@@ -81,8 +89,11 @@ export class GetUserPhoneNumberStep extends ComponentDialog {
     if (
       (callbackBotDetails.getUserPhoneNumberStep === null ||
         callbackBotDetails.getUserPhoneNumberStep === -1) &&
-      typeof callbackBotDetails.confirmPhoneStep === 'boolean' &&
-      callbackBotDetails.confirmPhoneStep === false
+      ((typeof callbackBotDetails.confirmPhoneStep === 'boolean' &&
+        callbackBotDetails.confirmPhoneStep === false) ||
+        (typeof callbackBotDetails.confirmCallbackPhoneNumberStep ===
+          'boolean' &&
+          callbackBotDetails.confirmCallbackPhoneNumberStep === false))
     ) {
       // Setup the prompt message
       let promptMsg = '';
@@ -140,7 +151,7 @@ export class GetUserPhoneNumberStep extends ComponentDialog {
           callbackBotDetails
         );
       case 'promptConfirmNo':
-        console.log('INTENT: ', intent);
+        console.log('INTENT getUserPhone: ', intent);
 
         return await stepContext.endDialog(callbackBotDetails);
       // Could not understand / None intent
@@ -157,7 +168,20 @@ export class GetUserPhoneNumberStep extends ComponentDialog {
             const confirmMsg = i18n.__('getUserPhoneConfirmMsg');
             callbackBotDetails.confirmPhoneStep = true;
             callbackBotDetails.getUserPhoneNumberStep = true;
-            await stepContext.context.sendActivity(confirmMsg);
+            if (callbackBotDetails.confirmCallbackPhoneNumberStep === true) {
+              await stepContext.context.sendActivity(confirmMsg);
+            }
+            if (callbackBotDetails.confirmCallbackPhoneNumberStep === false) {
+              callbackBotDetails.confirmCallbackPhoneNumberStep = true;
+              const firstWelcomeMsg = i18n.__('getCallbackScheduleStandardMsg');
+              const standardMsgContinue = i18n.__('confirmAuthStepMsg');
+              const confirmationCodeMsg = i18n.__(
+                'confirmAuthWordStepStandardMsg'
+              );
+              await stepContext.context.sendActivity(firstWelcomeMsg);
+              await stepContext.context.sendActivity(standardMsgContinue);
+              await stepContext.context.sendActivity(confirmationCodeMsg);
+            }
 
             return await stepContext.endDialog(callbackBotDetails);
           } else {

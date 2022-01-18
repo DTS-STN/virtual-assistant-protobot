@@ -8,15 +8,9 @@ import {
 
 import { LuisRecognizer } from 'botbuilder-ai';
 
-import i18n from './locales/i18nConfig';
+import { i18n } from './locales/i18nConfig';
 import { CallbackBotDetails } from './callbackBotDetails';
 import { CallbackRecognizer } from './calllbackDialogs/callbackRecognizer';
-
-import {
-  TextBlockWithLink,
-  TextBlock,
-  adaptiveCard}
-from '../cards'
 
 const TEXT_PROMPT = 'TEXT_PROMPT';
 export const CONFIRM_CALLBACK_STEP = 'CONFIRM_CALLBACK_STEP';
@@ -33,39 +27,38 @@ export class ConfirmCallbackStep extends ComponentDialog {
 
     this.addDialog(
       new WaterfallDialog(CONFIRM_CALLBACK_WATERFALL_STEP, [
-        this.preStep.bind(this),
+        this.initialStep.bind(this),
         this.finalStep.bind(this)
       ])
     );
 
     this.initialDialogId = CONFIRM_CALLBACK_WATERFALL_STEP;
   }
-  async preStep(stepContext: WaterfallStepContext) {
+  /**
+   * Initial step in the waterfall. This will kick of the ConfirmCallbackStep step
+   *
+   * If the confirmCallbackStep flag is set in the state machine then we can just
+   * end this whole dialog
+   *
+   * If the confirmCallbackStep flag is set to null then we need to get a response from the user
+   *
+   * If the user errors out then we're going to set the flag to false and assume they can't / don't
+   * want to proceed
+   */
+  async initialStep(stepContext: WaterfallStepContext) {
     // Get the user details / state machine
     const callbackBotDetails: CallbackBotDetails =
       stepContext.options as CallbackBotDetails;
 
     // Set the text for the prompt
-    let okMsg:any;
-    let standardMsg:any;
-
-    console.log(callbackBotDetails.directDepositError)
-
-    // Deteremine what dialog caused the error and display approriate message
-    if(callbackBotDetails.directDepositError === true){
-        okMsg = false;
-        standardMsg = i18n.__('unblock_direct_deposit_main_error');
-    } else {
-      okMsg = i18n.__('OKMsg');
-      standardMsg = i18n.__('callbackBotDialogStepStandardMsg');
-    }
+    const botGreatMsg = i18n.__('botGreatMsg');
+    const standardMsg = i18n.__('callbackBotDialogStepStandardMsg');
 
     // Set the text for the retry prompt
     const retryMsg = i18n.__('confirmCallbackStepRetryMsg');
 
     // Check if the error count is greater than the max threshold
-    if (callbackBotDetails.errorCount.confirmLookIntoStep >= MAX_ERROR_COUNT) {
-      console.log('CALLBACK');
+    if (callbackBotDetails.errorCount.confirmCallbackStep >= MAX_ERROR_COUNT) {
       // Throw the master error flag
       callbackBotDetails.masterError = true;
 
@@ -73,7 +66,7 @@ export class ConfirmCallbackStep extends ComponentDialog {
       const errorMsg = i18n.__('confirmCallbackStepErrorMsg');
 
       // Send master error message
-      await adaptiveCard(stepContext, TextBlock(errorMsg));
+      await stepContext.context.sendActivity(errorMsg);
 
       // End the dialog and pass the updated details state machine
       return await stepContext.endDialog(callbackBotDetails);
@@ -93,10 +86,8 @@ export class ConfirmCallbackStep extends ComponentDialog {
       if (callbackBotDetails.confirmCallbackStep === -1) {
         promptMsg = retryMsg;
       }
-
-      // Only show Ok for main dialog
-      if(okMsg) {
-        await adaptiveCard(stepContext, TextBlock(okMsg));
+      if (callbackBotDetails.confirmCallbackStep === null) {
+        await stepContext.context.sendActivity(botGreatMsg);
       }
 
       const promptOptions: any = i18n.__(
@@ -116,7 +107,6 @@ export class ConfirmCallbackStep extends ComponentDialog {
     }
   }
 
-
   /**
    * Validation step in the waterfall.
    * We use LUIZ to process the prompt reply and then
@@ -134,6 +124,7 @@ export class ConfirmCallbackStep extends ComponentDialog {
       stepContext.context.activity.locale.toLowerCase() === 'fr-ca' ||
       stepContext.context.activity.locale.toLowerCase() === 'fr-fr'
     ) {
+      console.log('here');
       lang = 'fr';
     }
 
@@ -147,31 +138,21 @@ export class ConfirmCallbackStep extends ComponentDialog {
     // Top intent tell us which cognitive service to use.
     const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
 
-    // const closeMsg = i18n.__('confirmCallbackStepCloseMsg');
-
-    const closeMsg = i18n.__('unblock_lookup_decline_callback_msg');
-    const link = i18n.__('unblock_lookup_decline_callback_link');
-    const linkMsg = i18n.__('unblock_lookup_decline_callback_link_msg');
+    const closeMsg = i18n.__('confirmCallbackStepCloseMsg');
 
     switch (intent) {
       // Proceed
       case 'promptConfirmYes':
-        console.log('INTENT: ', intent);
+        console.log('INTENT 1: ', intent);
         callbackDetails.confirmCallbackStep = true;
-        const firstWelcomeMsg = i18n.__('getCallbackScheduleStandardMsg');
-        const standardMsgContinue = i18n.__('confirmAuthStepMsg');
-        const confirmationCodeMsg = i18n.__('confirmAuthWordStepStandardMsg');
-        await stepContext.context.sendActivity(firstWelcomeMsg);
-        await stepContext.context.sendActivity(standardMsgContinue);
-        await stepContext.context.sendActivity(confirmationCodeMsg);
+
         return await stepContext.endDialog(callbackDetails);
 
       // Don't Proceed
       case 'promptConfirmNo':
-        console.log('INTENT: ', intent);
+        console.log('INTENT 1 : ', intent);
 
-        // await stepContext.context.sendActivity(closeMsg);
-        await adaptiveCard(stepContext, TextBlockWithLink(closeMsg, link, linkMsg));
+        await stepContext.context.sendActivity(closeMsg);
 
         callbackDetails.confirmCallbackStep = false;
         return await stepContext.endDialog(callbackDetails);
@@ -179,9 +160,9 @@ export class ConfirmCallbackStep extends ComponentDialog {
       // Could not understand / None intent
       default: {
         // Catch all
-        console.log('NONE INTENT-');
-        callbackDetails.confirmLookIntoStep = -1;
-        callbackDetails.errorCount.confirmLookIntoStep++;
+        console.log('NONE INTENT 1');
+        callbackDetails.confirmCallbackStep = -1;
+        callbackDetails.errorCount.confirmCallbackStep++;
 
         return await stepContext.replaceDialog(
           CONFIRM_CALLBACK_STEP,

@@ -21,7 +21,7 @@ import {
 
 chai.use(require('sinon-chai'));
 import { expect } from 'chai';
-import { CallbackRecognizer } from '../../dialogs/calllbackDialogs/callbackRecognizer';
+import { CallbackRecognizer } from '../../dialogs/callbackDialogs/callbackRecognizer';
 import { ConfirmLookIntoStep } from '../../dialogs/unblockDialogs/unblockLookup';
 
 /**
