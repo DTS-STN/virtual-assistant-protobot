@@ -1,23 +1,16 @@
-import { DialogTestClient, DialogTestLogger } from 'botbuilder-testing';
+import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
 
-import { CallbackRecognizer } from '../../../dialogs/calllbackDialogs/callbackRecognizer';
-import { GetPreferredMethodOfContactStep } from '../../../dialogs/getPreferredMethodOfContactStep';
-const assert = require('assert');
-import chai from 'chai';
-import * as tsSinon from 'ts-sinon';
+import { CallbackRecognizer } from "../../../dialogs/callbackDialogs/callbackRecognizer";
+const assert = require("assert");
+import chai from "chai";
+import * as tsSinon from "ts-sinon";
 
-import { Activity } from 'botbuilder';
-import { ConfirmEmailStep } from '../../../dialogs/confirmEmailStep';
-import { ConfirmCallbackPhoneNumberStep } from '../../../dialogs/confirmCallbackPhoneNumberStep';
-import {
-  GetUserPhoneNumberStep,
-  GET_USER_PHONE_NUMBER_STEP
-} from '../../../dialogs/getUserPhoneNumberStep';
-import { ConfirmCallbackStep } from '../../../dialogs/confirmCallbackStep';
-chai.use(require('sinon-chai'));
-import { expect } from 'chai';
-describe('ConfirmCallbackStep', () => {
-  const testCases = require('../../testData/confirmCallbackStepTestData');
+import { Activity } from "botbuilder";
+import { ConfirmCallbackStep } from "../../../dialogs/callbackDialogs/confirmCallbackStep";
+chai.use(require("sinon-chai"));
+import { expect } from "chai";
+describe("ConfirmCallbackStep", () => {
+  const testCases = require("../../testData/confirmCallbackStepTestData");
   const sut = new ConfirmCallbackStep();
 
   afterEach(() => {
@@ -25,22 +18,22 @@ describe('ConfirmCallbackStep', () => {
   });
   testCases.map((testData) => {
     it(testData.name, async () => {
-      const client = new DialogTestClient('test', sut, testData.initialData, [
-        new DialogTestLogger(console)
+      const client = new DialogTestClient("test", sut, testData.initialData, [
+        new DialogTestLogger(console),
       ]);
 
       tsSinon.default
-        .stub(CallbackRecognizer.prototype, 'executeLuisQuery')
+        .stub(CallbackRecognizer.prototype, "executeLuisQuery")
         .callsFake(() =>
           JSON.parse(
             `{"intents": {"${testData.intent}": {"score": 1}}, "entities": {"$instance": {}}}`
           )
         );
 
-      if (testData.intent === 'InitialDialog') {
+      if (testData.intent === "InitialDialog") {
         const updatedActivity: Partial<Activity> = {
           text: testData.steps[0][0],
-          locale: 'en'
+          locale: "en",
         };
         const replyFirst = await client.sendActivity(updatedActivity);
 
@@ -57,7 +50,7 @@ describe('ConfirmCallbackStep', () => {
         );
         const updateAgainActivity: Partial<Activity> = {
           text: testData.steps[2][0],
-          locale: 'en'
+          locale: "en",
         };
       } else {
         // Execute the test case
@@ -67,7 +60,7 @@ describe('ConfirmCallbackStep', () => {
         for (const step of testData.steps) {
           const updatedActivity: Partial<Activity> = {
             text: step[0],
-            locale: 'en'
+            locale: "en",
           };
 
           const reply = await client.sendActivity(updatedActivity);
@@ -82,7 +75,7 @@ describe('ConfirmCallbackStep', () => {
       console.log(
         `Dialog result: ${JSON.stringify(client.dialogTurnResult.result)}`
       );
-      if (typeof client.dialogTurnResult.result === 'object') {
+      if (typeof client.dialogTurnResult.result === "object") {
         assert.strictEqual(
           JSON.stringify(client.dialogTurnResult.result),
           JSON.stringify(testData.expectedResult),

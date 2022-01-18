@@ -2,21 +2,24 @@ import {
   TextPrompt,
   ComponentDialog,
   WaterfallDialog,
-  ChoiceFactory
-} from 'botbuilder-dialogs';
+  ChoiceFactory,
+} from "botbuilder-dialogs";
 
-import { LuisRecognizer } from 'botbuilder-ai';
-import {LUISUnblockSetup} from '../../utils/luisAppSetup';
+import { LuisRecognizer } from "botbuilder-ai";
+import { LUISUnblockSetup } from "../../utils/luisAppSetup";
 
-import i18n from '../locales/i18nConfig';
+import i18n from "../locales/i18nConfig";
 
-import { CallbackBotDialog, CALLBACK_BOT_DIALOG } from '../callbackDialogs/callbackBotDialog';
+import {
+  CallbackBotDialog,
+  CALLBACK_BOT_DIALOG,
+} from "../callbackDialogs/callbackBotDialog";
 
-import { CallbackBotDetails } from '../callbackDialogs/callbackBotDetails';
-const TEXT_PROMPT = 'TEXT_PROMPT';
-export const CONFIRM_HOME_ADDRESS_STEP = 'CONFIRM_HOME_ADDRESS_STEP';
+import { CallbackBotDetails } from "../callbackDialogs/callbackBotDetails";
+const TEXT_PROMPT = "TEXT_PROMPT";
+export const CONFIRM_HOME_ADDRESS_STEP = "CONFIRM_HOME_ADDRESS_STEP";
 const CONFIRM_HOME_ADDRESS_STEP_WATERFALL_STEP =
-  'CONFIRM_HOME_ADDRESS_STEP_WATERFALL_STEP';
+  "CONFIRM_HOME_ADDRESS_STEP_WATERFALL_STEP";
 
 const MAX_ERROR_COUNT = 3;
 
@@ -33,7 +36,7 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
         this.homeAddressConfirm.bind(this),
         this.homeAddressSelect.bind(this),
         this.homeAddressSave.bind(this),
-        this.homeAddressEnd.bind(this)
+        this.homeAddressEnd.bind(this),
       ])
     );
 
@@ -51,8 +54,7 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
    * If the user errors out then we're going to set the flag to false and assume they can't / don't
    * want to proceed
    */
-  async homeAddressStart(stepContext:any) {
-
+  async homeAddressStart(stepContext: any) {
     // Get the user details / state machine
     const unblockBotDetails = stepContext.options;
 
@@ -60,16 +62,18 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
     // console.log('INITIAL STEP - HOME ADDRESS', unblockBotDetails);
 
     // Set the text for the prompt
-    const standardMsg = i18n.__('confirmHomeAddressStepStandardMsg');
+    const standardMsg = i18n.__("confirmHomeAddressStepStandardMsg");
 
     // Set the text for the retry prompt
-    const retryMsg = i18n.__('confirmHomeAddressStepRetryMsg');
-
+    const retryMsg = i18n.__("confirmHomeAddressStepRetryMsg");
 
     // Check if the error count is greater than the max threshold
-    if (unblockBotDetails.errorCount.confirmHomeAddressStep >= MAX_ERROR_COUNT) {
-
-      console.log('ADDRESS ERROR #'+unblockBotDetails.errorCount.confirmHomeAddressStep);
+    if (
+      unblockBotDetails.errorCount.confirmHomeAddressStep >= MAX_ERROR_COUNT
+    ) {
+      console.log(
+        "ADDRESS ERROR #" + unblockBotDetails.errorCount.confirmHomeAddressStep
+      );
 
       // Throw the master error flag
       unblockBotDetails.masterError = true;
@@ -79,7 +83,6 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
         CALLBACK_BOT_DIALOG,
         new CallbackBotDetails()
       );
-
     }
 
     // Check the user state to see if unblockBotDetails.confirmHomeAddressStep is set to null or -1
@@ -89,9 +92,8 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
       unblockBotDetails.confirmHomeAddressStep === null ||
       unblockBotDetails.confirmHomeAddressStep === -1
     ) {
-
       // Setup the prompt message
-      let promptMsg = '';
+      let promptMsg = "";
 
       // The current step is an error state
       if (unblockBotDetails.confirmHomeAddressStep === -1) {
@@ -101,15 +103,13 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
       }
 
       return await stepContext.prompt(TEXT_PROMPT, promptMsg);
-
     } else {
       return await stepContext.next(false);
     }
   }
 
   // Address Search Step
-  async homeAddressConfirm(stepContext:any) {
-
+  async homeAddressConfirm(stepContext: any) {
     // Get the user details / state machine
     const unblockBotDetails = stepContext.options;
 
@@ -119,24 +119,22 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
     // DEBUG
     // console.log('SECOND STEP - CONFIRM ADDRESS', unblockBotDetails, userInput);
 
-    if(userInput.match('42 Sussex') || userInput === '123' ) {
-
+    if (userInput.match("42 Sussex") || userInput === "123") {
       // Set messages
-      const standardMsg = i18n.__('confirmHomeAddressResultsPromptMsg');
+      const standardMsg = i18n.__("confirmHomeAddressResultsPromptMsg");
       const promptMsg = standardMsg;
-      const promptOptions = i18n.__('confirmHomeAddressResultsPromptOptions');
+      const promptOptions = i18n.__("confirmHomeAddressResultsPromptOptions");
       const promptDetails = {
         prompt: ChoiceFactory.forChannel(
           stepContext.context,
           promptOptions,
           promptMsg
-        )
+        ),
       };
       return await stepContext.prompt(TEXT_PROMPT, promptDetails);
 
-    // Unknown utterance
+      // Unknown utterance
     } else {
-
       // Record error and repeat the prompt
       unblockBotDetails.confirmHomeAddressStep = -1;
       unblockBotDetails.errorCount.confirmHomeAddressStep++;
@@ -145,49 +143,46 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
         unblockBotDetails
       );
     }
-
   }
 
-   // Address Search Step
-   async homeAddressSelect(stepContext:any) {
-
+  // Address Search Step
+  async homeAddressSelect(stepContext: any) {
     // Get the user details / state machine
     const unblockBotDetails = stepContext.options;
 
     // Set the movie magic success
-    const userInput = stepContext._info.result?stepContext._info.result:'';
-
+    const userInput = stepContext._info.result ? stepContext._info.result : "";
 
     // DEBUG
     // console.log('THIRD STEP - SELECT ADDRESS', unblockBotDetails, userInput);
 
     switch (userInput) {
-      case '42 Sussex':
-      case '42 Sussex Dr':
-      case '42 Sussex Dr, Ottawa':
-      case '123':
-
+      case "42 Sussex":
+      case "42 Sussex Dr":
+      case "42 Sussex Dr, Ottawa":
+      case "123":
         // Set the text for the prompt
-        const confirm1Msg = i18n.__('confirmHomeAddressConfirm1Msg');
-        const confirm2Msg = i18n.__('confirmHomeAddressConfirm2Msg');
+        const confirm1Msg = i18n.__("confirmHomeAddressConfirm1Msg");
+        const confirm2Msg = i18n.__("confirmHomeAddressConfirm2Msg");
         const standardMsg = confirm1Msg + userInput + confirm2Msg;
 
         // Set messages
         const promptMsg = standardMsg;
-        const promptOptions = i18n.__('confirmHomeAddressStepStandardPromptOptions');
+        const promptOptions = i18n.__(
+          "confirmHomeAddressStepStandardPromptOptions"
+        );
         const promptDetails = {
           prompt: ChoiceFactory.forChannel(
             stepContext.context,
             promptOptions,
             promptMsg
-          )
+          ),
         };
 
         return await stepContext.prompt(TEXT_PROMPT, promptDetails);
 
       // Unknown utterance
       default:
-
         // Record error and repeat the prompt
         unblockBotDetails.confirmHomeAddressStep = -1;
         unblockBotDetails.errorCount.confirmHomeAddressStep++;
@@ -195,13 +190,11 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
           CONFIRM_HOME_ADDRESS_STEP,
           unblockBotDetails
         );
-
     }
   }
 
   // Address Save Step
-  async homeAddressSave(stepContext:any) {
-
+  async homeAddressSave(stepContext: any) {
     // Get the user details / state machine
     const unblockBotDetails = stepContext.options;
 
@@ -212,26 +205,34 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
     const recognizerResult = await recognizer.recognize(stepContext.context);
 
     // Top intent tell us which cognitive service to use.
-    const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
+    const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
 
     // Debug
     // console.log('FOURTH STEP - SAVE ADDRESS', unblockBotDetails, intent);
 
     switch (intent) {
       // Proceed
-      case 'promptConfirmYes':
-        const confirmHomeAddressSavedFirstMsg = i18n.__('confirmHomeAddressSavedFirstMsg');
-        const confirmHomeAddressSavedSecondMsg = i18n.__('confirmHomeAddressSavedSecondMsg');
-        const confirmHomeAddressSavedThirdMsg = i18n.__('confirmHomeAddressSavedThirdMsg');
+      case "promptConfirmYes":
+        const confirmHomeAddressSavedFirstMsg = i18n.__(
+          "confirmHomeAddressSavedFirstMsg"
+        );
+        const confirmHomeAddressSavedSecondMsg = i18n.__(
+          "confirmHomeAddressSavedSecondMsg"
+        );
+        const confirmHomeAddressSavedThirdMsg = i18n.__(
+          "confirmHomeAddressSavedThirdMsg"
+        );
 
         await stepContext.context.sendActivity(confirmHomeAddressSavedFirstMsg);
-        await stepContext.context.sendActivity(confirmHomeAddressSavedSecondMsg);
+        await stepContext.context.sendActivity(
+          confirmHomeAddressSavedSecondMsg
+        );
         await stepContext.context.sendActivity(confirmHomeAddressSavedThirdMsg);
 
         return await stepContext.endDialog(unblockBotDetails);
 
       // Don't Proceed
-      case 'promptConfirmNo':
+      case "promptConfirmNo":
         unblockBotDetails.confirmLookIntoStep = null;
 
         return await stepContext.replaceDialog(
@@ -241,7 +242,6 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
 
       // Unknown utterance
       default: {
-
         // Record error and repeat the prompt
         unblockBotDetails.confirmHomeAddressStep = -1;
         unblockBotDetails.errorCount.confirmHomeAddressStep++;
@@ -259,7 +259,7 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
    * update the state machine (unblockBotDetails)
    */
 
-  async homeAddressEnd(stepContext:any) {
+  async homeAddressEnd(stepContext: any) {
     // Get the user details / state machine
     const unblockBotDetails = stepContext.options;
 
@@ -270,22 +270,21 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
     const recognizerResult = await recognizer.recognize(stepContext.context);
 
     // Top intent tell us which cognitive service to use.
-    const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
+    const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
 
     // Debug
     // console.log('FINAL STEP - HOME ADDRESS', unblockBotDetails, intent);
 
     switch (intent) {
-
       // Proceed
-      case 'promptConfirmYes':
-      case 'promptConfirmHomeAddressYes':
+      case "promptConfirmYes":
+      case "promptConfirmHomeAddressYes":
         unblockBotDetails.confirmHomeAddressStep = true;
         return await stepContext.endDialog(unblockBotDetails);
 
       // Don't Proceed
-      case 'promptConfirmNo':
-      case 'promptConfirmHomeAddressNo':
+      case "promptConfirmNo":
+      case "promptConfirmHomeAddressNo":
         unblockBotDetails.confirmHomeAddressStep = null;
         return await stepContext.replaceDialog(
           CALLBACK_BOT_DIALOG,
@@ -294,7 +293,6 @@ export class ConfirmHomeAddressStep extends ComponentDialog {
 
       // Unknown utterance
       default: {
-
         // Record error and repeat the prompt
         unblockBotDetails.confirmHomeAddressStep = -1;
         unblockBotDetails.errorCount.confirmHomeAddressStep++;

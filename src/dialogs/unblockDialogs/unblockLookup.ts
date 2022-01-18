@@ -3,21 +3,21 @@ import {
   ChoicePrompt,
   ComponentDialog,
   WaterfallDialog,
-  ChoiceFactory
-} from 'botbuilder-dialogs';
+  ChoiceFactory,
+} from "botbuilder-dialogs";
 
-import {LUISUnblockSetup} from '../../utils/luisAppSetup';
-import { LuisRecognizer } from 'botbuilder-ai';
+import { LUISUnblockSetup } from "../../utils/luisAppSetup";
+import { LuisRecognizer } from "botbuilder-ai";
 
-import i18n from '../locales/i18nConfig';
-import {adaptiveCard, TextBlock, TextBlockWithLink} from '../../cards';
-import { CONFIRM_DIRECT_DEPOSIT_STEP } from './unblockDirectDeposit';
-import { UnblockRecognizer } from './unblockRecognizer';
+import i18n from "../locales/i18nConfig";
+import { adaptiveCard, TextBlock, TextBlockWithLink } from "../../cards";
+import { CONFIRM_DIRECT_DEPOSIT_STEP } from "./unblockDirectDeposit";
+import { UnblockRecognizer } from "./unblockRecognizer";
 
-const TEXT_PROMPT = 'TEXT_PROMPT';
-const CHOICE_PROMPT = 'CHOICE_PROMPT';
-export const CONFIRM_LOOK_INTO_STEP = 'CONFIRM_LOOK_INTO_STEP';
-const CONFIRM_LOOK_INTO_WATERFALL_STEP = 'CONFIRM_LOOK_INTO_STEP';
+const TEXT_PROMPT = "TEXT_PROMPT";
+const CHOICE_PROMPT = "CHOICE_PROMPT";
+export const CONFIRM_LOOK_INTO_STEP = "CONFIRM_LOOK_INTO_STEP";
+const CONFIRM_LOOK_INTO_WATERFALL_STEP = "CONFIRM_LOOK_INTO_STEP";
 const MAX_ERROR_COUNT = 3;
 
 export class ConfirmLookIntoStep extends ComponentDialog {
@@ -32,7 +32,7 @@ export class ConfirmLookIntoStep extends ComponentDialog {
       new WaterfallDialog(CONFIRM_LOOK_INTO_WATERFALL_STEP, [
         this.unblockLookupStart.bind(this),
         this.unblockLookupUserConfirm.bind(this),
-        this.unblockLookupEnd.bind(this)
+        this.unblockLookupEnd.bind(this),
       ])
     );
 
@@ -50,68 +50,66 @@ export class ConfirmLookIntoStep extends ComponentDialog {
    * If the user errors out then we're going to set the flag to false and assume they can't / don't
    * want to proceed
    */
-  async unblockLookupStart(stepContext:any) {
+  async unblockLookupStart(stepContext: any) {
     // Get the user details / state machine
     const unblockBotDetails = stepContext.options;
 
     // Check if the error count is greater than the max threshold
-      // Throw the master error flag
-      // Set master error message to send
+    // Throw the master error flag
+    // Set master error message to send
     if (unblockBotDetails.errorCount.confirmLookIntoStep >= MAX_ERROR_COUNT) {
       unblockBotDetails.masterError = true;
-      const errorMsg = i18n.__('unblockBotDialogMasterErrorMsg');
+      const errorMsg = i18n.__("unblockBotDialogMasterErrorMsg");
       await adaptiveCard(stepContext, TextBlock(errorMsg));
       return await stepContext.endDialog(unblockBotDetails);
     }
 
     // Check the user state to see if unblockBotDetails.confirm_look_into_step is set to null or -1
-      // If it is in the error state (-1) or or is set to null prompt the user
-      // If it is false the user does not want to proceed
+    // If it is in the error state (-1) or or is set to null prompt the user
+    // If it is false the user does not want to proceed
     if (
       unblockBotDetails.confirmLookIntoStep === null ||
       unblockBotDetails.confirmLookIntoStep === -1
     ) {
-
       // Set dialog messages
-      let promptMsg:any;
+      let promptMsg: any;
       let cardMessage = null;
-      let oasGreetingMsg = '';
-      const promptOptions = i18n.__('unblock_lookup_prompt_opts');
-      const retryMsg = i18n.__('confirmLookIntoStepRetryMsg');
+      let oasGreetingMsg = "";
+      const promptOptions = i18n.__("unblock_lookup_prompt_opts");
+      const retryMsg = i18n.__("confirmLookIntoStepRetryMsg");
 
       // Hard coded response simulation of bot lookup
-      const LOOKUP_RESULT = 'foreign-bank-account'; // DEBUG
+      const LOOKUP_RESULT = "foreign-bank-account"; // DEBUG
       // LOOKUP_RESULT = null;
 
-      if(LOOKUP_RESULT === 'foreign-bank-account') {
-        oasGreetingMsg = i18n.__('unblock_lookup_update_msg');
-        cardMessage = i18n.__('unblock_lookup_update_reason');
-        promptMsg = i18n.__('unblock_lookup_update_prompt_msg');
+      if (LOOKUP_RESULT === "foreign-bank-account") {
+        oasGreetingMsg = i18n.__("unblock_lookup_update_msg");
+        cardMessage = i18n.__("unblock_lookup_update_reason");
+        promptMsg = i18n.__("unblock_lookup_update_prompt_msg");
       } else {
-        oasGreetingMsg = i18n.__('unblock_lookup_update_msg');
-        promptMsg = i18n.__('unblock_lookup_add_prompt_msg');
+        oasGreetingMsg = i18n.__("unblock_lookup_update_msg");
+        promptMsg = i18n.__("unblock_lookup_add_prompt_msg");
       }
 
       // Setup the prompt
-      const promptText = unblockBotDetails.confirmLookIntoStep === -1 ? retryMsg : promptMsg
+      const promptText =
+        unblockBotDetails.confirmLookIntoStep === -1 ? retryMsg : promptMsg;
       const promptDetails = {
         prompt: ChoiceFactory.forChannel(
           stepContext.context,
           promptOptions,
           promptText
-        )
+        ),
       };
-     if(unblockBotDetails.confirmLookIntoStep !== -1) {
-   // Send the welcome message and text prompt
-   await adaptiveCard(stepContext, TextBlock(oasGreetingMsg));
-   if(cardMessage) {
-     await adaptiveCard(stepContext, TextBlock(cardMessage));
-   }
-     }
-
+      if (unblockBotDetails.confirmLookIntoStep !== -1) {
+        // Send the welcome message and text prompt
+        await adaptiveCard(stepContext, TextBlock(oasGreetingMsg));
+        if (cardMessage) {
+          await adaptiveCard(stepContext, TextBlock(cardMessage));
+        }
+      }
 
       return await stepContext.prompt(TEXT_PROMPT, promptDetails);
-
     } else {
       return await stepContext.next(false);
     }
@@ -120,24 +118,22 @@ export class ConfirmLookIntoStep extends ComponentDialog {
   /**
    * Offer to have a Service Canada Officer contact them
    */
-  async unblockLookupUserConfirm(stepContext:any) {
-
+  async unblockLookupUserConfirm(stepContext: any) {
     // Get the user details / state machine
     const unblockBotDetails = stepContext.options;
 
     // Setup the LUIS to recognize intents
     let luisRecognizer;
-    let lang = 'en';
+    let lang = "en";
     // Language check
 
     // Then change LUIZ appID
     if (
-      stepContext.context.activity.locale.toLowerCase() === 'fr-ca' ||
-      stepContext.context.activity.locale.toLowerCase() === 'fr-fr' ||
-      stepContext.context.activity.locale.toLowerCase() === 'fr'
+      stepContext.context.activity.locale.toLowerCase() === "fr-ca" ||
+      stepContext.context.activity.locale.toLowerCase() === "fr-fr" ||
+      stepContext.context.activity.locale.toLowerCase() === "fr"
     ) {
-
-      lang = 'fr';
+      lang = "fr";
     }
 
     // LUIZ Recogniser processing
@@ -150,16 +146,16 @@ export class ConfirmLookIntoStep extends ComponentDialog {
     // Top intent tell us which cognitive service to use.
     //const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
 
-   // const recognizer = LUISUnblockSetup(stepContext);
-   // const recognizerResult = await recognizer.recognize(stepContext.context);
-    const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
+    // const recognizer = LUISUnblockSetup(stepContext);
+    // const recognizerResult = await recognizer.recognize(stepContext.context);
+    const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
 
     // DEBUG
-    console.log('unblockLookupUserConfirm',unblockBotDetails, intent);
+    console.log("unblockLookupUserConfirm", unblockBotDetails, intent);
 
     switch (intent) {
       // Proceed
-      case 'promptConfirmYes':
+      case "promptConfirmYes":
         unblockBotDetails.confirmLookIntoStep = true;
 
         // Do the direct deposit step
@@ -169,17 +165,17 @@ export class ConfirmLookIntoStep extends ComponentDialog {
         );
 
       // Don't Proceed, but confirm they don't want to
-      case 'promptConfirmNo':
+      case "promptConfirmNo":
         unblockBotDetails.confirmLookIntoStep = false;
 
-        const promptText = i18n.__('unblock_lookup_prompt_confirm_msg');
-        const promptOptions = i18n.__('unblock_lookup_prompt_confirm_opts');
+        const promptText = i18n.__("unblock_lookup_prompt_confirm_msg");
+        const promptOptions = i18n.__("unblock_lookup_prompt_confirm_opts");
         const promptDetails = {
           prompt: ChoiceFactory.forChannel(
             stepContext.context,
             promptOptions,
             promptText
-          )
+          ),
         };
 
         return await stepContext.prompt(TEXT_PROMPT, promptDetails);
@@ -202,61 +198,57 @@ export class ConfirmLookIntoStep extends ComponentDialog {
    * We use LUIZ to process the prompt reply and then
    * update the state machine (unblockBotDetails)
    */
-  async unblockLookupEnd(stepContext:any) {
-
+  async unblockLookupEnd(stepContext: any) {
     // Get the user details / state machine
     const unblockBotDetails = stepContext.options;
 
-       // Setup the LUIS to recognize intents
-       let luisRecognizer;
-       let lang = 'en';
-       // Language check
+    // Setup the LUIS to recognize intents
+    let luisRecognizer;
+    let lang = "en";
+    // Language check
 
-       // Then change LUIZ appID
-       if (
-         stepContext.context.activity.locale.toLowerCase() === 'fr-ca' ||
-         stepContext.context.activity.locale.toLowerCase() === 'fr-fr' ||
-         stepContext.context.activity.locale.toLowerCase() === 'fr'
-       ) {
+    // Then change LUIZ appID
+    if (
+      stepContext.context.activity.locale.toLowerCase() === "fr-ca" ||
+      stepContext.context.activity.locale.toLowerCase() === "fr-fr" ||
+      stepContext.context.activity.locale.toLowerCase() === "fr"
+    ) {
+      lang = "fr";
+    }
 
-         lang = 'fr';
-       }
+    // LUIZ Recogniser processing
+    luisRecognizer = new UnblockRecognizer(lang);
+    // Call prompts recognizer
+    const recognizerResult = await luisRecognizer.executeLuisQuery(
+      stepContext.context
+    );
 
-       // LUIZ Recogniser processing
-       luisRecognizer = new UnblockRecognizer(lang);
-       // Call prompts recognizer
-       const recognizerResult = await luisRecognizer.executeLuisQuery(
-         stepContext.context
-       );
+    // Top intent tell us which cognitive service to use.
+    //const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
 
-       // Top intent tell us which cognitive service to use.
-       //const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
-
-      // const recognizer = LUISUnblockSetup(stepContext);
-      // const recognizerResult = await recognizer.recognize(stepContext.context);
-       const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
+    // const recognizer = LUISUnblockSetup(stepContext);
+    // const recognizerResult = await recognizer.recognize(stepContext.context);
+    const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
 
     // DEBUG
-    console.log('unblockLookupEnd',unblockBotDetails, intent);
+    console.log("unblockLookupEnd", unblockBotDetails, intent);
 
     switch (intent) {
-
       // Proceed to callback bot
-      case 'promptConfirmYes':
+      case "promptConfirmYes":
         unblockBotDetails.confirmLookIntoStep = false;
         unblockBotDetails.unblockDirectDeposit = false;
 
-        const text = i18n.__('unblock_lookup_decline_final_text');
-        const link = i18n.__('unblock_lookup_decline_callback_link');
-        const linkText = i18n.__('unblock_lookup_decline_final_link_text');
+        const text = i18n.__("unblock_lookup_decline_final_text");
+        const link = i18n.__("unblock_lookup_decline_callback_link");
+        const linkText = i18n.__("unblock_lookup_decline_final_link_text");
 
         adaptiveCard(stepContext, TextBlockWithLink(text, link, linkText));
 
         return await stepContext.endDialog(unblockBotDetails);
 
       // Don't Proceed, ask for rating
-      case 'promptConfirmNo':
-
+      case "promptConfirmNo":
         // Set remaining steps to false (skip to the rating step)
         unblockBotDetails.confirmLookIntoStep = true;
 

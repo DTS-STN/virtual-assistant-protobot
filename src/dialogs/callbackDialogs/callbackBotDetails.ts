@@ -4,6 +4,7 @@
 export class CallbackBotDetails {
   public masterError;
   public confirmCallbackStep;
+  public directDepositErrorCallback;
   public confirmCallbackDetailsStep;
   public getUserPhoneNumberStep;
   public confirmAuthWordStep;
@@ -21,6 +22,7 @@ export class CallbackBotDetails {
   public preferredEmail;
   public preferredText;
   public preferredEmailAndText;
+  public directDepositError;
   public confirmCallbackPhoneNumberStep;
   constructor() {
     // Master error - flag that is thrown when we hit a critical error in the conversation flow
@@ -30,9 +32,9 @@ export class CallbackBotDetails {
     this.preferredEmail = null;
     this.preferredText = null;
     this.preferredEmailAndText = null;
-
+    this.directDepositErrorCallback = null;
     this.getPreferredCallbackDateAndTimeStep = null;
-
+    this.directDepositError = null;
     this.getUserPhoneNumberStep = null;
 
     this.getUserEmailStep = null;
@@ -42,10 +44,10 @@ export class CallbackBotDetails {
     this.confirmEmailStep = null;
     this.confirmPhoneStep = null;
     this.confirmCallbackDetailsStep = null;
-    this.date = '';
-    this.phoneNumber = '';
-    this.time = '';
-    this.authCode = '';
+    this.date = "";
+    this.phoneNumber = "";
+    this.time = "";
+    this.authCode = "";
     this.confirmCallbackPhoneNumberStep = null;
 
     // State machine that stores the error counts of each step
@@ -60,7 +62,7 @@ export class CallbackBotDetails {
       getPreferredMethodOfContactStep: 0,
       confirmEmailStep: 0,
       confirmPhoneStep: 0,
-      confirmCallbackPhoneNumberStep: 0
+      confirmCallbackPhoneNumberStep: 0,
     };
 
     // TODO: Refactor and add an object that tracks status perhaps something like below
@@ -82,10 +84,10 @@ export class CallbackBotDetails {
           phoneNumber: this.phoneNumber,
           date: this.date,
           time: this.time,
-          authCode: this.authCode
+          authCode: this.authCode,
         }
       ),
       null,
-      '  '
+      "  "
     );
 }
