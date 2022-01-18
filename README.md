@@ -74,14 +74,8 @@ OAS Unblock bot [Terraform is configured here](https://teamcity.dts-stn.com/buil
 
 ## Config Changelog
 
-- 2021/10/05: les.lakewood@hrsdc-rhdcc.gc.ca - Initial Draft based on ei-callback-bot
-- 2021/10/09: les.lakewood@hrsdc-rhdcc.gc.ca - Confirm Home Address unblock flow added
-- 2021/10/10: les.lakewood@hrsdc-rhdcc.gc.ca - Confirm Home Address unblock flow archived
-- 2021/10/12: les.lakewood@hrsdc-rhdcc.gc.ca - Unblock Direct Deposit flow added
-- 2021/10/17: les.lakewood@hrsdc-rhdcc.gc.ca - Adding adaptive cards
-- 2021/10/17: les.lakewood@hrsdc-rhdcc.gc.ca - Created new LUIS apps for unblock bot
-- 2021/12/21: les.lakewood@hrsdc-rhdcc.gc.ca - Consolidated LUIS apps across bots
+- 2022/01/18: bing.gao@hrsdc-rhdcc.gc.ca - Initial Draft based on oas-unblock-bot
 
 
 Target:
-March 22
+March 29
