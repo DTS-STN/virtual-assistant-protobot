@@ -33,13 +33,13 @@ This bot has been created using [Bot Framework](https://dev.botframework.com). T
 - Clone this bot's code repository to your local machine
 
 ```bash
-git clone https://github.com/DTS-STN/oas-unblock-bot
+git clone https://github.com/DTS-STN/virtual-assistant-protobot
 ```
 
 or
 
 ```bash
-git clone git@github.com:DTS-STN/oas-unblock-bot.git
+git clone git@github.com:DTS-STN/irtual-assistant-protobot.git
 ```
 
 ## Developer Onboarding
