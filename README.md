@@ -1,19 +1,13 @@
 # virtual-assistant-protobot
 
-Future home of the Virtual Assistant bot prototype
-- unblock bot
-- callback bot
-- always-on bot
-# oas-unblock-bot
-
 ## Summary
 
 Bot Framework v4 application.
 
-This bot has been created using [Bot Framework](https://dev.botframework.com). The project is building a chatbot to help OAS user to understand and know their pension information.
+This bot has been created using [Bot Framework](https://dev.botframework.com). The Virtual Assistant MVP project combines always-on, callback, and unblock bots. The intial target will support demo capabilities with no data integration. 
 
-**Front-End app**: The [Virtual Assistant Web App code repo is located here](https://github.com/DTS-STN/Oas-Unblock-Web-App).
-**Demo**: [OAS Unblock bot is online here](https://oas-unblock-web-app-main.bdm-dev.dts-stn.com/).
+**Front-End app**: The [Virtual Assistant ReactJS Web App code repo is located here](https://github.com/DTS-STN/virtual-assistant-reactjs).
+**Demo**: [Virtual Assistant bot will be hosted here](https://virtual-assistant-web-app-main.bdm-dev.dts-stn.com/).
 
 ## Build Status
 
@@ -24,7 +18,6 @@ This bot has been created using [Bot Framework](https://dev.botframework.com). T
 ## Table of Contents
 
 - [virtual-assistant-protobot](#virtual-assistant-protobot)
-- [oas-unblock-bot](#oas-unblock-bot)
   - [Summary](#summary)
   - [Build Status](#build-status)
   - [Table of Contents](#table-of-contents)
