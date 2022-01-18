@@ -46,12 +46,13 @@ git clone git@github.com:DTS-STN/oas-unblock-bot.git
 
 See the Virtual Assistant Bot Framework [Onboarding wiki](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/5.-Developer-Onboarding) for details on:
 
-- [Getting started](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/5.-Developer-Onboarding#getting-started)
-- [Training LUIS](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/6.-LUIS)
-- [Adaptive Cards](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/7.-Adaptive-Cards)
-- [Testing](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/5.-Developer-Onboarding#testing)
-- [Pipeline integration](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/8.-DevOps-&-Publishing)
-- [Virtual Assistant Web Apps](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/8.-Virtual-Assistant-Web-App)
+- [Getting started](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/04.-Developer-Onboarding#getting-started)
+- [Bot Development](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/05.-Bot-Development)
+- [Training LUIS](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/06.-LUIS)
+- [Adaptive Cards](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/07.-Adaptive-Cards)
+- [Testing](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/05.-Developer-Onboarding#testing)
+- [Pipeline integration](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/08.-DevOps-&-Publishing)
+- [Virtual Assistant Web Apps](https://github.com/DTS-STN/Virtual-Assistant-Bot-Framework/wiki/11.-Web-App-&-Landing-Page)
 
 ## Pipeline Integration
 
