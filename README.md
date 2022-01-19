@@ -39,7 +39,7 @@ git clone https://github.com/DTS-STN/virtual-assistant-protobot
 or
 
 ```bash
-git clone git@github.com:DTS-STN/irtual-assistant-protobot.git
+git clone git@github.com:DTS-STN/virtual-assistant-protobot.git
 ```
 
 ## Developer Onboarding
