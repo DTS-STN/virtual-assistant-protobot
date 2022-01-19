@@ -71,5 +71,5 @@ OAS Unblock bot [Terraform is configured here](https://teamcity.dts-stn.com/buil
 - 2022/01/18: bing.gao@hrsdc-rhdcc.gc.ca - Initial Draft based on oas-unblock-bot
 
 
-Target:
+Target date:
 March 29
