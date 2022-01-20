@@ -10,7 +10,7 @@ import { ConfirmCallbackStep } from "../../../dialogs/callbackDialogs/confirmCal
 chai.use(require("sinon-chai"));
 import { expect } from "chai";
 describe("ConfirmCallbackStep", () => {
-  const testCases = require("../../testData/confirmCallbackStepTestData");
+  const testCases = require("../../testData/callbackTestData/confirmCallbackStepTestData");
   const sut = new ConfirmCallbackStep();
 
   afterEach(() => {

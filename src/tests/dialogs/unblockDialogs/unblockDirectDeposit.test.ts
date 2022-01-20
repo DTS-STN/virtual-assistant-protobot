@@ -53,7 +53,7 @@ const assertActivityHasCard = (activity) => {
 };
 describe("Unblock Direct Deposit Step", () => {
   describe("Should show the Direct Deposit welcome messages", () => {
-    const testCases = require("../testData/UnblockDirectDepositTestData");
+    const testCases = require("../../testData/unblockTestData/UnblockDirectDepositTestData");
     testCases.map((testData) => {
       it("should display an adaptive card", async () => {
         const sut = new UnblockDirectDepositStep();
