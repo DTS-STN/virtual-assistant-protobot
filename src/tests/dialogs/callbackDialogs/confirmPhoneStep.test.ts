@@ -15,7 +15,7 @@ chai.use(require("sinon-chai"));
 import { expect } from "chai";
 import { ConfirmPhoneStep } from "../../../dialogs/callbackDialogs/confirmPhoneStep";
 describe("ConfirmUserPhoneStep", () => {
-  const testCases = require("../../testData/confirmPhoneStepTestData");
+  const testCases = require("../../testData/callbackTestData/confirmPhoneStepTestData");
   const sut = new ConfirmPhoneStep();
   sut.addDialog(new GetUserPhoneNumberStep());
   afterEach(() => {

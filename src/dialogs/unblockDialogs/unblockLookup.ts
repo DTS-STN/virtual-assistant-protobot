@@ -32,7 +32,7 @@ export class ConfirmLookIntoStep extends ComponentDialog {
       new WaterfallDialog(CONFIRM_LOOK_INTO_WATERFALL_STEP, [
         this.unblockLookupStart.bind(this),
         this.unblockLookupUserConfirm.bind(this),
-        this.unblockLookupEnd.bind(this),
+
       ])
     );
 
@@ -168,17 +168,14 @@ export class ConfirmLookIntoStep extends ComponentDialog {
       case "promptConfirmNo":
         unblockBotDetails.confirmLookIntoStep = false;
 
-        const promptText = i18n.__("unblock_lookup_prompt_confirm_msg");
-        const promptOptions = i18n.__("unblock_lookup_prompt_confirm_opts");
-        const promptDetails = {
-          prompt: ChoiceFactory.forChannel(
-            stepContext.context,
-            promptOptions,
-            promptText
-          ),
-        };
+        unblockBotDetails.unblockDirectDeposit = false;
 
-        return await stepContext.prompt(TEXT_PROMPT, promptDetails);
+        const text = i18n.__("unblock_lookup_decline_final_text");
+        const link = i18n.__("unblock_lookup_decline_callback_link");
+        const linkText = i18n.__("unblock_lookup_decline_final_link_text");
+
+        adaptiveCard(stepContext, TextBlockWithLink(text, link, linkText));
+        return await stepContext.endDialog(unblockBotDetails);
 
       // Could not understand / No intent
       default: {
@@ -193,82 +190,6 @@ export class ConfirmLookIntoStep extends ComponentDialog {
     }
   }
 
-  /**
-   * Validation step in the waterfall.
-   * We use LUIZ to process the prompt reply and then
-   * update the state machine (unblockBotDetails)
-   */
-  async unblockLookupEnd(stepContext: any) {
-    // Get the user details / state machine
-    const unblockBotDetails = stepContext.options;
 
-    // Setup the LUIS to recognize intents
-    let luisRecognizer;
-    let lang = "en";
-    // Language check
 
-    // Then change LUIZ appID
-    if (
-      stepContext.context.activity.locale.toLowerCase() === "fr-ca" ||
-      stepContext.context.activity.locale.toLowerCase() === "fr-fr" ||
-      stepContext.context.activity.locale.toLowerCase() === "fr"
-    ) {
-      lang = "fr";
-    }
-
-    // LUIZ Recogniser processing
-    luisRecognizer = new UnblockRecognizer(lang);
-    // Call prompts recognizer
-    const recognizerResult = await luisRecognizer.executeLuisQuery(
-      stepContext.context
-    );
-
-    // Top intent tell us which cognitive service to use.
-    //const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
-
-    // const recognizer = LUISUnblockSetup(stepContext);
-    // const recognizerResult = await recognizer.recognize(stepContext.context);
-    const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
-
-    // DEBUG
-    console.log("unblockLookupEnd", unblockBotDetails, intent);
-
-    switch (intent) {
-      // Proceed to callback bot
-      case "promptConfirmYes":
-        unblockBotDetails.confirmLookIntoStep = false;
-        unblockBotDetails.unblockDirectDeposit = false;
-
-        const text = i18n.__("unblock_lookup_decline_final_text");
-        const link = i18n.__("unblock_lookup_decline_callback_link");
-        const linkText = i18n.__("unblock_lookup_decline_final_link_text");
-
-        adaptiveCard(stepContext, TextBlockWithLink(text, link, linkText));
-
-        return await stepContext.endDialog(unblockBotDetails);
-
-      // Don't Proceed, ask for rating
-      case "promptConfirmNo":
-        // Set remaining steps to false (skip to the rating step)
-        unblockBotDetails.confirmLookIntoStep = true;
-
-        // Do the direct deposit step
-        return await stepContext.replaceDialog(
-          CONFIRM_DIRECT_DEPOSIT_STEP,
-          unblockBotDetails
-        );
-
-      // Could not understand / None intent, try again
-      default: {
-        // Catch all
-        unblockBotDetails.confirmLookIntoStep = -1;
-        unblockBotDetails.errorCount.confirmLookIntoStep++;
-
-        return await stepContext.replaceDialog(
-          CONFIRM_LOOK_INTO_STEP,
-          unblockBotDetails
-        );
-      }
-    }
-  }
 }

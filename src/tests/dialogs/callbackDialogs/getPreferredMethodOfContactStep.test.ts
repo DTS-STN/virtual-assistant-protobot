@@ -10,7 +10,7 @@ import { GetUserPhoneNumberStep } from "../../../dialogs/callbackDialogs/getUser
 import { ConfirmPhoneStep } from "../../../dialogs/callbackDialogs/confirmPhoneStep";
 
 describe("GetPreferredMethodOfContactStep", () => {
-  const testCases = require("../../testData/getPreferredMethodOfContactTestData");
+  const testCases = require("../../testData/callbackTestData/getPreferredMethodOfContactTestData");
   const sut = new GetPreferredMethodOfContactStep();
   sut.addDialog(new ConfirmEmailStep());
   sut.addDialog(new GetUserPhoneNumberStep());

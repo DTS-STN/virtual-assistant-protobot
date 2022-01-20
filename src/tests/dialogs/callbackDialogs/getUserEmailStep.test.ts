@@ -11,7 +11,7 @@ import { GetUserEmailStep } from "../../../dialogs/callbackDialogs/getUserEmailS
 import { GetPreferredMethodOfContactStep } from "../../../dialogs/callbackDialogs/getPreferredMethodOfContactStep";
 
 describe("GetUserEmailStep", () => {
-  const testCases = require("../../testData/getUserEmailStepTestData");
+  const testCases = require("../../testData/callbackTestData/getUserEmailStepTestData");
   const sut = new GetUserEmailStep();
   sut.addDialog(new ConfirmEmailStep());
   sut.addDialog(new GetUserPhoneNumberStep());
