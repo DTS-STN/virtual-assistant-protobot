@@ -28,7 +28,7 @@ const CONFIRM_DIRECT_DEPOSIT_WATERFALL_STEP = "CONFIRM_DIRECT_DEPOSIT_STEP";
 
 // Error handling
 const MAX_ERROR_COUNT = 3;
-const ACCOUNT = false;
+let ACCOUNT = false;
 let TRANSIT = false;
 let INSTITUTE = false;
 
@@ -110,7 +110,6 @@ export class UnblockDirectDepositStep extends ComponentDialog {
           await adaptiveCard(stepContext, TextBlock(retryMsg));
         }
       }
-
       // If first pass through, show welcome messaging (adaptive cards)
       if (unblockBotDetails.unblockDirectDeposit === null) {
         await adaptiveCard(stepContext, whatNumbersToFindSchema());

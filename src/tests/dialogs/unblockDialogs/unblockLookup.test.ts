@@ -162,7 +162,6 @@ describe("Unblock LookUp Step", () => {
         await client.getNextReply();
         await client.getNextReply();
         const reply = await client.sendActivity(updatedActivity);
-         console.log("test 0000", reply.attachments[0])
 
         const expectedManualMsg = i18n.__("unblock_lookup_decline_final_text");
 
