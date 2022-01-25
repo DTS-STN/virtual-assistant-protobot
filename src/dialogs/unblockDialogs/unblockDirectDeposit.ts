@@ -20,11 +20,12 @@ import {
   CALLBACK_BOT_DIALOG,
 } from "../callbackDialogs/callbackBotDialog";
 import { CallbackBotDetails } from "../callbackDialogs/callbackBotDetails";
+import { UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_STEP } from "./unblockDirectDepositMasterErrorStep";
 
 const TEXT_PROMPT = "TEXT_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 export const CONFIRM_DIRECT_DEPOSIT_STEP = "CONFIRM_DIRECT_DEPOSIT_STEP";
-const CONFIRM_DIRECT_DEPOSIT_WATERFALL_STEP = "CONFIRM_DIRECT_DEPOSIT_STEP";
+const CONFIRM_DIRECT_DEPOSIT_WATERFALL_STEP = "CONFIRM_DIRECT_DEPOSIT_WATERFALL_STEP";
 
 // Error handling
 const MAX_ERROR_COUNT = 3;
@@ -59,22 +60,21 @@ export class UnblockDirectDepositStep extends ComponentDialog {
     const unblockBotDetails = stepContext.options;
 
     // Check if the error count is greater than the max threshold
-    if (unblockBotDetails.errorCount.unblockDirectDeposit >= MAX_ERROR_COUNT) {
-      unblockBotDetails.masterError = true;
+    // the design for this step is different compare to other steps
+    // this time will not trigger a master error. it will go to a new step
+      if (unblockBotDetails.errorCount.unblockDirectDeposit >= MAX_ERROR_COUNT) {
+
       unblockBotDetails.unblockDirectDeposit = -1;
 
-      const callbackErrorCause = new CallbackBotDetails();
-      callbackErrorCause.directDepositError = true;
-
       return await stepContext.replaceDialog(
-        CALLBACK_BOT_DIALOG,
-        callbackErrorCause
+        UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_STEP,
+        unblockBotDetails
       );
     }
 
     // If it is in the error state (-1) or or is set to null prompt the user
     // If it is false the user does not want to proceed
-    // If it is 0, we hvae some direct deposit info but not all of it
+    // If it is 0, we have some direct deposit info but not all of it
     if (
       unblockBotDetails.unblockDirectDeposit === null ||
       unblockBotDetails.unblockDirectDeposit === -1 ||
@@ -123,9 +123,7 @@ export class UnblockDirectDepositStep extends ComponentDialog {
     }
   }
 
-  /**
-   * Offer to have a Service Canada Officer contact them
-   */
+
   async unblockBankDetails(stepContext: any) {
     // Get the user details / state machine
     const unblockBotDetails = stepContext.options;
@@ -190,7 +188,7 @@ export class UnblockDirectDepositStep extends ComponentDialog {
    */
   async unblockDirectDepositEnd(stepContext: any) {
     // Set the messages
-    const unblockBotDetails = stepContext.result;
+    const unblockBotDetails = stepContext.options ;
     const validReminder = i18n.__("unblock_direct_deposit_valid_reminder");
     const doneMsg = i18n.__("unblock_direct_deposit_complete");
     const validMsg = i18n.__("unblock_direct_deposit_valid_msg");
@@ -200,7 +198,7 @@ export class UnblockDirectDepositStep extends ComponentDialog {
     await adaptiveCard(stepContext, TwoTextBlock(validMsg, tipMsg));
     await adaptiveCard(stepContext, TextBlock(validReminder));
     await adaptiveCard(stepContext, TextBlock(doneMsg));
-
+    unblockBotDetails.directDepositMasterError = false;
     // End the dialog
     return await stepContext.endDialog(unblockBotDetails);
   }
