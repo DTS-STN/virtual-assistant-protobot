@@ -42,6 +42,8 @@ import {
     UnblockDirectDepositStep,
   } from "../../../dialogs/unblockDialogs/unblockDirectDeposit";
   import { UnblockRecognizer } from "../../../dialogs/unblockDialogs/unblockRecognizer";
+import { UnblockDirectDepositMasterErrorStep } from "../../../dialogs/unblockDialogs/unblockDirectDepositMasterErrorStep";
+import { CallbackBotDialog } from "../../../dialogs/callbackDialogs/callbackBotDialog";
 
   /**
    * The lookup step more or less the same as bot
@@ -53,65 +55,48 @@ import {
       "application/vnd.microsoft.card.adaptive"
     );
   };
-  describe("Unblock Direct Deposit Master Error Step", () => {
-    describe("Should show warning messages when entry this step", () => {
+
+    describe("Unblock Direct Deposit Master Error Step", () => {
       afterEach(() => {
         tsSinon.default.restore();
       });
-      const testCases = require("../../testData/unblockTestData/UnblockDirectDepositTestData");
+      const testCases = require("../../testData/unblockTestData/unblockDirectDepositMasterErrorStepTestData");
       testCases.map((testData) => {
-        it("should display an adaptive card", async () => {
-          const sut = new ConfirmLookIntoStep();
+        it("Should show initial messages when enter this step", async () => {
+          const sut = new UnblockDirectDepositMasterErrorStep();
           const client = new DialogTestClient("test", sut, testData.initialData, [
             new DialogTestLogger(console),
           ]);
 
+          tsSinon.default
+          .stub(UnblockRecognizer.prototype, "executeLuisQuery")
+          .callsFake(() =>
+            JSON.parse(
+              `{"intents": {"promptConfirmYes": {"score": 1}}, "entities": {"$instance": {}}}`
+            )
+          );
           const updatedActivity: Partial<Activity> = {
             text: testData.steps[0][0],
             locale: "en",
           };
-          const expectedLookupMsg = i18n.__("unblock_lookup_update_msg");
-          const replyFirst = await client.sendActivity(updatedActivity);
+          const expectedInitialMsg = i18n.__("directDepositMasterErrorMsg");
+          const reply = await client.sendActivity(updatedActivity);
 
-          assert.strictEqual(replyFirst.attachments.length, 1);
-          assert.strictEqual(
-            replyFirst.attachments[0].contentType,
-            "application/vnd.microsoft.card.adaptive"
-          );
-          assert.strictEqual(
-            replyFirst.attachments[0].content.body[0].text,
-            expectedLookupMsg
-          );
-          const replySecond = await client.getNextReply();
-          const expectedLookUpUpdateMsg = i18n.__("unblock_lookup_update_reason");
-          const expectedLookUpQueryMsg = i18n.__(
-            "unblock_lookup_update_prompt_msg"
-          );
 
           assert.strictEqual(
-            replySecond.attachments[0].content.body[0].type,
-            "TextBlock"
-          );
-          assert.strictEqual(
-            replySecond.attachments[0].content.body[0].text,
-            expectedLookUpUpdateMsg
-          );
-          const replyThird = await client.getNextReply();
-
-          assert.strictEqual(
-            replyThird.text,
-            expectedLookUpQueryMsg + ` (1) Yes, I do or (2) No, I don't`
+            reply.text,
+            expectedInitialMsg  + ` (1) setup a call or (2) nothing to do`
           );
         });
 
-        it("Should go to direct deposit if user say they do have a canadian bank account", async () => {
-          const sut = new ConfirmLookIntoStep();
+        it("Should go to callback flow if user choose set up a call", async () => {
+          const sut = new UnblockDirectDepositMasterErrorStep();
           const client = new DialogTestClient("test", sut, testData.initialData, [
             new DialogTestLogger(console),
           ]);
           sut.addDialog(new UnblockDirectDepositStep());
-
-          const expectedDDMsg = i18n.__("unblock_direct_deposit_msg");
+          sut.addDialog(new  CallbackBotDialog());
+          const expectedMsg = i18n.__("botGreatMsg");
           const updatedActivity: Partial<Activity> = {
             text: "yes I do",
             locale: "en",
@@ -124,23 +109,26 @@ import {
                 `{"intents": {"promptConfirmYes": {"score": 1}}, "entities": {"$instance": {}}}`
               )
             );
-          await client.sendActivity(updatedActivity);
-          await client.getNextReply();
-          await client.getNextReply();
-          const replyThird = await client.sendActivity(updatedActivity);
+           await client.sendActivity(updatedActivity);
+          let reply = await client.sendActivity(updatedActivity);
 
+
+        assert.strictEqual(
+          reply.text,
+          expectedMsg
+        );
+      reply =    await client.getNextReply();
+      const expectedStandardMsg = i18n.__("callbackBotDialogStepStandardMsg");
+          console.log("tesst0000", JSON.stringify(reply))
           assert.strictEqual(
-            replyThird.attachments[0].contentType,
-            "application/vnd.microsoft.card.adaptive"
+            reply.text,
+            expectedStandardMsg + ` (1) Yes please! or (2) No thanks`
           );
-          assert.strictEqual(
-            replyThird.attachments[0].content.body[0].text,
-            expectedDDMsg
-          );
+
         });
 
 
-        it("Should display OAS button if user say they do not have a canadian bank account", async () => {
+        it("Should go to always on bot if user choose nothing for right now option", async () => {
           const sut = new ConfirmLookIntoStep();
           const client = new DialogTestClient("test", sut, testData.initialData, [
             new DialogTestLogger(console),
@@ -230,8 +218,8 @@ import {
           );
         });
 
-        it("Should fail gracefully after 3 errors", async () => {
-          const sut = new ConfirmLookIntoStep();
+        it("Should fail gracefully after 3 gibberish input", async () => {
+          const sut = new UnblockDirectDepositMasterErrorStep();
           const client = new DialogTestClient("test", sut, testData.initialData, [
             new DialogTestLogger(console),
           ]);
@@ -243,39 +231,33 @@ import {
               )
             );
 
-          const activity: Partial<Activity> = {
+          let activity: Partial<Activity> = {
             text: testData.steps[0][0],
             locale: "en",
           };
-          await client.sendActivity(activity);
+           await client.sendActivity(activity);
 
-          await client.getNextReply();
           const steps = [
             [
               "hahahaha",
-              i18n.__("unblock_lookup_update_prompt_msg") +
-                ` (1) Yes, I do or (2) No, I don't`,
+              i18n.__("directDepositMasterErrorMsg") +
+                ` (1) setup a call or (2) nothing to do`,
             ],
             [
               "nttttll",
-              i18n.__("confirmLookIntoStepRetryMsg") +
-                ` (1) Yes, I do or (2) No, I don't`,
-            ],
-            [
-              `hhh`,
-              i18n.__("confirmLookIntoStepRetryMsg") +
-                ` (1) Yes, I do or (2) No, I don't`,
+              i18n.__("directDepositMasterErrorMsg") +
+                ` (1) setup a call or (2) nothing to do`,
             ],
             ["thirdError!", i18n.__("unblockBotDialogMasterErrorMsg")],
           ];
 
           for (const step of steps) {
-            const updatedActivity: Partial<Activity> = {
+            activity = {
               text: step[0],
               locale: "en",
             };
 
-            const reply = await client.sendActivity(updatedActivity);
+            const reply = await client.sendActivity(activity);
             if (step[0] !== "thirdError!") {
               assert.strictEqual(
                 reply ? reply.text : null,
@@ -301,4 +283,3 @@ import {
         });
       });
     });
-  });

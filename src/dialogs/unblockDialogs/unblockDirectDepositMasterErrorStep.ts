@@ -13,6 +13,8 @@ import {
   import { adaptiveCard, TextBlock, TextBlockWithLink } from "../../cards";
   import { CONFIRM_DIRECT_DEPOSIT_STEP } from "./unblockDirectDeposit";
   import { UnblockRecognizer } from "./unblockRecognizer";
+import { CALLBACK_BOT_DIALOG } from "../callbackDialogs/callbackBotDialog";
+import { CallbackBotDetails } from "../callbackDialogs/callbackBotDetails";
 
   const TEXT_PROMPT = "TEXT_PROMPT";
   const CHOICE_PROMPT = "CHOICE_PROMPT";
@@ -130,11 +132,15 @@ import {
       switch (intent) {
         // route user to callback bot
         case "promptConfirmYes":
+        case "promptConfirmCallbackYes":
+          unblockBotDetails.directDepositErrorStep = true;
 
-          // Do the direct deposit step
+            const callbackErrorCause = new CallbackBotDetails();
+            callbackErrorCause.directDepositError = true;
+          // go to call back bot step
           return await stepContext.replaceDialog(
-            CONFIRM_DIRECT_DEPOSIT_STEP,
-            unblockBotDetails
+            CALLBACK_BOT_DIALOG,
+            callbackErrorCause
           );
 
         // route user to always on bot
@@ -142,11 +148,8 @@ import {
 
           unblockBotDetails.directDepositMasterError = false;
 
-          const text = i18n.__("unblock_lookup_decline_final_text");
-          const link = i18n.__("unblock_lookup_decline_callback_link");
-          const linkText = i18n.__("unblock_lookup_decline_final_link_text");
-
-          adaptiveCard(stepContext, TextBlockWithLink(text, link, linkText));
+         // go to always on bot
+         // TODO
           return await stepContext.endDialog(unblockBotDetails);
 
         // Could not understand / No intent
