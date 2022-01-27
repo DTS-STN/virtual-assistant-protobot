@@ -7,9 +7,11 @@ module.exports = [
         masterError: null,
         confirmLookIntoStep: null,
         unblockDirectDeposit: null,
+        directDepositMasterError:null,
         errorCount: {
           confirmLookIntoStep: 0,
           unblockDirectDeposit: 0,
+          directDepositErrorStep:0,
         },
       },
       name: 'Initial Direct Deposit Dialog successful',

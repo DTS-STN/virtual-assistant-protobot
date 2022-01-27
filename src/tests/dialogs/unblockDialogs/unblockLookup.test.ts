@@ -58,7 +58,7 @@ describe("Unblock LookUp Step", () => {
     afterEach(() => {
       tsSinon.default.restore();
     });
-    const testCases = require("../testData/UnblockDirectDepositTestData");
+    const testCases = require("../../testData/unblockTestData/UnblockDirectDepositTestData");
     testCases.map((testData) => {
       it("should display an adaptive card", async () => {
         const sut = new ConfirmLookIntoStep();
@@ -138,13 +138,14 @@ describe("Unblock LookUp Step", () => {
           expectedDDMsg
         );
       });
-      it("Should display warning if user say they do not have a canadian bank account", async () => {
+
+
+      it("Should display OAS button if user say they do not have a canadian bank account", async () => {
         const sut = new ConfirmLookIntoStep();
         const client = new DialogTestClient("test", sut, testData.initialData, [
           new DialogTestLogger(console),
         ]);
 
-        const expectedMsg = i18n.__("unblock_lookup_prompt_confirm_msg");
         const updatedActivity: Partial<Activity> = {
           text: "No",
           locale: "en",
@@ -162,148 +163,35 @@ describe("Unblock LookUp Step", () => {
         await client.getNextReply();
         const reply = await client.sendActivity(updatedActivity);
 
-        assert.strictEqual(reply.text, expectedMsg + ` (1) Yes or (2) No`);
-      });
-
-      it("Should display OAS button if user say they want to apply OAS by themselves ", async () => {
-        const sut = new ConfirmLookIntoStep();
-        const client = new DialogTestClient("test", sut, testData.initialData, [
-          new DialogTestLogger(console),
-        ]);
-
-        const expectedMsg = i18n.__("unblock_lookup_prompt_confirm_msg");
-        const updatedActivity: Partial<Activity> = {
-          text: "No",
-          locale: "en",
-        };
-
-        tsSinon.default
-          .stub(UnblockRecognizer.prototype, "executeLuisQuery")
-          .callsFake(() =>
-            JSON.parse(
-              `{"intents": {"promptConfirmNo": {"score": 1}}, "entities": {"$instance": {}}}`
-            )
-          );
-        await client.sendActivity(updatedActivity);
-        await client.getNextReply();
-        await client.getNextReply();
-        const reply = await client.sendActivity(updatedActivity);
-
-        assert.strictEqual(reply.text, expectedMsg + ` (1) Yes or (2) No`);
-        tsSinon.default.restore();
-        tsSinon.default
-          .stub(UnblockRecognizer.prototype, "executeLuisQuery")
-          .callsFake(() =>
-            JSON.parse(
-              `{"intents": {"promptConfirmYes": {"score": 1}}, "entities": {"$instance": {}}}`
-            )
-          );
-        const confirmActivity: Partial<Activity> = {
-          text: "Yes",
-          locale: "en",
-        };
-        const lastReply = await client.sendActivity(updatedActivity);
         const expectedManualMsg = i18n.__("unblock_lookup_decline_final_text");
 
         assert.strictEqual(
-          lastReply.attachments[0].contentType,
+          reply.attachments[0].contentType,
           "application/vnd.microsoft.card.adaptive"
         );
         assert.strictEqual(
-          lastReply.attachments[0].contentType,
+          reply.attachments[0].contentType,
           "application/vnd.microsoft.card.adaptive"
         );
         assert.strictEqual(
-          lastReply.attachments[0].content.body[0].text,
+          reply.attachments[0].content.body[0].text,
           expectedManualMsg
         );
         assert.strictEqual(
-          lastReply.attachments[0].content.actions[0].type,
+          reply.attachments[0].content.actions[0].type,
           "Action.OpenUrl"
         );
         assert.strictEqual(
-          lastReply.attachments[0].content.actions[0].title,
+          reply.attachments[0].content.actions[0].title,
           "Apply for Old Age Security pension"
         );
         assert.strictEqual(
-          lastReply.attachments[0].content.actions[0].url,
+          reply.attachments[0].content.actions[0].url,
           "https://canada.ca"
         );
       });
-      it("Should go DD step if user say they do not want to apply OAS by themselves ", async () => {
-        const sut = new ConfirmLookIntoStep();
-        const client = new DialogTestClient("test", sut, testData.initialData, [
-          new DialogTestLogger(console),
-        ]);
-        sut.addDialog(new UnblockDirectDepositStep());
-        const expectedDDMsg = i18n.__("unblock_direct_deposit_msg");
-        const expectedMsg = i18n.__("unblock_lookup_prompt_confirm_msg");
-        const updatedActivity: Partial<Activity> = {
-          text: "No",
-          locale: "en",
-        };
 
-        tsSinon.default
-          .stub(UnblockRecognizer.prototype, "executeLuisQuery")
-          .callsFake(() =>
-            JSON.parse(
-              `{"intents": {"promptConfirmNo": {"score": 1}}, "entities": {"$instance": {}}}`
-            )
-          );
-        await client.sendActivity(updatedActivity);
-        await client.getNextReply();
-        await client.getNextReply();
-        const reply = await client.sendActivity(updatedActivity);
 
-        assert.strictEqual(reply.text, expectedMsg + ` (1) Yes or (2) No`);
-        const lastReply = await client.sendActivity(updatedActivity);
-        assert.strictEqual(
-          lastReply.attachments[0].contentType,
-          "application/vnd.microsoft.card.adaptive"
-        );
-        assert.strictEqual(
-          lastReply.attachments[0].content.body[0].text,
-          expectedDDMsg
-        );
-      });
-
-      it("Should provide retry msg when user input something that bot does not understand in User does not have canadian account scenario ", async () => {
-        const sut = new ConfirmLookIntoStep();
-        const client = new DialogTestClient("test", sut, testData.initialData, [
-          new DialogTestLogger(console),
-        ]);
-        tsSinon.default
-          .stub(UnblockRecognizer.prototype, "executeLuisQuery")
-          .callsFake(() =>
-            JSON.parse(
-              `{"intents": {"promptConfirmNo": {"score": 1}}, "entities": {"$instance": {}}}`
-            )
-          );
-        const updatedActivity: Partial<Activity> = {
-          text: "",
-          locale: "en",
-        };
-        await client.sendActivity(updatedActivity);
-        const expectedRetryMsg = i18n.__("confirmLookIntoStepRetryMsg");
-        await client.getNextReply();
-        await client.getNextReply();
-        const updatedAct2: Partial<Activity> = {
-          text: "12345",
-          locale: "en",
-        };
-        await client.sendActivity(updatedAct2);
-        const updatedAct3: Partial<Activity> = {
-          text: "ssssss",
-          locale: "en",
-        };
-
-        const reply = await client.sendActivity(updatedAct3);
-
-        assert.strictEqual(
-          reply.text,
-          expectedRetryMsg + ` (1) Yes, I do or (2) No, I don't`
-        );
-      });
       it("Should provide retry msg when user input something that bot does not understand", async () => {
         const sut = new ConfirmLookIntoStep();
         const client = new DialogTestClient("test", sut, testData.initialData, [
@@ -388,7 +276,6 @@ describe("Unblock LookUp Step", () => {
           };
 
           const reply = await client.sendActivity(updatedActivity);
-          console.log("test 1111", reply);
           if (step[0] !== "thirdError!") {
             assert.strictEqual(
               reply ? reply.text : null,

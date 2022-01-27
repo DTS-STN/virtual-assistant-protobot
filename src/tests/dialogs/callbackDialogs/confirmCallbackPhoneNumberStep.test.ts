@@ -11,7 +11,7 @@ import {
 } from "../../../dialogs/callbackDialogs/getUserPhoneNumberStep";
 
 describe("ConfirmCallbackPhoneNumberStep", () => {
-  const testCases = require("../../testData/confirmCallbackPhoneNumberStepTestData");
+  const testCases = require("../../testData/callbackTestData/confirmCallbackPhoneNumberStepTestData");
   const sut = new ConfirmCallbackPhoneNumberStep();
   const getUserPhoneNumberStep = new GetUserPhoneNumberStep();
   sut.addDialog(getUserPhoneNumberStep);

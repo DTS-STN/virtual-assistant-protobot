@@ -12,7 +12,7 @@ chai.use(require("sinon-chai"));
 import { expect } from "chai";
 import { GetUserEmailStep } from "../../../dialogs/callbackDialogs/getUserEmailStep";
 describe("ConfirmEmailStep", () => {
-  const testCases = require("../../testData/confirmEmailStepTestData");
+  const testCases = require("../../testData/callbackTestData/confirmEmailStepTestData");
   const sut = new ConfirmEmailStep();
   sut.addDialog(new GetUserEmailStep());
   afterEach(() => {
