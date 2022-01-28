@@ -1,6 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-import { StatePropertyAccessor, TurnContext } from 'botbuilder';
+import { StatePropertyAccessor, TurnContext } from "botbuilder";
 import {
     ChoicePrompt, ComponentDialog,
     DialogSet,
@@ -9,41 +7,44 @@ import {
     DialogTurnStatus, PromptValidatorContext, TextPrompt,
     WaterfallDialog,
     WaterfallStepContext
-} from 'botbuilder-dialogs';
-import { Choice } from '../../../node_modules/botbuilder-dialogs/src/choices/findChoices';
-import { CommonPromptValidatorModel } from '../../models/commonPromptValidatorModel';
-import { FeedbackDialog, FeedBack_Dialog } from '../alwaysonbotDialogs/Common/FeedbackDialog';
-import { oASBenefitDialog, OAS_BENEFIT_DIALOG_STEP } from './OASBenefit/oASBenefitDialog';
-import { CommonChoiceCheckDialog, COMMON_CHOICE_CHECK_DIALOG } from '../alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckDialog';
-import { UpdateProfileDialog, UPDATE_PROFILE_DIALOG_STEP } from '../alwaysonbotDialogs/UpdateProfile/updateProfileDialog';
+} from "botbuilder-dialogs";
+import { Choice } from "../../../node_modules/botbuilder-dialogs/src/choices/findChoices";
+import { CommonPromptValidatorModel } from "../../models/commonPromptValidatorModel";
+import { FeedBackStep, FEED_BACK_STEP } from "./Common/feedBackStep";
+
+import { OASBenefitStep, OAS_BENEFIT_STEP } from "./OASBenefit/oASBenefitStep";
+import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "./UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
+import { UpdateProfileStep, UPDATE_PROFILE_STEP } from "./UpdateProfile/updateProfileStep";
+import i18n from "../locales/i18nconfig";
 
 
-const MAIN_WATERFALL_DIALOG = 'mainWaterfallDialog';
-const CHOICE_PROMPT = 'CHOICE_PROMPT';
+const CHOICE_PROMPT = "CHOICE_PROMPT";
 
-export const ALWAYS_ON_BOT_DIALOG_STEP = 'ALWAYS_ON_BOT_DIALOG_STEP';
+export const ALWAYS_ON_BOT_DIALOG_STEP = "ALWAYS_ON_BOT_DIALOG_STEP";
+//const ALWAYS_ON_BOT_DIALOG_WATERFALL_STEP = "ALWAYS_ON_BOT_DIALOG_WATERFALL_STEP";
+//const WATERFALL_DIALOG = "waterfallDialog";
 
 export class AlwaysOnBotDialog extends ComponentDialog {
 
     constructor() {
         super(ALWAYS_ON_BOT_DIALOG_STEP);
 
-        if (!UpdateProfileDialog) throw new Error('[MainDialog]: Missing parameter \'updateProfileDialog\' is required');
+        if (!UpdateProfileStep) throw new Error("[MainDialog]: Missing parameter \"updateProfileDialog\" is required");
 
         // Define the main dialog and its related components.
         // This is a sample "book a flight" dialog.
-        this.addDialog(new TextPrompt('TEXT_PROMPT'))
-            .addDialog(new UpdateProfileDialog())
-            .addDialog(new FeedbackDialog())
-            .addDialog(new CommonChoiceCheckDialog())
-            .addDialog(new oASBenefitDialog())
+        this.addDialog(new TextPrompt("TEXT_PROMPT"))
+            .addDialog(new UpdateProfileStep())
+            .addDialog(new FeedBackStep())
+            .addDialog(new CommonChoiceCheckStep())
+            .addDialog(new OASBenefitStep())
             .addDialog(new ChoicePrompt(CHOICE_PROMPT,this.CustomChoiceValidator))
-            .addDialog(new WaterfallDialog(MAIN_WATERFALL_DIALOG, [
+            .addDialog(new WaterfallDialog(ALWAYS_ON_BOT_DIALOG_STEP, [
                 this.introStep.bind(this),
                 this.actStep.bind(this)
             ]));
 
-        this.initialDialogId = MAIN_WATERFALL_DIALOG;
+        this.initialDialogId = ALWAYS_ON_BOT_DIALOG_STEP;
     }
 
     /**
@@ -69,33 +70,40 @@ export class AlwaysOnBotDialog extends ComponentDialog {
      private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {
         return true;
     }
+
+    /**
+     * Passing intents list related to main dialog.
+     * Passing master error count to common choice dialog.
+     * Passing current dialog name to common choice dialog.
+     */
     private async introStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
         
        let commonPromptValidatorModel = new CommonPromptValidatorModel(
-        ["IwanttoUpdateMyPersonalInformation", "IhaveaQuestionAboutOASPension"],
-        3,
-        'AlwaysOnBot'
+        ["IWantToUpdateMyPersonalInformation", "IHaveQuestionAboutOASPension"],
+        Number(i18n.__("MaxRetryCount")),
+        "AlwaysOnBot"
     );
     //call dialog
-    return await stepContext.beginDialog(COMMON_CHOICE_CHECK_DIALOG, commonPromptValidatorModel); 
+    return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel); 
     }
-    
+    /**
+    * This is the final step in waterfall.bot displays the main workflow prompt suggestions to the user.(I Want To Update My Personal Information and I Have a Question About OASPension)
+    */
     private async actStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
         const commonPromptValidatorModel = stepContext.result as CommonPromptValidatorModel;
 
         if (commonPromptValidatorModel != null && commonPromptValidatorModel.status)
         {
             switch (commonPromptValidatorModel.result) {
-                case 'IwanttoUpdateMyPersonalInformation':
-                    return await stepContext.beginDialog(UPDATE_PROFILE_DIALOG_STEP, UpdateProfileDialog);
-                case 'IhaveaQuestionAboutOASPension':
-                    return await stepContext.beginDialog(OAS_BENEFIT_DIALOG_STEP,UpdateProfileDialog); 
+                case "IWantToUpdateMyPersonalInformation":
+                    return await stepContext.replaceDialog(UPDATE_PROFILE_STEP, UpdateProfileStep);
+                case "IHaveQuestionAboutOASPension":
+                    return await stepContext.replaceDialog(OAS_BENEFIT_STEP,OASBenefitStep); 
             }
         }
         else
         {
-            return stepContext.beginDialog(FeedBack_Dialog, FeedbackDialog);
-            return await stepContext.endDialog();
+            return stepContext.replaceDialog(FEED_BACK_STEP, FeedBackStep);
         }
     }
 }
