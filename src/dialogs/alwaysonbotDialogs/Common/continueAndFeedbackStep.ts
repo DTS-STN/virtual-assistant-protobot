@@ -16,7 +16,7 @@ const TEXT_PROMPT = "TEXT_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 let isFeedBackStepPassed:Boolean = false;
 export const CONTINUE_AND_FEEDBACK_STEP = "CONTINUE_AND_FEEDBACK_STEP";
-const CONTINUE_AND_FEEDBACK_STEP_WATERFALL_STEP = "CONTINUE_AND_FEEDBACK_STEP_WATERFALL_STEP";
+const CONTINUE_AND_FEEDBACK_WATERFALL_STEP = "CONTINUE_AND_FEEDBACK_WATERFALL_STEP";
 
 export class ContinueAndFeedbackStep extends ComponentDialog {
     constructor() {
@@ -25,14 +25,14 @@ export class ContinueAndFeedbackStep extends ComponentDialog {
         this.addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
             .addDialog(new FeedBackStep())
-            .addDialog(new WaterfallDialog(CONTINUE_AND_FEEDBACK_STEP_WATERFALL_STEP, [
+            .addDialog(new WaterfallDialog(CONTINUE_AND_FEEDBACK_WATERFALL_STEP, [
                 this.continueStep.bind(this),
                 this.confirmStep.bind(this),
                 this.finalStep.bind(this)
 
             ]));
 
-        this.initialDialogId = CONTINUE_AND_FEEDBACK_STEP_WATERFALL_STEP;
+        this.initialDialogId = CONTINUE_AND_FEEDBACK_WATERFALL_STEP;
     }
 
     private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {

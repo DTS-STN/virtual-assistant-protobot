@@ -13,10 +13,10 @@ const CHOICE_PROMPT = "CHOICE_PROMPT";
 const TEXT_PROMPT = "TEXT_PROMPT";
 
 let fullAddress: string;
-const MAX_ERROR_COUNT = 4;
+
 let isCallBackPassed:Boolean = false;
 export const GET_ADDRESS_STEP = "GET_ADDRESS_STEP";
-const GET_ADDRESS_STEP_WATERFALL_STEP = "GET_ADDRESS_STEP_WATERFALL_STEP";
+const GET_ADDRESS_WATERFALL_STEP = "GET_ADDRESS_WATERFALL_STEP";
 
 // Define the main dialog and its related components.
 export class GetAddressesStep extends ComponentDialog {
@@ -28,7 +28,7 @@ export class GetAddressesStep extends ComponentDialog {
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new ChoiceCheckUpdateAddressStep())
             .addDialog(new CallBackStep())
-            .addDialog(new WaterfallDialog(GET_ADDRESS_STEP_WATERFALL_STEP, [
+            .addDialog(new WaterfallDialog(GET_ADDRESS_WATERFALL_STEP, [
                 this.initialStep.bind(this),
                 this.continueStep.bind(this),
                 this.checkSelectedAddressStep.bind(this),
@@ -36,7 +36,7 @@ export class GetAddressesStep extends ComponentDialog {
                 this.finalStep.bind(this)
             ]));
 
-        this.initialDialogId = GET_ADDRESS_STEP_WATERFALL_STEP;
+        this.initialDialogId = GET_ADDRESS_WATERFALL_STEP;
     }
 
     private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {
@@ -163,7 +163,7 @@ export class GetAddressesStep extends ComponentDialog {
         }
         else if(getAddresses.masterError === true){
             
-            if (getAddresses.errorCount.getAddressesStep >= MAX_ERROR_COUNT) {
+            if (getAddresses.errorCount.getAddressesStep >= Number(i18n.__("MaxRetryCount"))) {
                 isCallBackPassed = true;
                 return await stepContext.replaceDialog(CALL_BACK_STEP, CallBackStep);
             }else{
@@ -179,7 +179,7 @@ export class GetAddressesStep extends ComponentDialog {
             else{
                 getAddresses.UnitNumber = stepContext.context.activity.text;
             }            
-            let promptmsg = this.GetEditedResponse(i18n.__("AddressFoundCheck"), getAddresses);
+            let promptmsg = this.getEditedResponse(i18n.__("AddressFoundCheck"), getAddresses);
             await stepContext.context.sendActivity(promptmsg);
             let commonPromptValidatorModel = new CommonPromptValidatorModel(
                 ["Yes", "No"],
@@ -194,7 +194,7 @@ export class GetAddressesStep extends ComponentDialog {
 
     private async streetNumberStep(stepContext) {
         const addressDetails = stepContext.options as AddressDetails;
-        if (addressDetails.errorCount.confirmEmailStep >= MAX_ERROR_COUNT) {
+        if (addressDetails.errorCount.confirmEmailStep >= Number(i18n.__("MaxRetryCount"))) {
             // Throw the master error flag
             if(!isCallBackPassed){
             addressDetails.masterError = true;
@@ -205,7 +205,7 @@ export class GetAddressesStep extends ComponentDialog {
         else{
         if(addressDetails.currentStep === "street number"){
             addressDetails.UnitNumber = stepContext.context.activity.text;
-            let promptmsg = this.GetEditedResponse(i18n.__("AddressFoundCheck"), addressDetails);
+            let promptmsg = this.getEditedResponse(i18n.__("AddressFoundCheck"), addressDetails);
             await stepContext.context.sendActivity(promptmsg);
             let commonPromptValidatorModel = new CommonPromptValidatorModel(
                 ["Yes", "No"],
@@ -249,7 +249,7 @@ export class GetAddressesStep extends ComponentDialog {
     /**
     * This is GetEditResponce Method to create a Fulladdress for the postal code.
     */
-    private GetEditedResponse(response:string,postalCode:AddressDetails)
+    private getEditedResponse(response:string,postalCode:AddressDetails)
     {
         if(postalCode.PostalCode!=null)
         {

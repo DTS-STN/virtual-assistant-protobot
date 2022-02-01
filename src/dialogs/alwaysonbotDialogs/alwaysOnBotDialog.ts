@@ -21,8 +21,6 @@ import i18n from "../locales/i18nconfig";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 
 export const ALWAYS_ON_BOT_DIALOG_STEP = "ALWAYS_ON_BOT_DIALOG_STEP";
-//const ALWAYS_ON_BOT_DIALOG_WATERFALL_STEP = "ALWAYS_ON_BOT_DIALOG_WATERFALL_STEP";
-//const WATERFALL_DIALOG = "waterfallDialog";
 
 export class AlwaysOnBotDialog extends ComponentDialog {
 

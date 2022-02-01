@@ -19,7 +19,7 @@ const CHOICE_PROMPT = "CHOICE_PROMPT";
 const TEXT_PROMPT = "TEXT_PROMPT";
 
 export const OAS_BENEFIT_STEP = "OAS_BENEFIT_STEP";
-const OAS_BENEFIT_STEP_WATERFALL_STEP = "OAS_BENEFIT_STEP_WATERFALL_STEP";
+const OAS_BENEFIT_WATERFALL_STEP = "OAS_BENEFIT_WATERFALL_STEP";
 // Define the main dialog and its related components.
 
 export class OASBenefitStep extends ComponentDialog {
@@ -29,12 +29,12 @@ export class OASBenefitStep extends ComponentDialog {
         this.addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new ApplicationStatusStep())
             .addDialog(new ChoicePrompt(CHOICE_PROMPT,this.CustomChoiceValidator))
-            .addDialog(new WaterfallDialog(OAS_BENEFIT_STEP_WATERFALL_STEP, [
+            .addDialog(new WaterfallDialog(OAS_BENEFIT_WATERFALL_STEP, [
                 this.checkApplicationStatusStep.bind(this),
                 this.selectionStep.bind(this)
             ]));
 
-        this.initialDialogId = OAS_BENEFIT_STEP_WATERFALL_STEP;
+        this.initialDialogId = OAS_BENEFIT_WATERFALL_STEP;
     }
 
     private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {

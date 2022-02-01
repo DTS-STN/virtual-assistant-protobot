@@ -4,57 +4,57 @@ import {
     ChoicePrompt, ComponentDialog, DialogTurnResult, PromptValidatorContext, TextPrompt, WaterfallDialog, WaterfallStepContext
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from "../../Common/continueAndFeedbackStep";
-import { FeedBackStep, FEED_BACK_STEP } from  "../../Common/feedBackStep";
-import { COMMON_CHOICE_CHECK_STEP } from "../UpdatePhoneNumber/commonChoiceCheckStep";
+import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
+import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
+import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "../UpdatePhoneNumber/commonChoiceCheckStep";
 import i18n from "../../../locales/i18nconfig";
-const CHOICE_PROMPT = "CHOICE_PROMPT";
+
+const CHOISE_PROMPT = "CHOISE_PROMPT";
 const TEXT_PROMPT = "TEXT_PROMPT";
 
-export const CALL_BACK_STEP = "CALL_BACK_STEP";
-const CALL_BACK_WATERFALL_STEP = "CALL_BACK_WATERFALL_STEP";
+export const COMMON_CALL_BACK_STEP = "COMMON_CALL_BACK_STEP";
+const COMMON_CALL_BACK_WATERFALL_STEP = "COMMON_CALL_BACK_WATERFALL_STEP";
 
 // Define the main dialog and its related components.
-export class CallBackStep extends ComponentDialog {
+export class CommonCallBackDailog extends ComponentDialog {
     constructor() {
-        super(CALL_BACK_STEP);
+        super(COMMON_CALL_BACK_STEP);
 
         this.addDialog(new TextPrompt(TEXT_PROMPT))
-            .addDialog(new ChoicePrompt(CHOICE_PROMPT))
+            .addDialog(new ChoicePrompt(CHOISE_PROMPT))
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new FeedBackStep())
-            .addDialog(new WaterfallDialog(CALL_BACK_WATERFALL_STEP, [
+            .addDialog(new CommonChoiceCheckStep())
+            .addDialog(new WaterfallDialog(COMMON_CALL_BACK_WATERFALL_STEP, [
                 this.continueStep.bind(this),
                 this.selectionStep.bind(this)
                
             ]));
 
-        this.initialDialogId = CALL_BACK_WATERFALL_STEP;
+        this.initialDialogId = COMMON_CALL_BACK_WATERFALL_STEP;
     }
 
      private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {
         return true;
     }
 
-     /**
-     * Passing intents list related to ServiceRepresentative(callBackStep) dialog.
-     * Passing master error count to common choice dialog.
-     * Passing current dialog name to common choice dialog.
+    /**
+     * First step in the waterfall dialog. Prompts the user for a command.
      */
     async continueStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-
+        const details = stepContext.options as CommonPromptValidatorModel;
         let commonPromptValidatorModel = new CommonPromptValidatorModel(
             ["YesIWantToRequestCall", "NoNotForNow"],
             Number(i18n.__("MaxRetryCount")),
-            "ServiceRepresentative"
+            details.promptCode
         );
         //call dialog
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
     }
     /**
     * User selection step in the waterfall.
-    * User selects the "Yes I Want To Request Call" prompt to navigate to the users"s call back flow.
-    * User selects the "No, Not For Now" prompt to navigate to continue and feedback flow.
+    * User selects the "Yes" prompt to navigate to the call back flow.
+    * User selects the "No" prompt to navigate to initial dialog in the flow.
     */
 
      private async selectionStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
@@ -63,7 +63,7 @@ export class CallBackStep extends ComponentDialog {
         if (commonPromptValidatorModel != null && commonPromptValidatorModel.status)
         {
             switch (commonPromptValidatorModel.result) {
-                case "YesIWantToRequestCall": 
+                case "YesIWantToRequestCall":
                     return await stepContext.endDialog(this.id);
                 case "NoNotForNow":
                     return await stepContext.replaceDialog(CONTINUE_AND_FEEDBACK_STEP, ContinueAndFeedbackStep);
@@ -71,7 +71,7 @@ export class CallBackStep extends ComponentDialog {
         }
         else
         {
-            return stepContext.replaceDialog(FEED_BACK_STEP, FeedBackStep);
+            return stepContext.beginDialog(FEED_BACK_STEP, FeedBackStep);
         }
     }
 }

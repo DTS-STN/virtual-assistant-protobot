@@ -3,32 +3,32 @@ import {
     WaterfallDialog
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from "../../Common/continueAndFeedbackStep";
 import i18n from "../../../locales/i18nconfig";
-import { COMMON_CHOICE_CHECK_STEP } from "./commonChoiceCheckStep";
-import { CONFIRM_PHONE_NUMBER_STEP,ConfirmPhoneNumberStep } from "./confirmPhoneNumberStep";
+import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
 import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
+import { COMMON_CHOICE_CHECK_STEP } from "./../UpdatePhoneNumber/commonChoiceCheckStep";
+import { ConfirmEmailStep, CONFIRM_EMAIL_STEP } from "./confirmEmailStep";
 
 const TEXT_PROMPT = "TEXT_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 
-export const UPDATE_PHONE_NUMBER_STEP = "UPDATE_PHONE_NUMBER_STEP";
-const UPDATE_PHONE_NUMBER_WATERFALL_STEP = "UPDATE_PHONE_NUMBER_WATERFALL_STEP";
+export const UPDATE_EMAIL_STEP = "UPDATE_EMAIL_STEP";
+const UPDATE_EMAIL_WATERFALL_STEP = "UPDATE_EMAIL_WATERFALL_STEP";
 // Define the main dialog and its related components.
-export class UpdateMyPhoneStep extends ComponentDialog {
+export class UpdateMyEmailStep extends ComponentDialog {
     constructor() {
-        super(UPDATE_PHONE_NUMBER_STEP);
+        super(UPDATE_EMAIL_STEP);
 
         this.addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
-            .addDialog(new ConfirmPhoneNumberStep())
+            .addDialog(new ConfirmEmailStep())
             .addDialog(new ContinueAndFeedbackStep())
-            .addDialog(new WaterfallDialog(UPDATE_PHONE_NUMBER_WATERFALL_STEP, [
+            .addDialog(new WaterfallDialog(UPDATE_EMAIL_WATERFALL_STEP, [
                 this.checkPhoneNumberStep.bind(this),
                 this.routingStep.bind(this)
             ]));
 
-        this.initialDialogId = UPDATE_PHONE_NUMBER_WATERFALL_STEP;
+        this.initialDialogId = UPDATE_EMAIL_WATERFALL_STEP;
     }
     private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {
         return true;
@@ -39,7 +39,7 @@ export class UpdateMyPhoneStep extends ComponentDialog {
         let commonPromptValidatorModel = new CommonPromptValidatorModel(
             ["Yes", "No"],
             Number(i18n.__("MaxRetryCount")),
-            "UpdateMyPhoneNumber"
+            "UpdateMyEmail"
         );
         //call dialog
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
@@ -47,17 +47,17 @@ export class UpdateMyPhoneStep extends ComponentDialog {
     }
     /**
     * Selection step in the waterfall.
-    * Bot chooses the flows(CONFIRM_PHONE_NUMBER_DIALOG_STEP,CONTINUE_AND_FEEDBACK_DIALOG_STEP) based on user"s input.
+    * Bot chooses the flows based on user"s input.
     */
     async routingStep(stepContext) {
         const commonPromptValidatorModel = stepContext.result as CommonPromptValidatorModel;
         if (commonPromptValidatorModel != null && commonPromptValidatorModel.status) {
             switch (commonPromptValidatorModel.result) {
                 case "Yes":
-                    commonPromptValidatorModel.retryCount=0;
-                    return await stepContext.beginDialog(CONFIRM_PHONE_NUMBER_STEP, commonPromptValidatorModel);
+                    commonPromptValidatorModel.retryCount = 0;
+                    return await stepContext.beginDialog(CONFIRM_EMAIL_STEP, commonPromptValidatorModel);
                 case "No":
-                    await stepContext.context.sendActivity(i18n.__("NoStatementPhoneNumber"));
+                    await stepContext.context.sendActivity(i18n.__("NoStatementEmail"));
                     return stepContext.replaceDialog(CONTINUE_AND_FEEDBACK_STEP, ContinueAndFeedbackStep);
             }
         }

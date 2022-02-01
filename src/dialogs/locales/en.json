@@ -173,14 +173,14 @@
 	],
 	"AlwaysOnBotPromptMessage": "How can I help?",
 	"AlwaysOnBotRetryPromptMessage": "Hmm, I'm not sure what you meant. How can I help?",
-	"oasBenifitChoicePrompt": "Here's what I can answer:",
-	"oasBenifitChoices": [
+	"oasBenefitChoicePrompt": "Here's what I can answer:",
+	"oasBenefitChoices": [
 		"What's my application status?"
 	],
-	"oasBenifitCheckProfile": "Right now, you're in the process of being automatically enrolled in Old Age Security.",
-	"oasBenifitPaymentDue": "That means, we're in the process of calculating how much you'll be getting per month. Based on the information we have today, you should receive for $642.25 Old Age Security every month.",
-	"oasBenifitShowDeposit": "Closer to your birthday, you'll receive a letter confirming your eligibility, and the amount you'll receive each month.",
-	"continueAndFeedPromptMessage": "Anything else that I can help you with today ?",
+	"oasBenefitCheckProfile": "Right now, you're in the process of being automatically enrolled in Old Age Security.",
+	"oasBenefitPaymentDue": "That means, we're in the process of calculating how much you'll be getting per month. Based on the information we have today, you should receive for $642.25 Old Age Security every month.",
+	"oasBenefitShowDeposit": "Closer to your birthday, you'll receive a letter confirming your eligibility, and the amount you'll receive each month.",
+	"continueAndFeedPromptMessage": "Anything else that I can help you with today?",
 	"continueAndFeedRetryPromptMessage": "Hmm, I'm not sure what you meant. How can I help?",
 	"continueAndFeedPromptOptions": [
 		"Yes",
@@ -280,6 +280,30 @@
 	"ServiceRepresentativePromptMessage": "I'm sorry,but it looks like I can't help you today.if you'd like,i can have a service Canada representative call with you on the phone to help you with your address update.",
 	"ServiceRepresentativeRetryPromptMessage": "Hmm, I'm not sure what you meant. How can I help?",
 	"MaxRetryCount": "4",
+	"ConfirmEmailCallBackPromptOptions": [
+		"yes, i want to request a call",
+		"no, not for now"
+	],
+	"ConfirmPhoneNumberCallBackPromptMessage": "I'm sorry,but it looks like I can't help you today.if you'd like,i can have a service Canada representative call with you on the phone to help you with your phone number update.",
+	"ConfirmPhoneNumberCallBackRetryPromptMessage": "Would you like me to set up a call?",
+	"ConfirmEmailCallBackRetryPromptMessage": "Would you like me to set up a call?",
+	"ConfirmEmailCallBackPromptMessage": "I'm sorry,but it looks like I can't help you today.if you'd like,i can have a service Canada representative call with you on the phone to help you with your Email update.",
+	"EmailAddressConfirmStep": "Perfect! I have updated your email address to @email",
+	"UpdateMyEmailPromptMessage": "Ok, great! I can help you with that. The email address I have for you is [test@test.com], would you like to update to a new email.",
+	"UpdateMyEmailPromptOptions": [
+		"Yes",
+		"No"
+	],
+	"UpdateMyEmailRetryPromptMessage": "Hmm, I'm not sure what you meant. would you like to update your email address?",
+	"ConfirmEmailRetryPromptMessage": "Oops, looks like the email you entered isn't formatted correctly (here's an example: test@test.com).Let's try again.",
+	"ConfirmEmailRetryExceededMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada represtentative call you on the phone to help you with your email update\n Would you like me to set up a call?.",
+	"ConfirmEmailRetryExceededChoices": [
+		"Yes, I want to request a call",
+		"No, not for now"
+	],
+	
+	"AskEmailAddress": "Ok, what's your new email address?",
+	"NoStatementEmail": "Ok, no problem!",
 	"always-on-bot-block-end": "-------ALWAYS-ON-BOT-END------"
   }
 

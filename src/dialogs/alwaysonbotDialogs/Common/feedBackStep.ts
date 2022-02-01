@@ -9,7 +9,7 @@ import i18n from "../../locales/i18nconfig";
 const TEXT_PROMPT = "TEXT_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 export const FEED_BACK_STEP = "FEED_BACK_STEP";
-const FEEDBACK_STEP_WATERFALL_STEP = "FEEDBACK_STEP_WATERFALL_STEP";
+const FEED_BACK_WATERFALL_STEP = "FEED_BACK_WATERFALL_STEP";
 
 export class FeedBackStep extends ComponentDialog {
     constructor() {
@@ -17,13 +17,13 @@ export class FeedBackStep extends ComponentDialog {
 
         this.addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
-            .addDialog(new WaterfallDialog(FEEDBACK_STEP_WATERFALL_STEP, [
+            .addDialog(new WaterfallDialog(FEED_BACK_WATERFALL_STEP, [
                 this.feedbackStep.bind(this),
                 this.finalStep.bind(this)
 
             ]));
 
-        this.initialDialogId = FEEDBACK_STEP_WATERFALL_STEP;
+        this.initialDialogId = FEED_BACK_WATERFALL_STEP;
     }
 
     private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {

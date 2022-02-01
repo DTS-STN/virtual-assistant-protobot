@@ -11,7 +11,7 @@ import i18n from "../../../locales/i18nconfig";
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 export const UPDATE_ADDRESS_STEP = "UPDATE_ADDRESS_STEP";
-const UPDATE_ADDRESS_STEP_WATERFALL_STEP = "UPDATE_ADDRESS_STEP_WATERFALL_STEP";
+const UPDATE_ADDRESS_WATERFALL_STEP = "UPDATE_ADDRESS_WATERFALL_STEP";
 // Define the main dialog and its related components.
 export class UpdateAddressStep extends ComponentDialog {
     constructor() {
@@ -21,12 +21,12 @@ export class UpdateAddressStep extends ComponentDialog {
             .addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new GetAddressesStep())
-            .addDialog(new WaterfallDialog(UPDATE_ADDRESS_STEP_WATERFALL_STEP, [
+            .addDialog(new WaterfallDialog(UPDATE_ADDRESS_WATERFALL_STEP, [
                 this.checkAddressStep.bind(this),
                 this.selectionStep.bind(this),
             ]));
 
-        this.initialDialogId = UPDATE_ADDRESS_STEP_WATERFALL_STEP;
+        this.initialDialogId = UPDATE_ADDRESS_WATERFALL_STEP;
     }
 
     private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {

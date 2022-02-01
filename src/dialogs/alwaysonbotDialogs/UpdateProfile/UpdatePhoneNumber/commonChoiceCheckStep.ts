@@ -12,19 +12,19 @@ import i18n from "../../../locales/i18nconfig";
 
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 export const COMMON_CHOICE_CHECK_STEP = "COMMON_CHOICE_CHECK_STEP";
-const COMMON_CHOICE_CHECK_STEP_WATERFALL_STEP = "COMMON_CHOICE_CHECK_STEP_WATERFALL_STEP";
+const COMMON_CHOICE_CHECK_WATERFALL_STEP = "COMMON_CHOICE_CHECK_WATERFALL_STEP";
 
 export class CommonChoiceCheckStep extends ComponentDialog {
     constructor() {
         super(COMMON_CHOICE_CHECK_STEP);
 
         this.addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
-            .addDialog(new WaterfallDialog(COMMON_CHOICE_CHECK_STEP_WATERFALL_STEP, [
+            .addDialog(new WaterfallDialog(COMMON_CHOICE_CHECK_WATERFALL_STEP, [
                 this.promptStep.bind(this),
                 this.finalStep.bind(this)
             ]));
 
-        this.initialDialogId = COMMON_CHOICE_CHECK_STEP_WATERFALL_STEP;
+        this.initialDialogId = COMMON_CHOICE_CHECK_WATERFALL_STEP;
     }
 
     private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {

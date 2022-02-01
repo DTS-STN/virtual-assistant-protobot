@@ -17,7 +17,7 @@ const TEXT_PROMPT = "TEXT_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 
 export const CONFIRM_PHONE_NUMBER_STEP = "CONFIRM_PHONE_NUMBER_STEP";
-const CONFIRM_PHONE_NUMBER_STEP_WATERFALL_STEP = "CONFIRM_PHONE_NUMBER_STEP_WATERFALL_STEP";
+const CONFIRM_PHONE_NUMBER_WATERFALL_STEP = "CONFIRM_PHONE_NUMBER_WATERFALL_STEP";
 
 // Define the main dialog and its related components.
 export class ConfirmPhoneNumberStep extends ComponentDialog {
@@ -29,12 +29,12 @@ export class ConfirmPhoneNumberStep extends ComponentDialog {
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new CallBackStep())
-            .addDialog(new WaterfallDialog(CONFIRM_PHONE_NUMBER_STEP_WATERFALL_STEP, [
+            .addDialog(new WaterfallDialog(CONFIRM_PHONE_NUMBER_WATERFALL_STEP, [
                 this.askPhoneNumberStep.bind(this),
                 this.updatedStep.bind(this)
             ]));
 
-        this.initialDialogId = CONFIRM_PHONE_NUMBER_STEP_WATERFALL_STEP;
+        this.initialDialogId = CONFIRM_PHONE_NUMBER_WATERFALL_STEP;
     }
     private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {
         return true;

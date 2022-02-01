@@ -10,13 +10,13 @@ import { UpdateAddressStep, UPDATE_ADDRESS_STEP } from "./UpdateAddress/updateAd
 import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "./UpdatePhoneNumber/commonChoiceCheckStep";
 import { UPDATE_PHONE_NUMBER_STEP,UpdateMyPhoneStep } from "./UpdatePhoneNumber/updateMyPhoneStep";
 import i18n from "../../locales/i18nconfig";
-
+import { UpdateMyEmailStep,UPDATE_EMAIL_STEP } from "./UpdateEmail/updateMyEmailStep";
 
 const TEXT_PROMPT = "TEXT_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 
 export const UPDATE_PROFILE_STEP = "UPDATE_PROFILE_STEP";
-const UPDATE_PROFILE_STEP_WATERFALL_STEP = "UPDATE_PROFILE_STEP_WATERFALL_STEP";
+const UPDATE_PROFILE_WATERFALL_STEP = "UPDATE_PROFILE_WATERFALL_STEP";
 
 // Define the main dialog and its related components.
 export class UpdateProfileStep extends ComponentDialog {
@@ -26,15 +26,16 @@ export class UpdateProfileStep extends ComponentDialog {
         this.addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new UpdateMyPhoneStep())
             .addDialog(new UpdateAddressStep())
+            .addDialog(new UpdateMyEmailStep())
             .addDialog(new CommonChoiceCheckStep())
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
-            .addDialog(new WaterfallDialog(UPDATE_PROFILE_STEP_WATERFALL_STEP, [
+            .addDialog(new WaterfallDialog(UPDATE_PROFILE_WATERFALL_STEP, [
                 this.checkProfileStep.bind(this),
                 this.routingStep.bind(this)
             ]));
 
-        this.initialDialogId = UPDATE_PROFILE_STEP_WATERFALL_STEP;
+        this.initialDialogId = UPDATE_PROFILE_WATERFALL_STEP;
     }
 
     private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {
@@ -71,7 +72,7 @@ export class UpdateProfileStep extends ComponentDialog {
                 case "UpdateMyPhoneNumber":
                     return await stepContext.replaceDialog(UPDATE_PHONE_NUMBER_STEP, UpdateMyPhoneStep);
                 case "UpdateMyEmail":
-                    return await stepContext.cancelAllDialogs();  
+                    return await stepContext.replaceDialog(UPDATE_EMAIL_STEP, UpdateMyEmailStep);  
             }
         }
         else {
