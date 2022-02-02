@@ -9,7 +9,8 @@ dist
 .nyc_output
 # Local .terraform directories
 **/.terraform/*
-
+src/dialogs/locales/callbackBot/
+src/dialogs/locales/unblockBot/
 !example.json
 *.pfx
 # .tfstate files
