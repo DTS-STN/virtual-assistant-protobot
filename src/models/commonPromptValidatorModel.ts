@@ -1,7 +1,5 @@
 export class CommonPromptValidatorModel {
     public retryCount: number;
-    // public promptMessage: string;
-    // public retryPromptMessage: string;
     public result: string;
     public promptCode: string;
     public status: boolean;
