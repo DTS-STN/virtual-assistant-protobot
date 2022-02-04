@@ -9,7 +9,6 @@ dist
 .nyc_output
 # Local .terraform directories
 **/.terraform/*
-
 !example.json
 *.pfx
 # .tfstate files
