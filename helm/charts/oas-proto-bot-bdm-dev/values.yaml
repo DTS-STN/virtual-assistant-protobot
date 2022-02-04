@@ -68,7 +68,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-# secret is the required secrets for the oas-callback-bot container.
+# secret is the required secrets for the oas-proto-bot container.
 secret:
   # luisAppUrl:
   # storageAccountName:
@@ -81,3 +81,4 @@ secret:
   LuisAPIHostNameEN:
   MicrosoftAppId:
   MicrosoftAppPassword:
+  AddressAPIUrl:

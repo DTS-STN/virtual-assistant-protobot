@@ -11,7 +11,7 @@ releases:
 
   - name: oasvaapi-{{ requiredEnv "BRANCH" }}
     chart: ../helm/charts/oas-proto-bot-bdm-dev
-    namespace: oas-va-{{ requiredEnv "BRANCH" }}
+    namespace: oas-proto-{{ requiredEnv "BRANCH" }}
     values:
       - overrides/oas-proto-bot-bdm-dev-api.yaml.gotmpl
     labels:
