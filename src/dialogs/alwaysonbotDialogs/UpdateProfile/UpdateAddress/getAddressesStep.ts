@@ -1,11 +1,11 @@
 import { LuisRecognizer } from "botbuilder-ai";
 import { Choice, ChoiceFactory, ChoicePrompt, ComponentDialog, DialogTurnResult, ListStyle, PromptValidatorContext, TextPrompt, WaterfallDialog, WaterfallStepContext } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import { LUISUnblockSetup } from "../../../../utils/luisAppSetup";
+import { LUISAlwaysOnBotSetup } from "../../alwaysOnBotRecognizer";
 import i18n from "../../../locales/i18nconfig";
 import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
 import { AddressDetails } from "./addressDetails";
-import { COMMON_CALL_BACK_STEP,CommonCallBackDailog } from "../commonCallBack";
+import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from "../commonCallBackStep";
 import { ChoiceCheckUpdateAddressStep, CHOICE_CHECK_UPDATE_ADDRESS_STEP } from "./choiceCheckUpdateAddressStep";
 import { UpdateAddressStep, UPDATE_ADDRESS_STEP } from "./updateAddressStep";
 import { AddressAPI } from "../../../../utils/addressAPI";
@@ -27,12 +27,13 @@ export class GetAddressesStep extends ComponentDialog {
             .addDialog(new ChoicePrompt(CHOICE_PROMPT))
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new ChoiceCheckUpdateAddressStep())
-            .addDialog(new CommonCallBackDailog())
+            .addDialog(new CommonCallBackStep())
             .addDialog(new WaterfallDialog(GET_ADDRESS_WATERFALL_STEP, [
                 this.initialStep.bind(this),
                 this.continueStep.bind(this),
                 this.checkSelectedAddressStep.bind(this),
                 this.streetNumberStep.bind(this),
+                this.streetAddressUnitStep.bind(this),
                 this.finalStep.bind(this)
             ]));
 
@@ -54,7 +55,6 @@ export class GetAddressesStep extends ComponentDialog {
    * Call getAddress() Method to make a API call
    */
     async continueStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-                
                 const getAddresses = stepContext.options as AddressDetails;
                 getAddresses.PostalCode=stepContext.context.activity.text;
                 getAddresses.masterError = false;
@@ -65,16 +65,13 @@ export class GetAddressesStep extends ComponentDialog {
                     const addressResults = data["wsaddr:SearchResults"];
                     const addressRecordInfo = addressResults["wsaddr:Information"];
                     let isStreetNumberRequired:boolean = false;
-
                     if(Number(addressRecordInfo["nc:MessageText"])>1)
                     {
                         isStreetNumberRequired = true;
                     }
-
                     const addressMatches = addressResults["wsaddr:AddressMatches"];
                     const addressCategoryText = addressMatches[0]["nc:AddressCategoryText"];
                     if(addressCategoryText === "RuralLockBox"){
-
                     const cityName = addressMatches[0]["nc:AddressCityName"];
                     const province = addressMatches[0]["can:ProvinceCode"];
                     const addressPostalCode = addressMatches[0]["nc:AddressPostalCode"];
@@ -88,7 +85,6 @@ export class GetAddressesStep extends ComponentDialog {
                     fullAddress =  deliveryInstallationDescritpion+ " " + deliveryInstallationQualifierName+ " " + deliveryInstallationAreaName;
                     getAddresses.FullAddress = this.getSentence(fullAddress) + " "+ String(province).toUpperCase()+ " " + String(getAddresses.PostalCode).toUpperCase();
                     getAddresses.AddressType = "PO BOX";
-                   
                     return await stepContext.prompt(TEXT_PROMPT, i18n.__("PoNumberPromptMessage"));  
                 }
                 else{
@@ -106,6 +102,7 @@ export class GetAddressesStep extends ComponentDialog {
                             }
                         } 
                         let promptmsg = i18n.__("MoreStreetNumbersPrompt");
+                        manyAddresses.push("I can't see my street address here");
                         return await stepContext.prompt(CHOICE_PROMPT, {
                             prompt: promptmsg,
                             choices: ChoiceFactory.toChoices(manyAddresses),
@@ -156,11 +153,22 @@ export class GetAddressesStep extends ComponentDialog {
     private async checkSelectedAddressStep(stepContext: WaterfallStepContext<AddressDetails>): Promise<DialogTurnResult> {
         
         const getAddresses = stepContext.options;
-        
         if (getAddresses.AddressType === "MULTIPLE") {
             getAddresses.currentStep = "street number";
             getAddresses.FullAddress =  stepContext.context.activity.text;
-            return await stepContext.prompt(TEXT_PROMPT, i18n.__("StreetNumbersPrompt"));  
+            if(stepContext.context.activity.text === "I can't see my street address here"){
+                await stepContext.context.sendActivity(i18n.__("StreetAddressNotFoundMessage"));
+                let commonPromptValidatorModel = new CommonPromptValidatorModel(
+                    ["YesIWantToRequestCall", "NoNotForNow"],
+                    Number(i18n.__("MaxRetryCount")),
+                    "StreetAddressNotFound",i18n.__("StreetAddressNotFoundPromptMessage")
+                );
+                return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
+            }
+            else{
+            return await stepContext.prompt(TEXT_PROMPT, i18n.__("StreetNumbersPrompt")); 
+            }
+             
         }
         else if(getAddresses.masterError === true){
             
@@ -169,7 +177,7 @@ export class GetAddressesStep extends ComponentDialog {
                 let commonPromptValidatorModel = new CommonPromptValidatorModel(
                     ["YesIWantToRequestCall", "NoNotForNow"],
                     Number(i18n.__("MaxRetryCount")),
-                    "ServiceRepresentative"
+                    "ServiceRepresentative",i18n.__("ServiceRepresentativePromptMessage")
                 );
                 return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
             }else{
@@ -186,11 +194,11 @@ export class GetAddressesStep extends ComponentDialog {
                 getAddresses.UnitNumber = stepContext.context.activity.text;
             }            
             let promptmsg = this.getEditedResponse(i18n.__("AddressFoundCheck"), getAddresses);
-            await stepContext.context.sendActivity(promptmsg);
+            //await stepContext.context.sendActivity(promptmsg);
             let commonPromptValidatorModel = new CommonPromptValidatorModel(
-                ["Yes", "No"],
+                ["promptConfirmYes", "promptConfirmNo"],
                 Number(i18n.__("MaxRetryCount")),
-                "AddressFound"
+                "AddressFound",promptmsg
             );
             return await stepContext.beginDialog(CHOICE_CHECK_UPDATE_ADDRESS_STEP, commonPromptValidatorModel);
             
@@ -208,27 +216,38 @@ export class GetAddressesStep extends ComponentDialog {
             let commonPromptValidatorModel = new CommonPromptValidatorModel(
                 ["YesIWantToRequestCall", "NoNotForNow"],
                 Number(i18n.__("MaxRetryCount")),
-                "ServiceRepresentative"
+                "ServiceRepresentative",i18n.__("ServiceRepresentativePromptMessage")
             );
             return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
             }
         }
         else{
         if(addressDetails.currentStep === "street number"){
+            addressDetails.FullAddress = stepContext.context.activity.text +" "+ addressDetails.FullAddress;
+            return await stepContext.prompt(TEXT_PROMPT, i18n.__("UnitORApartmentPrompt"));
+        } 
+        else{
+            return await stepContext.next();
+        }  
+      } 
+    }
+
+    private async streetAddressUnitStep(stepContext) {
+        const addressDetails = stepContext.options as AddressDetails;
+        if(addressDetails.currentStep === "street number"){          
             addressDetails.UnitNumber = stepContext.context.activity.text;
             let promptmsg = this.getEditedResponse(i18n.__("AddressFoundCheck"), addressDetails);
-            await stepContext.context.sendActivity(promptmsg);
+            //await stepContext.context.sendActivity(promptmsg);
             let commonPromptValidatorModel = new CommonPromptValidatorModel(
-                ["Yes", "No"],
+                ["promptConfirmYes", "promptConfirmNo"],
                 Number(i18n.__("MaxRetryCount")),
-                "AddressFound"
+                "AddressFound",promptmsg
             );
             return await stepContext.beginDialog(CHOICE_CHECK_UPDATE_ADDRESS_STEP, commonPromptValidatorModel);
         } 
         else{
             return await stepContext.next();
         }  
-      } 
     }
     /**
     * This is the final step in the waterfall.
@@ -236,22 +255,22 @@ export class GetAddressesStep extends ComponentDialog {
     * User selects the "No" prompt then bot again calls the update address flow.
     */
     private async finalStep(stepContext: WaterfallStepContext<AddressDetails>): Promise<DialogTurnResult> {
-       
-       const recognizer = LUISUnblockSetup(stepContext);
+       const addressDetails = stepContext.options as AddressDetails;
+       const recognizer = LUISAlwaysOnBotSetup(stepContext);
        const recognizerResult = await recognizer.recognize(stepContext.context);
        const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
        switch (intent) {
-           case "Yes":
+           case "promptConfirmYes":
               await stepContext.context.sendActivity(i18n.__("UpdateAddress"));
                return await stepContext.replaceDialog(CONTINUE_AND_FEEDBACK_STEP, ContinueAndFeedbackStep);
-           case "No":
-              return await stepContext.replaceDialog(UPDATE_ADDRESS_STEP,UpdateAddressStep);
+           case "promptConfirmNo":
+              return await stepContext.replaceDialog(UPDATE_ADDRESS_STEP,addressDetails);
            default :
                 if(!isCallBackPassed){
                     let commonPromptValidatorModel = new CommonPromptValidatorModel(
                         ["YesIWantToRequestCall", "NoNotForNow"],
                         Number(i18n.__("MaxRetryCount")),
-                        "ServiceRepresentative"
+                        "ServiceRepresentative",i18n.__("ServiceRepresentativePromptMessage")
                     );
                 return stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
                 }
@@ -311,5 +330,17 @@ export class GetAddressesStep extends ComponentDialog {
                outSentence = outSentence + sentence[i][0].toUpperCase() + sentence[i].slice(1)+ " ";
             }
          return outSentence;
+    }
+    private validateNumber(response:string)
+    {
+        let reg = /[0-9]/
+        let isNumber:boolean = false;
+        reg = new RegExp(reg);
+        if(response.match(reg))
+        {
+            isNumber = true;
+        }
+        
+        return isNumber;
     }
 }

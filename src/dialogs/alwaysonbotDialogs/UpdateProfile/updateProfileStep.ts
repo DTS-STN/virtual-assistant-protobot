@@ -11,6 +11,8 @@ import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "./UpdatePhoneNu
 import { UPDATE_PHONE_NUMBER_STEP,UpdateMyPhoneStep } from "./UpdatePhoneNumber/updateMyPhoneStep";
 import i18n from "../../locales/i18nconfig";
 import { UpdateMyEmailStep,UPDATE_EMAIL_STEP } from "./UpdateEmail/updateMyEmailStep";
+import { AddressDetails } from "./UpdateAddress/addressDetails";
+
 
 const TEXT_PROMPT = "TEXT_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
@@ -52,7 +54,7 @@ export class UpdateProfileStep extends ComponentDialog {
         let commonPromptValidatorModel = new CommonPromptValidatorModel(
             ["UpdateMyAddress", "UpdateMyPhoneNumber", "UpdateMyEmail"],
             Number(i18n.__("MaxRetryCount")),
-            "UpdateMyProfile"
+            "UpdateMyProfile",i18n.__("UpdateMyProfilePromptMessage")
         );
         //call dialog
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
@@ -68,7 +70,8 @@ export class UpdateProfileStep extends ComponentDialog {
         if (commonPromptValidatorModel != null && commonPromptValidatorModel.status) {
             switch (commonPromptValidatorModel.result) {
                 case "UpdateMyAddress":
-                    return await stepContext.replaceDialog(UPDATE_ADDRESS_STEP, UpdateAddressStep);
+                    const addressDetails = new AddressDetails;
+                    return await stepContext.replaceDialog(UPDATE_ADDRESS_STEP, addressDetails);
                 case "UpdateMyPhoneNumber":
                     return await stepContext.replaceDialog(UPDATE_PHONE_NUMBER_STEP, UpdateMyPhoneStep);
                 case "UpdateMyEmail":

@@ -7,7 +7,8 @@ import {
     WaterfallStepContext,
 
 } from "botbuilder-dialogs";
-import { LUISUnblockSetup } from "../../../utils/luisAppSetup";
+import { LUISAlwaysOnBotSetup } from "../alwaysOnBotRecognizer";
+
 import i18n from "../../locales/i18nconfig";
 import { APPLICATION_STATUS_STEP,ApplicationStatusStep } from "./applicationStatusStep";
 import { CommonPromptValidatorModel } from "../../../models/commonPromptValidatorModel";
@@ -50,7 +51,7 @@ export class OASBenefitStep extends ComponentDialog {
         let commonPromptValidatorModel = new CommonPromptValidatorModel(
             ["WhatisMyApplicationStatus"],
             Number(i18n.__("MaxRetryCount")),
-            "OASBenefit"
+            "OASBenefit",i18n.__("OASBenefitPromptMessage")
         );
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
     }

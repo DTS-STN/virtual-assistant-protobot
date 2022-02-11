@@ -79,7 +79,7 @@ export class AlwaysOnBotDialog extends ComponentDialog {
        let commonPromptValidatorModel = new CommonPromptValidatorModel(
         ["IWantToUpdateMyPersonalInformation", "IHaveQuestionAboutOASPension"],
         Number(i18n.__("MaxRetryCount")),
-        "AlwaysOnBot"
+        "AlwaysOnBot",i18n.__("AlwaysOnBotPromptMessage")
     );
     //call dialog
     return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel); 

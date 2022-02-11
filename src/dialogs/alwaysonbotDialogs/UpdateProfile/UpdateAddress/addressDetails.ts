@@ -7,6 +7,7 @@ export class AddressDetails{
     public maxCount;
     public currentCount;
     public getAddressesStep;
+    public updateAddressStep;
     public errorCount;
     public masterError;
     constructor(){
@@ -19,9 +20,11 @@ export class AddressDetails{
         this.maxCount=3;
         this.currentCount=0;
         this.getAddressesStep=null;
+        this.updateAddressStep=null;
          // State machine that stores the error counts of each step
     this.errorCount = {
         getAddressesStep: 0,
+        updateAddressStep: -1,
       };
     }
 }

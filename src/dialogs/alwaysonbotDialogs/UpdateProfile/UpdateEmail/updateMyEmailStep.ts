@@ -6,7 +6,7 @@ import { CommonPromptValidatorModel } from "../../../../models/commonPromptValid
 import i18n from "../../../locales/i18nconfig";
 import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
 import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
-import { COMMON_CHOICE_CHECK_STEP } from "./../UpdatePhoneNumber/commonChoiceCheckStep";
+import { COMMON_CHOICE_CHECK_STEP } from "../UpdatePhoneNumber/commonChoiceCheckStep";
 import { ConfirmEmailStep, CONFIRM_EMAIL_STEP } from "./confirmEmailStep";
 
 const TEXT_PROMPT = "TEXT_PROMPT";
@@ -37,9 +37,9 @@ export class UpdateMyEmailStep extends ComponentDialog {
     async checkPhoneNumberStep(stepContext) {
 
         let commonPromptValidatorModel = new CommonPromptValidatorModel(
-            ["Yes", "No"],
+            ["promptConfirmYes", "promptConfirmNo"],
             Number(i18n.__("MaxRetryCount")),
-            "UpdateMyEmail"
+            "UpdateMyEmail",i18n.__("UpdateMyEmailPromptMessage")
         );
         //call dialog
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
@@ -53,10 +53,10 @@ export class UpdateMyEmailStep extends ComponentDialog {
         const commonPromptValidatorModel = stepContext.result as CommonPromptValidatorModel;
         if (commonPromptValidatorModel != null && commonPromptValidatorModel.status) {
             switch (commonPromptValidatorModel.result) {
-                case "Yes":
+                case "promptConfirmYes":
                     commonPromptValidatorModel.retryCount = 0;
                     return await stepContext.beginDialog(CONFIRM_EMAIL_STEP, commonPromptValidatorModel);
-                case "No":
+                case "promptConfirmNo":
                     await stepContext.context.sendActivity(i18n.__("NoStatementEmail"));
                     return stepContext.replaceDialog(CONTINUE_AND_FEEDBACK_STEP, ContinueAndFeedbackStep);
             }

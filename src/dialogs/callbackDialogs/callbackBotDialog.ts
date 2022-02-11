@@ -88,7 +88,7 @@ export class CallbackBotDialog extends ComponentDialog {
   async welcomeStep(stepContext: WaterfallStepContext) {
     // Get the callback Bot details / state machine for the current user
     const callbackBotDetails = stepContext.options as CallbackBotDetails;
-
+    
     // const welcomeMsg = i18n.__('callbackBotDialogWelcomeMsg');
     // await stepContext.context.sendActivity(welcomeMsg);
 

@@ -7,7 +7,7 @@ import {
 import { adaptiveCard } from "../../../../cards";
 import { callbackCard } from "../../../../cards/callbackCard";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import { LUISUnblockSetup } from "../../../../utils/luisAppSetup";
+import { LUISAlwaysOnBotSetup } from "../../alwaysOnBotRecognizer";
 import i18n from "../../../locales/i18nconfig";
 
 const CHOICE_PROMPT = "CHOICE_PROMPT";
@@ -39,7 +39,12 @@ export class CommonChoiceCheckStep extends ComponentDialog {
         let promptMessage: string;
         // displays initial prompt message to the user
         if (commonPromptValidatorModel.retryCount === 0) {
-            promptMessage = i18n.__(`${commonPromptValidatorModel.promptCode}PromptMessage`);
+
+            if(!(commonPromptValidatorModel.initialPrompt === "")){
+
+                promptMessage = i18n.__(`${commonPromptValidatorModel.promptCode}PromptMessage`);
+
+                }
         }
         // shows the Master error message when user reaches max retry attempts
         else if (commonPromptValidatorModel.retryCount === commonPromptValidatorModel.maxRetryCount) {
@@ -50,7 +55,9 @@ export class CommonChoiceCheckStep extends ComponentDialog {
         }
         // on every rerty attempt made by the user
         else {
+ 
             promptMessage = i18n.__(`${commonPromptValidatorModel.promptCode}RetryPromptMessage`);
+
         }
         // displays prompt options to the user
         const promptOptions = i18n.__(`${commonPromptValidatorModel.promptCode}PromptOptions`);
@@ -62,7 +69,7 @@ export class CommonChoiceCheckStep extends ComponentDialog {
     }
     // storing the intent value to the result and passing it to the common prompt validator class
     async finalStep(stepContext: WaterfallStepContext) {
-        const recognizer = LUISUnblockSetup(stepContext);
+        const recognizer = LUISAlwaysOnBotSetup(stepContext);
         const recognizerResult = await recognizer.recognize(stepContext.context);
         const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
         const commonPromptValidatorModel = stepContext.options as CommonPromptValidatorModel;

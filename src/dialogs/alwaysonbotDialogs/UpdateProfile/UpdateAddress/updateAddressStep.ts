@@ -7,11 +7,14 @@ import { COMMON_CHOICE_CHECK_STEP } from "../UpdatePhoneNumber/commonChoiceCheck
 import { AddressDetails } from "./addressDetails";
 import { GetAddressesStep, GET_ADDRESS_STEP } from "./getAddressesStep";
 import i18n from "../../../locales/i18nconfig";
+import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from "../commonCallBackStep";
 
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 export const UPDATE_ADDRESS_STEP = "UPDATE_ADDRESS_STEP";
 const UPDATE_ADDRESS_WATERFALL_STEP = "UPDATE_ADDRESS_WATERFALL_STEP";
+
+let isCallBackPassed:Boolean = false;
 // Define the main dialog and its related components.
 export class UpdateAddressStep extends ComponentDialog {
     constructor() {
@@ -38,13 +41,33 @@ export class UpdateAddressStep extends ComponentDialog {
      * Passing current dialog name to common choice dialog.
      */
     async checkAddressStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-
-        let commonPromptValidatorModel = new CommonPromptValidatorModel(
-            ["Yes", "No"],
-            Number(i18n.__("MaxRetryCount")),
-            "UpdateAddress"
-        );
-        return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
+        const addressDetails = stepContext.options as AddressDetails;
+        addressDetails.errorCount.updateAddressStep++;
+        if (addressDetails.errorCount.updateAddressStep >= Number(i18n.__("MaxRetryCount"))) {
+            let commonPromptValidatorModel = new CommonPromptValidatorModel(
+                ["YesIWantToRequestCall", "NoNotForNow"],
+                Number(i18n.__("MaxRetryCount")),
+                "ServiceRepresentative",i18n.__("ServiceRepresentativePromptMessage")
+            );
+            isCallBackPassed = true;
+            return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
+        }
+        else{
+            console.log(addressDetails.errorCount.updateAddressStep);
+            if (addressDetails.errorCount.updateAddressStep === 0){
+            let commonPromptValidatorModel = new CommonPromptValidatorModel(
+               ["promptConfirmYes", "promptConfirmNo"],
+               Number(i18n.__("MaxRetryCount")),
+              "UpdateAddress",i18n.__("UpdateAddressPromptMessage")
+              );
+            return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
+            }else{
+                isCallBackPassed = true;
+                const addressDetails = stepContext.options as AddressDetails;
+                return await stepContext.replaceDialog(GET_ADDRESS_STEP, addressDetails);
+                
+            }
+    }
     }
 
    /**
@@ -53,18 +76,21 @@ export class UpdateAddressStep extends ComponentDialog {
    * If users selects 'No' then bot will navigate to the continue and feedback flow
    */
      async selectionStep(stepContext) {
-        const addressDetails = new AddressDetails;
+        
         const commonPromptValidatorModel = stepContext.result as CommonPromptValidatorModel;
         if (commonPromptValidatorModel != null && commonPromptValidatorModel.status) {
             switch (commonPromptValidatorModel.result) {
-                case "Yes":
+                case "promptConfirmYes":
+                    const addressDetails = stepContext.options as AddressDetails;
                     return await stepContext.replaceDialog(GET_ADDRESS_STEP, addressDetails);
-                case "No":
+                case "promptConfirmNo":
                     return await stepContext.replaceDialog(CONTINUE_AND_FEEDBACK_STEP, ContinueAndFeedbackStep);
             }
         }
         else {
+            if(!isCallBackPassed){
             return stepContext.replaceDialog(FEED_BACK_STEP, FeedBackStep);
+            }
         }
     } 
 }

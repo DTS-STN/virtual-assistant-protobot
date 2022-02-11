@@ -8,7 +8,7 @@ import { CommonPromptValidatorModel } from "../../../../models/commonPromptValid
 import i18n from "../../../locales/i18nconfig";
 import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
 import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
-import { CommonCallBackDailog, COMMON_CALL_BACK_STEP } from "../commonCallBack";
+import { CommonCallBackStep, COMMON_CALL_BACK_STEP } from "../commonCallBackStep";
 
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";
 const TEXT_PROMPT = "TEXT_PROMPT";
@@ -26,7 +26,7 @@ export class ConfirmEmailStep extends ComponentDialog {
             .addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new FeedBackStep())
-            .addDialog(new CommonCallBackDailog())
+            .addDialog(new CommonCallBackStep())
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new WaterfallDialog(CONFIRM_EMAIL_WATERFALL_STEP, [
                 this.askPhoneNumberStep.bind(this),
@@ -56,7 +56,7 @@ export class ConfirmEmailStep extends ComponentDialog {
             let commonPromptValidatorModel = new CommonPromptValidatorModel(
                 ["YesIWantToRequestCall", "NoNotForNow"],
                 3,
-                'ConfirmEmailCallBack'
+                'ConfirmEmailCallBack',i18n.__("ConfirmEmailCallBackPromptMessage")
             );
            return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP,commonPromptValidatorModel);
         }

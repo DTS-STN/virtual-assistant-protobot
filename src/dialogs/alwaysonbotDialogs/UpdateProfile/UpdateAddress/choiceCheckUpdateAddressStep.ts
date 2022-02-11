@@ -1,14 +1,17 @@
 import { LuisRecognizer } from "botbuilder-ai";
 import {
-    Choice, ChoiceFactory,
+    Choice, ChoiceFactory,TextPrompt,
     ChoicePrompt, ComponentDialog, ListStyle, PromptValidatorContext, WaterfallDialog,
     WaterfallStepContext
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import { LUISUnblockSetup } from "../../../../utils/luisAppSetup";
+
+import { LUISAlwaysOnBotSetup } from "../../alwaysOnBotRecognizer";
+
 import i18n from "../../../locales/i18nconfig";
 
 const CHOICE_PROMPT = "CHOICE_PROMPT";
+const TEXT_PROMPT = "TEXT_PROMPT";
 export const CHOICE_CHECK_UPDATE_ADDRESS_STEP = "CHOICE_CHECK_UPDATE_ADDRESS_STEP";
 const CHOICE_CHECK_UPDATE_ADDRESS_WATERFALL_STEP = "CHOICE_CHECK_UPDATE_ADDRESS_WATERFALL_STEP";
 
@@ -37,29 +40,34 @@ export class ChoiceCheckUpdateAddressStep extends ComponentDialog {
         let promptMessage: string;
         // displays initial prompt message to the user
         if (commonPromptValidatorModel.retryCount === 0) {
-            promptMessage = i18n.__(`${commonPromptValidatorModel.promptCode}PromptMessage`);
+            if(!(commonPromptValidatorModel.initialPrompt === "")){
+                promptMessage = commonPromptValidatorModel.initialPrompt;   
+            }
         }
         // shows the Master error message when user reaches max retry attempts
         else if (commonPromptValidatorModel.retryCount === commonPromptValidatorModel.maxRetryCount) {
             commonPromptValidatorModel.status = false;
-            const exceededRetryMessage = i18n.__(`MasterRetryExceededMessage`);
             return await stepContext.endDialog(commonPromptValidatorModel);
         }
        // on every rerty attempt made by the user
         else {
             promptMessage = i18n.__(`${commonPromptValidatorModel.promptCode}RetryPromptMessage`);
         }
-        // displays prompt options to the user
+        
+        //displays prompt options to the user
         const promptOptions = i18n.__(`${commonPromptValidatorModel.promptCode}PromptOptions`);
         return await stepContext.prompt(CHOICE_PROMPT, {
             prompt: promptMessage,
             choices: ChoiceFactory.toChoices(promptOptions),
             style: ListStyle.suggestedAction
+      
         });
+        
+       
     }
     // storing the intent value to the result and passing it to the common prompt validator class
     async finalStep(stepContext: WaterfallStepContext) {
-        const recognizer = LUISUnblockSetup(stepContext);
+        const recognizer = LUISAlwaysOnBotSetup(stepContext);
         const recognizerResult = await recognizer.recognize(stepContext.context);
         const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
         const commonPromptValidatorModel = stepContext.options as CommonPromptValidatorModel;

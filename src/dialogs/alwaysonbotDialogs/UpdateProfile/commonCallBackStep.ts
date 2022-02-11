@@ -8,7 +8,8 @@ import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../Common/c
 import { FeedBackStep, FEED_BACK_STEP } from "../Common/feedBackStep";
 import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "./UpdatePhoneNumber/commonChoiceCheckStep";
 import i18n from "../../locales/i18nconfig";
-
+import { CallbackBotDetails } from "../../callbackDialogs/callbackBotDetails";
+import { CALLBACK_BOT_DIALOG,CallbackBotDialog } from "../../callbackDialogs/callbackBotDialog";
 const CHOISE_PROMPT = "CHOISE_PROMPT";
 const TEXT_PROMPT = "TEXT_PROMPT";
 
@@ -16,7 +17,7 @@ export const COMMON_CALL_BACK_STEP = "COMMON_CALL_BACK_STEP";
 const COMMON_CALL_BACK_WATERFALL_STEP = "COMMON_CALL_BACK_WATERFALL_STEP";
 
 // Define the main dialog and its related components.
-export class CommonCallBackDailog extends ComponentDialog {
+export class CommonCallBackStep extends ComponentDialog {
     constructor() {
         super(COMMON_CALL_BACK_STEP);
 
@@ -24,6 +25,7 @@ export class CommonCallBackDailog extends ComponentDialog {
             .addDialog(new ChoicePrompt(CHOISE_PROMPT))
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new FeedBackStep())
+            .addDialog(new CallbackBotDialog())
             .addDialog(new CommonChoiceCheckStep())
             .addDialog(new WaterfallDialog(COMMON_CALL_BACK_WATERFALL_STEP, [
                 this.continueStep.bind(this),
@@ -46,7 +48,7 @@ export class CommonCallBackDailog extends ComponentDialog {
         let commonPromptValidatorModel = new CommonPromptValidatorModel(
             ["YesIWantToRequestCall", "NoNotForNow"],
             Number(i18n.__("MaxRetryCount")),
-            details.promptCode
+            details.promptCode,details.promptCode+"PromptMessage"
         );
         //call dialog
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
@@ -64,7 +66,10 @@ export class CommonCallBackDailog extends ComponentDialog {
         {
             switch (commonPromptValidatorModel.result) {
                 case "YesIWantToRequestCall":
-                    return await stepContext.endDialog(this.id);
+                    const callbackBotDetails  = new CallbackBotDetails();
+                  
+                    return await stepContext.replaceDialog(CALLBACK_BOT_DIALOG,callbackBotDetails);
+                   // return await stepContext.endDialog(this.id);
                 case "NoNotForNow":
                     return await stepContext.replaceDialog(CONTINUE_AND_FEEDBACK_STEP, ContinueAndFeedbackStep);
             }

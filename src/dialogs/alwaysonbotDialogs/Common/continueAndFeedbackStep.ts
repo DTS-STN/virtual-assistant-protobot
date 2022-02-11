@@ -5,7 +5,8 @@ import {
     WaterfallStepContext
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../models/commonPromptValidatorModel";
-import { LUISUnblockSetup } from "../../../utils/luisAppSetup";
+import { LUISAlwaysOnBotSetup } from "../alwaysOnBotRecognizer";
+
 import i18n from "../../locales/i18nconfig";
 import { OAS_BENEFIT_STEP,OASBenefitStep } from "../OASBenefit/oASBenefitStep";
 import { COMMON_CHOICE_CHECK_STEP } from "../UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
@@ -48,7 +49,7 @@ export class ContinueAndFeedbackStep extends ComponentDialog {
         let commonPromptValidatorModel = new CommonPromptValidatorModel(
             ["Yes", "No"],
             Number(i18n.__("MaxRetryCount")),
-            "continueAndFeed"
+            "continueAndFeed",i18n.__("continueAndFeedPromptMessage")
         );
         //call dialog
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
@@ -60,7 +61,7 @@ export class ContinueAndFeedbackStep extends ComponentDialog {
    * If users selects 'No' then bot will navigate to the feedback flow
    */
     async confirmStep(stepContext:WaterfallStepContext): Promise<DialogTurnResult> {
-        const recognizer = LUISUnblockSetup(stepContext);
+        const recognizer = LUISAlwaysOnBotSetup(stepContext);
         const recognizerResult = await recognizer.recognize(stepContext.context);
         const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
         switch (intent) {
@@ -68,7 +69,7 @@ export class ContinueAndFeedbackStep extends ComponentDialog {
                 let commonPromptValidatorModel = new CommonPromptValidatorModel(
                     ["IWantToUpdateMyPersonalInformation", "IHaveQuestionAboutOASPension"],
                     Number(i18n.__("MaxRetryCount")),
-                    "AlwaysOnBot"
+                    "AlwaysOnBot",i18n.__("AlwaysOnBotPromptMessage")
                 );
                 //call dialog 'COMMON_CHOICE_CHECK_DIALOG'
                 return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);

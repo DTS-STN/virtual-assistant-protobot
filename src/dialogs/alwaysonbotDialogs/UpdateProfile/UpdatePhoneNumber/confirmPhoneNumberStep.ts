@@ -6,11 +6,12 @@ import {
     WaterfallStepContext
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import { LUISUnblockSetup } from "../../../../utils/luisAppSetup";
+import { LUISAlwaysOnBotSetup } from "../../alwaysOnBotRecognizer";
 import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
 import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
 import i18n from "../../../locales/i18nconfig";
-import { COMMON_CALL_BACK_STEP,CommonCallBackDailog } from "../commonCallBack";
+import { CommonCallBackStep,COMMON_CALL_BACK_STEP } from "../commonCallBackStep";
+
 
 
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";
@@ -29,7 +30,7 @@ export class ConfirmPhoneNumberStep extends ComponentDialog {
             .addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
-            .addDialog(new CommonCallBackDailog())
+            .addDialog(new CommonCallBackStep())
             .addDialog(new WaterfallDialog(CONFIRM_PHONE_NUMBER_WATERFALL_STEP, [
                 this.askPhoneNumberStep.bind(this),
                 this.updatedStep.bind(this)
@@ -59,7 +60,7 @@ export class ConfirmPhoneNumberStep extends ComponentDialog {
             let commonPromptValidatorModel = new CommonPromptValidatorModel(
                 ["YesIWantToRequestCall", "NoNotForNow"],
                 Number(i18n.__("MaxRetryCount")),
-                "ServiceRepresentative"
+                "ConfirmPhoneNumberCallBack",i18n.__("ConfirmPhoneNumberCallBackPromptMessage")
             );
             return stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
 
@@ -68,7 +69,7 @@ export class ConfirmPhoneNumberStep extends ComponentDialog {
     // confirm the users intent to proceed with the step
     async updatedStep(stepContext:WaterfallStepContext): Promise<DialogTurnResult> {
         let details=stepContext.options as CommonPromptValidatorModel ;
-        const recognizer = LUISUnblockSetup(stepContext);
+        const recognizer = LUISAlwaysOnBotSetup(stepContext);
         const recognizerResult = await recognizer.recognize(stepContext.context);
         const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
         if(stepContext.result.value){

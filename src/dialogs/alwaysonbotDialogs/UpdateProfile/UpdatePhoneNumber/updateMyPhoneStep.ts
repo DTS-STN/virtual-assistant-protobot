@@ -39,7 +39,7 @@ export class UpdateMyPhoneStep extends ComponentDialog {
         let commonPromptValidatorModel = new CommonPromptValidatorModel(
             ["Yes", "No"],
             Number(i18n.__("MaxRetryCount")),
-            "UpdateMyPhoneNumber"
+            "UpdateMyPhoneNumber",i18n.__("UpdateMyPhoneNumberPromptMessage")
         );
         //call dialog
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
