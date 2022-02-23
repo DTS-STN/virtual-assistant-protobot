@@ -56,7 +56,7 @@
   "unblock_direct_deposit_valid_reminder": "Petit rappel : vous recevrez votre premier paiement de la pension de la Sécurité de la vieillesse un mois après votre 65e anniversaire.",
   "unblock_direct_deposit_complete": "Pour le moment, vous avez tout ce qu'il vous faut!",
   "unblock_direct_deposit_main_error": "Hum, il semble que les numéros que vous avez entrés ne soient pas valides. \n\n Veuillez vérifier vos renseignements bancaires avant de continuer. Je peux aussi demander à un représentant de Service Canada de vous téléphoner pour vous aider à soumettre votre demande de pension. \n\n Est-ce que ça vous convient?",
-  "unblock_direct_deposit_cheque_path": "unblock_direct_deposit_cheque_path",
+	"unblock_direct_deposit_cheque_path": "/attachments/cheque-fr.svg",
   "unblockBotDialogMasterErrorMsg": "Hum, j'ai de la difficulté à vous comprendre. Excusez-moi! Veuillez consulter notre centre d'aide ou nous appeler au [XXX-XXX-XXXX].",
   "callback-dialogs-msg":"-------------------------------",
     "callbackBotDialogMasterErrorMsg": "Hum, j'ai de la difficulté à vous comprendre. Excusez-moi! Veuillez consulter notre centre d'aide ou nous appeler au [XXX-XXX-XXXX].",
