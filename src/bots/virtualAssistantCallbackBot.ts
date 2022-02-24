@@ -1,7 +1,7 @@
-import { ActivityHandler, BotState, StatePropertyAccessor } from "botbuilder";
-import { MainDialog } from "../dialogs/mainDialog";
+import { ActivityHandler, BotState, StatePropertyAccessor } from 'botbuilder';
+import { MainDialog } from '../dialogs/mainDialog';
 
-import { Dialog, DialogState, DialogSet } from "botbuilder-dialogs";
+import { Dialog, DialogState, DialogSet } from 'botbuilder-dialogs';
 export class VirtualAssistantCallbackBot extends ActivityHandler {
   private conversationState: BotState;
   private userState: BotState;
@@ -18,14 +18,14 @@ export class VirtualAssistantCallbackBot extends ActivityHandler {
 
     if (!conversationState) {
       throw new Error(
-        "[DialogBot]: Missing parameter. conversationState is required"
+        '[DialogBot]: Missing parameter. conversationState is required'
       );
     }
     if (!userState) {
-      throw new Error("[DialogBot]: Missing parameter. userState is required");
+      throw new Error('[DialogBot]: Missing parameter. userState is required');
     }
     if (!dialogSet) {
-      throw new Error("[DialogBot]: Missing parameter. dialogSet is required");
+      throw new Error('[DialogBot]: Missing parameter. dialogSet is required');
     }
 
     // Initialise private members for the bot
@@ -33,19 +33,19 @@ export class VirtualAssistantCallbackBot extends ActivityHandler {
     this.userState = userState;
     this.dialogSet = dialogSet;
     this.dialog = new MainDialog();
-    this.dialogState = this.conversationState.createProperty("DialogState");
+    this.dialogState = this.conversationState.createProperty('DialogState');
     // Add the main dialog to the dialog set for the bot
 
     this.onEvent(async (context, next) => {
-      if (context.activity.name === "requestWelcomeDialog") {
-        await context.sendActivity("Back Channel Welcome Message!");
+      if (context.activity.name === 'requestWelcomeDialog') {
+        await context.sendActivity('Back Channel Welcome Message!');
       }
 
       await next();
     });
 
     this.onMembersAdded(async (context, next) => {
-      console.log("MEMBER ADDED:Running dialog with Message Activity.");
+      console.log('MEMBER ADDED:Running dialog with Message Activity.');
 
       // Send greeting and then activate dialog
       // await context.sendActivity(`Hi Mary, I’m your virtual concierge!`);
@@ -58,7 +58,7 @@ export class VirtualAssistantCallbackBot extends ActivityHandler {
     });
 
     this.onMessage(async (context, next) => {
-      console.log("Running dialog with Message Activity.");
+      console.log('Running dialog with Message Activity.');
       // Run the Dialog with the new message Activity.
       await (this.dialog as MainDialog).run(context, this.dialogState);
 

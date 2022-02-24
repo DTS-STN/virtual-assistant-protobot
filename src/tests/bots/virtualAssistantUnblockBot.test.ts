@@ -10,17 +10,17 @@ import {
   MemoryStorage,
   TestAdapter,
   TurnContext,
-  UserState,
-} from "botbuilder";
+  UserState
+} from 'botbuilder';
 import {
   ComponentDialog,
   Dialog,
   DialogSet,
-  DialogTurnStatus,
-} from "botbuilder-dialogs";
-import { VirtualAssistantUnblockBot } from "../../bots/virtualAssistantUnblockBot";
-const assert = require("assert");
-import i18n from "../../dialogs/locales/i18nConfig";
+  DialogTurnStatus
+} from 'botbuilder-dialogs';
+import { VirtualAssistantUnblockBot } from '../../bots/virtualAssistantUnblockBot';
+const assert = require('assert');
+import i18n from '../../dialogs/locales/i18nConfig';
 // TODO: change assert to chai or other third part lib instead of use nodejs default one
 
 /**
@@ -29,7 +29,7 @@ import i18n from "../../dialogs/locales/i18nConfig";
  */
 class MockRootDialog extends ComponentDialog {
   constructor() {
-    super("mockRootDialog");
+    super('mockRootDialog');
   }
 
   public async beginDialog(dc, options) {
@@ -49,7 +49,7 @@ class MockRootDialog extends ComponentDialog {
   }
 }
 
-describe("Unblock Bot Initial", () => {
+describe('Unblock Bot Initial', () => {
   const testAdapter = new TestAdapter(async (context) => undefined);
 
   async function processActivity(activity, bot) {
@@ -59,16 +59,16 @@ describe("Unblock Bot Initial", () => {
   const assertActivityHasCard = (activity) => {
     assert.strictEqual(
       activity.attachments[0].contentType,
-      "application/vnd.microsoft.card.adaptive"
+      'application/vnd.microsoft.card.adaptive'
     );
   };
-  it("Displays text and an image describing where to find banking information for direct deposit auto-enrolement", async () => {
+  it('Displays text and an image describing where to find banking information for direct deposit auto-enrolement', async () => {
     const mockRootDialog = new MockRootDialog();
     const memoryStorage = new MemoryStorage();
     const conversationState = new ConversationState(memoryStorage);
 
     const dialogs = new DialogSet(
-      conversationState.createProperty("DialogState")
+      conversationState.createProperty('DialogState')
     );
     dialogs.add(mockRootDialog);
     const sut = new VirtualAssistantUnblockBot(
@@ -79,14 +79,14 @@ describe("Unblock Bot Initial", () => {
 
     // Create conversationUpdate activity
     const conversationUpdateActivity = {
-      channelId: "test",
+      channelId: 'test',
       conversation: {
-        id: "someId",
+        id: 'someId'
       },
-      membersAdded: [{ id: "theUser" }],
-      locale: "en",
-      recipient: { id: "theBot" },
-      type: ActivityTypes.ConversationUpdate,
+      membersAdded: [{ id: 'theUser' }],
+      locale: 'en',
+      recipient: { id: 'theBot' },
+      type: ActivityTypes.ConversationUpdate
     };
 
     // Send the conversation update activity to the bot.
@@ -96,27 +96,27 @@ describe("Unblock Bot Initial", () => {
     let reply: any;
     reply = testAdapter.activityBuffer.shift();
 
-    const expectedWelcomeMsg = i18n.__("unblock_lookup_welcome_msg");
+    const expectedWelcomeMsg = i18n.__('unblock_lookup_welcome_msg');
     assert.strictEqual(
       reply.attachments[0].content.body[0].text,
       expectedWelcomeMsg
     );
     reply = testAdapter.activityBuffer.shift();
-    const expectedOasGreetingMsg = i18n.__("unblock_lookup_update_msg");
+    const expectedOasGreetingMsg = i18n.__('unblock_lookup_update_msg');
     assert.strictEqual(
       reply.attachments[0].content.body[0].text,
       expectedOasGreetingMsg
     );
     reply = testAdapter.activityBuffer.shift();
 
-    const expectedLookUpMsg = i18n.__("unblock_lookup_update_reason");
+    const expectedLookUpMsg = i18n.__('unblock_lookup_update_reason');
     assert.strictEqual(
       reply.attachments[0].content.body[0].text,
       expectedLookUpMsg
     );
 
     reply = testAdapter.activityBuffer.shift();
-    const confirmMsg = i18n.__("unblock_lookup_update_prompt_msg");
+    const confirmMsg = i18n.__('unblock_lookup_update_prompt_msg');
 
     assert.strictEqual(
       reply.text,

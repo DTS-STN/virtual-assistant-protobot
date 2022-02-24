@@ -1,16 +1,16 @@
-import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
+import { DialogTestClient, DialogTestLogger } from 'botbuilder-testing';
 
-import { CallbackRecognizer } from "../../../dialogs/callbackDialogs/callbackRecognizer";
-import { GetPreferredMethodOfContactStep } from "../../../dialogs/callbackDialogs/getPreferredMethodOfContactStep";
-const assert = require("assert");
-import * as tsSinon from "ts-sinon";
-import { Activity } from "botbuilder";
-import { ConfirmEmailStep } from "../../../dialogs/callbackDialogs/confirmEmailStep";
-import { GetUserPhoneNumberStep } from "../../../dialogs/callbackDialogs/getUserPhoneNumberStep";
-import { ConfirmPhoneStep } from "../../../dialogs/callbackDialogs/confirmPhoneStep";
+import { CallbackRecognizer } from '../../../dialogs/callbackDialogs/callbackRecognizer';
+import { GetPreferredMethodOfContactStep } from '../../../dialogs/callbackDialogs/getPreferredMethodOfContactStep';
+const assert = require('assert');
+import * as tsSinon from 'ts-sinon';
+import { Activity } from 'botbuilder';
+import { ConfirmEmailStep } from '../../../dialogs/callbackDialogs/confirmEmailStep';
+import { GetUserPhoneNumberStep } from '../../../dialogs/callbackDialogs/getUserPhoneNumberStep';
+import { ConfirmPhoneStep } from '../../../dialogs/callbackDialogs/confirmPhoneStep';
 
-describe("GetPreferredMethodOfContactStep", () => {
-  const testCases = require("../../testData/callbackTestData/getPreferredMethodOfContactTestData");
+describe('GetPreferredMethodOfContactStep', () => {
+  const testCases = require('../../testData/callbackTestData/getPreferredMethodOfContactTestData');
   const sut = new GetPreferredMethodOfContactStep();
   sut.addDialog(new ConfirmEmailStep());
   sut.addDialog(new GetUserPhoneNumberStep());
@@ -20,12 +20,12 @@ describe("GetPreferredMethodOfContactStep", () => {
   });
   testCases.map((testData) => {
     it(testData.name, async () => {
-      const client = new DialogTestClient("test", sut, testData.initialData, [
-        new DialogTestLogger(console),
+      const client = new DialogTestClient('test', sut, testData.initialData, [
+        new DialogTestLogger(console)
       ]);
 
       tsSinon.default
-        .stub(CallbackRecognizer.prototype, "executeLuisQuery")
+        .stub(CallbackRecognizer.prototype, 'executeLuisQuery')
         .callsFake(() =>
           JSON.parse(
             `{"intents": {"${testData.intent}": {"score": 1}}, "entities": {"$instance": {}}}`
@@ -38,7 +38,7 @@ describe("GetPreferredMethodOfContactStep", () => {
       for (const step of testData.steps) {
         const updatedActivity: Partial<Activity> = {
           text: step[0],
-          locale: "en",
+          locale: 'en'
         };
 
         const reply = await client.sendActivity(updatedActivity);
@@ -52,7 +52,7 @@ describe("GetPreferredMethodOfContactStep", () => {
       console.log(
         `Dialog result: ${JSON.stringify(client.dialogTurnResult.result)}`
       );
-      if (typeof client.dialogTurnResult.result === "object") {
+      if (typeof client.dialogTurnResult.result === 'object') {
         assert.strictEqual(
           JSON.stringify(client.dialogTurnResult.result),
           JSON.stringify(testData.expectedResult),

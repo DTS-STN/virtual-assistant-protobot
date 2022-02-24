@@ -1,33 +1,33 @@
-import { Activity, MessageFactory } from "botbuilder";
+import { Activity, MessageFactory } from 'botbuilder';
 
 import {
   ComponentDialog,
   TextPrompt,
   WaterfallDialog,
-  WaterfallStepContext,
-} from "botbuilder-dialogs";
+  WaterfallStepContext
+} from 'botbuilder-dialogs';
 
-import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-import { MainDialog } from "../../dialogs/mainDialog";
-import i18n from "../../dialogs/locales/i18nConfig";
-import assert from "assert";
-import chai from "chai";
-import * as tsSinon from "ts-sinon";
+import { DialogTestClient, DialogTestLogger } from 'botbuilder-testing';
+import { MainDialog } from '../../dialogs/mainDialog';
+import i18n from '../../dialogs/locales/i18nConfig';
+import assert from 'assert';
+import chai from 'chai';
+import * as tsSinon from 'ts-sinon';
 import {
   UnblockBotDialog,
-  UNBLOCK_BOT_DIALOG,
-} from "../../dialogs/unblockDialogs/unblockBotDialog";
+  UNBLOCK_BOT_DIALOG
+} from '../../dialogs/unblockDialogs/unblockBotDialog';
 
-chai.use(require("sinon-chai"));
-import { expect } from "chai";
-import { CallbackRecognizer } from "../../dialogs/callbackDialogs/callbackRecognizer";
-import { ConfirmLookIntoStep } from "../../dialogs/unblockDialogs/unblockLookup";
+chai.use(require('sinon-chai'));
+import { expect } from 'chai';
+import { CallbackRecognizer } from '../../dialogs/callbackDialogs/callbackRecognizer';
+import { ConfirmLookIntoStep } from '../../dialogs/unblockDialogs/unblockLookup';
 
 /**
  * An waterfall dialog derived from MainDialog for testing
  */
-describe("MainDialog", () => {
-  describe("Should initialize the main bot dialog", () => {
+describe('MainDialog', () => {
+  describe('Should initialize the main bot dialog', () => {
     const sut = new MainDialog();
     const unblockBotDialog = new UnblockBotDialog();
 
@@ -42,35 +42,35 @@ describe("MainDialog", () => {
     const testCases = [
       {
         initialData: {
-          locale: "en",
-          masterError: "null",
+          locale: 'en',
+          masterError: 'null',
           confirmLookIntoStep: null,
           unblockDirectDeposit: null,
           errorCount: {
             confirmLookIntoStep: 0,
-            unblockDirectDeposit: 0,
-          },
-        },
-      },
+            unblockDirectDeposit: 0
+          }
+        }
+      }
     ];
 
     testCases.map((testData) => {
       it(`Should initialize the main dialog with locale ${testData.initialData.locale}`, async () => {
-        const client = new DialogTestClient("test", sut, testData.initialData, [
-          new DialogTestLogger(),
+        const client = new DialogTestClient('test', sut, testData.initialData, [
+          new DialogTestLogger()
         ]);
 
         // Execute the test case
         const updatedActivity: Partial<Activity> = {
-          locale: "en",
+          locale: 'en'
         };
         const reply = await client.sendActivity(updatedActivity);
         expect(reply.locale).to.be.equal(testData.initialData.locale);
       });
 
       it(`Should set the unblockBot details object`, async () => {
-        const client = new DialogTestClient("test", sut, testData.initialData, [
-          new DialogTestLogger(),
+        const client = new DialogTestClient('test', sut, testData.initialData, [
+          new DialogTestLogger()
         ]);
 
         // Execute the test case
@@ -84,15 +84,15 @@ describe("MainDialog", () => {
     });
   });
 
-  describe("Should be able to get rate step", () => {
-    const leaveMsg = i18n.__("confirmCallbackStepCloseMsg");
+  describe('Should be able to get rate step', () => {
+    const leaveMsg = i18n.__('confirmCallbackStepCloseMsg');
     const testCases = [
       {
-        utterance: "No,thanks",
-        intent: "Should leave the dialog",
+        utterance: 'No,thanks',
+        intent: 'Should leave the dialog',
         invokedDialogResponse: ``,
-        taskConfirmationMessage: leaveMsg,
-      },
+        taskConfirmationMessage: leaveMsg
+      }
     ];
 
     // testCases.map((testData) => {

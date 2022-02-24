@@ -1,9 +1,9 @@
-import { ActivityHandler, BotState, StatePropertyAccessor } from "botbuilder";
-import { MainDialog } from "../dialogs/mainDialog";
+import { ActivityHandler, BotState, StatePropertyAccessor } from 'botbuilder';
+import { MainDialog } from '../dialogs/mainDialog';
 
-import { setLocale } from "../dialogs/locales/i18nConfig";
+import { setLocale } from '../dialogs/locales/i18nConfig';
 
-import { Dialog, DialogState, DialogSet } from "botbuilder-dialogs";
+import { Dialog, DialogState, DialogSet } from 'botbuilder-dialogs';
 export class VirtualAssistantUnblockBot extends ActivityHandler {
   private conversationState: BotState;
   private userState: BotState;
@@ -20,14 +20,14 @@ export class VirtualAssistantUnblockBot extends ActivityHandler {
 
     if (!conversationState) {
       throw new Error(
-        "[DialogBot]: Missing parameter. conversationState is required"
+        '[DialogBot]: Missing parameter. conversationState is required'
       );
     }
     if (!userState) {
-      throw new Error("[DialogBot]: Missing parameter. userState is required");
+      throw new Error('[DialogBot]: Missing parameter. userState is required');
     }
     if (!dialogSet) {
-      throw new Error("[DialogBot]: Missing parameter. dialogSet is required");
+      throw new Error('[DialogBot]: Missing parameter. dialogSet is required');
     }
 
     // Initialise private members for the bot
@@ -35,13 +35,13 @@ export class VirtualAssistantUnblockBot extends ActivityHandler {
     this.userState = userState;
     this.dialogSet = dialogSet;
     this.dialog = new MainDialog();
-    this.dialogState = this.conversationState.createProperty("DialogState");
+    this.dialogState = this.conversationState.createProperty('DialogState');
     // Add the main dialog to the dialog set for the bot
     // this.addDialogs();
 
     this.onEvent(async (context, next) => {
-      if (context.activity.name === "requestWelcomeDialog") {
-        await context.sendActivity("Back Channel Welcome Message!");
+      if (context.activity.name === 'requestWelcomeDialog') {
+        await context.sendActivity('Back Channel Welcome Message!');
       }
 
       await next();
@@ -49,7 +49,7 @@ export class VirtualAssistantUnblockBot extends ActivityHandler {
 
     // Setting lang/locale
     this.onMembersAdded(async (context, next) => {
-      console.log("MEMBER ADDED:Running dialog with Message Activity.");
+      console.log('MEMBER ADDED:Running dialog with Message Activity.');
       setLocale(context.activity.locale);
       // Run the Dialog with the new message Activity.
       await (this.dialog as MainDialog).run(context, this.dialogState);
@@ -58,7 +58,7 @@ export class VirtualAssistantUnblockBot extends ActivityHandler {
     });
 
     this.onMessage(async (context, next) => {
-      console.log("Running dialog with Message Activity.");
+      console.log('Running dialog with Message Activity.');
       // Run the Dialog with the new message Activity.
       setLocale(context.activity.locale);
       await (this.dialog as MainDialog).run(context, this.dialogState);

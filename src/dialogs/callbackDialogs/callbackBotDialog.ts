@@ -2,36 +2,36 @@ import {
   ComponentDialog,
   TextPrompt,
   WaterfallDialog,
-  WaterfallStepContext,
-} from "botbuilder-dialogs";
+  WaterfallStepContext
+} from 'botbuilder-dialogs';
 
 import {
   ConfirmCallbackStep,
-  CONFIRM_CALLBACK_STEP,
-} from "./confirmCallbackStep";
+  CONFIRM_CALLBACK_STEP
+} from './confirmCallbackStep';
 import {
   GetUserPhoneNumberStep,
-  GET_USER_PHONE_NUMBER_STEP,
-} from "./getUserPhoneNumberStep";
+  GET_USER_PHONE_NUMBER_STEP
+} from './getUserPhoneNumberStep';
 
 
-import i18n from "../locales/i18nConfig";
-import { CallbackBotDetails } from "./callbackBotDetails";
-import { StatePropertyAccessor, UserState } from "botbuilder";
-import { ConfirmEmailStep, CONFIRM_EMAIL_STEP } from "./confirmEmailStep";
+import i18n from '../locales/i18nConfig';
+import { CallbackBotDetails } from './callbackBotDetails';
+import { StatePropertyAccessor, UserState } from 'botbuilder';
+import { ConfirmEmailStep, CONFIRM_EMAIL_STEP } from './confirmEmailStep';
 import {
   GetPreferredMethodOfContactStep,
-  GET_PREFERRED_METHOD_OF_CONTACT_STEP,
-} from "./getPreferredMethodOfContactStep";
-import { ConfirmPhoneStep, CONFIRM_PHONE_STEP } from "./confirmPhoneStep";
-import { GetUserEmailStep, GET_USER_EMAIL_STEP } from "./getUserEmailStep";
+  GET_PREFERRED_METHOD_OF_CONTACT_STEP
+} from './getPreferredMethodOfContactStep';
+import { ConfirmPhoneStep, CONFIRM_PHONE_STEP } from './confirmPhoneStep';
+import { GetUserEmailStep, GET_USER_EMAIL_STEP } from './getUserEmailStep';
 import {
   ConfirmCallbackPhoneNumberStep,
-  CONFIRM_CALLBACK_PHONE_NUMBER_STEP,
-} from "./confirmCallbackPhoneNumberStep";
+  CONFIRM_CALLBACK_PHONE_NUMBER_STEP
+} from './confirmCallbackPhoneNumberStep';
 
-export const CALLBACK_BOT_DIALOG = "CALLBACK_BOT_DIALOG";
-const MAIN_CALLBACK_BOT_WATERFALL_DIALOG = "MAIN_CALLBACK_BOT_WATERFALL_DIALOG";
+export const CALLBACK_BOT_DIALOG = 'CALLBACK_BOT_DIALOG';
+const MAIN_CALLBACK_BOT_WATERFALL_DIALOG = 'MAIN_CALLBACK_BOT_WATERFALL_DIALOG';
 export class CallbackBotDialog extends ComponentDialog {
   constructor(id?: string) {
     super(id || CALLBACK_BOT_DIALOG);
@@ -60,7 +60,7 @@ export class CallbackBotDialog extends ComponentDialog {
         this.getUserEmailStep.bind(this),
         this.getUserPhoneNumberStep.bind(this),
         // this.confirmCallbackDetailsStep.bind(this),
-        this.finalStep.bind(this),
+        this.finalStep.bind(this)
       ])
     );
 
@@ -178,7 +178,7 @@ export class CallbackBotDialog extends ComponentDialog {
         // so we are sending the user to that step
         case null:
           if (
-            typeof callbackBotDetails.confirmPhoneStep === "boolean" &&
+            typeof callbackBotDetails.confirmPhoneStep === 'boolean' &&
             callbackBotDetails.confirmPhoneStep === false
           ) {
             return await stepContext.beginDialog(
@@ -221,7 +221,7 @@ export class CallbackBotDialog extends ComponentDialog {
         case null:
           // bot only ask user input new email if they say current one is incorrect
           if (
-            typeof callbackBotDetails.confirmEmailStep === "boolean" &&
+            typeof callbackBotDetails.confirmEmailStep === 'boolean' &&
             callbackBotDetails.confirmEmailStep === false
           ) {
             return await stepContext.beginDialog(
@@ -382,7 +382,7 @@ export class CallbackBotDialog extends ComponentDialog {
 
     // Check if a master error has occurred
     if (callbackBotDetails.masterError === true) {
-      const masterErrorMsg = i18n.__("callbackBotDialogMasterErrorMsg");
+      const masterErrorMsg = i18n.__('callbackBotDialogMasterErrorMsg');
 
       await stepContext.context.sendActivity(masterErrorMsg);
     }
