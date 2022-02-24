@@ -5,10 +5,7 @@ import {
   WaterfallStepContext
 } from 'botbuilder-dialogs';
 
-import {
-  ConfirmCallbackStep,
-  CONFIRM_CALLBACK_STEP
-} from './confirmCallbackStep';
+
 import {
   GetUserPhoneNumberStep,
   GET_USER_PHONE_NUMBER_STEP
@@ -83,38 +80,7 @@ export class CallbackBotDialog extends ComponentDialog {
     return await stepContext.next(callbackBotDetails);
   }
 
-  /*
-   * start the confirmCallbackStep dialog
-   */
-  async confirmCallbackStep(stepContext: WaterfallStepContext) {
-    // Get the state machine from the last step
-    const callbackBotDetails = stepContext.result;
 
-    switch (callbackBotDetails.confirmCallbackStep) {
-      // The confirmCallbackStep flag in the state machine isn't set
-      // so we are sending the user to that step
-      case null:
-        return await stepContext.beginDialog(
-          CONFIRM_CALLBACK_STEP,
-          callbackBotDetails
-        );
-
-      // The confirmCallbackStep flag in the state machine is set to true
-      // so we are sending the user to next step
-      case true:
-        return await stepContext.next(callbackBotDetails);
-
-      // The confirmCallbackStep flag in the state machine is set to false
-      // so we are sending to the end because they don't want to continue
-      case false:
-        // code block
-        return await stepContext.endDialog(callbackBotDetails);
-
-      // Default catch all but we should never get here
-      default:
-        return await stepContext.endDialog(callbackBotDetails);
-    }
-  }
 
 
   /**
