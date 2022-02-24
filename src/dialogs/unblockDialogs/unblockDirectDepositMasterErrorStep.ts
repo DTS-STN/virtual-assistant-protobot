@@ -20,7 +20,7 @@ export const UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_STEP =
   "UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_STEP";
 const UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_WATERFALL_STEP =
   "UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_WATERFALL_STEP";
-const MAX_ERROR_COUNT = 3;
+import { MAX_ERROR_COUNT}  from '../../utils'
 
 export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
   constructor() {
@@ -149,7 +149,10 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
 
         // go to always on bot
         // TODO
-        return await stepContext.endDialog(unblockBotDetails);
+        return await stepContext.replaceDialog(
+          CALLBACK_BOT_DIALOG,
+          callbackErrorCause
+        );
 
       // Could not understand / No intent
       default: {

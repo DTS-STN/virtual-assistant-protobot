@@ -18,7 +18,7 @@ const TEXT_PROMPT = "TEXT_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 export const CONFIRM_LOOK_INTO_STEP = "CONFIRM_LOOK_INTO_STEP";
 const CONFIRM_LOOK_INTO_WATERFALL_STEP = "CONFIRM_LOOK_INTO_WATERFALL_STEP";
-const MAX_ERROR_COUNT = 3;
+import { MAX_ERROR_COUNT}  from '../../utils'
 
 export class ConfirmLookIntoStep extends ComponentDialog {
   constructor() {

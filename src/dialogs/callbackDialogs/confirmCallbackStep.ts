@@ -16,7 +16,7 @@ const TEXT_PROMPT = "TEXT_PROMPT";
 export const CONFIRM_CALLBACK_STEP = "CONFIRM_CALLBACK_STEP";
 const CONFIRM_CALLBACK_WATERFALL_STEP = "CONFIRM_CALLBACK_WATERFALL_STEP";
 
-const MAX_ERROR_COUNT = 3;
+import { MAX_ERROR_COUNT}  from '../../utils'
 
 export class ConfirmCallbackStep extends ComponentDialog {
   constructor() {

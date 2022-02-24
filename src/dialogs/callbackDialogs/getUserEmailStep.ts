@@ -16,7 +16,7 @@ import i18n from "../locales/i18nConfig";
 const TEXT_PROMPT = "TEXT_PROMPT";
 export const GET_USER_EMAIL_STEP = "GET_USER_EMAIL_STEP";
 const GET_USER_EMAIL_WATERFALL_STEP = "GET_USER_EMAIL_WATERFALL_STEP";
-const MAX_ERROR_COUNT = 3;
+import { MAX_ERROR_COUNT}  from '../../utils'
 
 export class GetUserEmailStep extends ComponentDialog {
   constructor() {

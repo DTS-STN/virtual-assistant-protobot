@@ -17,7 +17,7 @@ const TEXT_PROMPT = "TEXT_PROMPT";
 export const CONFIRM_EMAIL_STEP = "CONFIRM_EMAIL_STEP";
 const CONFIRM_EMAIL_WATERFALL_STEP = "CONFIRM_EMAIL_WATERFALL_STEP";
 
-const MAX_ERROR_COUNT = 3;
+import { MAX_ERROR_COUNT}  from '../../utils'
 
 export class ConfirmEmailStep extends ComponentDialog {
   constructor() {

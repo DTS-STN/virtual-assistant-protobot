@@ -18,7 +18,7 @@ export const GET_PREFERRED_METHOD_OF_CONTACT_STEP =
 const GET_PREFERRED_METHOD_OF_CONTACT_WATERFALL_STEP =
   "GET_PREFERRED_METHOD_OF_CONTACT_WATERFALL_STEP";
 
-const MAX_ERROR_COUNT = 3;
+  import { MAX_ERROR_COUNT}  from '../../utils'
 
 export class GetPreferredMethodOfContactStep extends ComponentDialog {
   constructor() {

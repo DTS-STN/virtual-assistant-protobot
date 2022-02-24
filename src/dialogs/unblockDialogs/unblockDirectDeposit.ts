@@ -28,7 +28,7 @@ export const CONFIRM_DIRECT_DEPOSIT_STEP = "CONFIRM_DIRECT_DEPOSIT_STEP";
 const CONFIRM_DIRECT_DEPOSIT_WATERFALL_STEP = "CONFIRM_DIRECT_DEPOSIT_WATERFALL_STEP";
 
 // Error handling
-const MAX_ERROR_COUNT = 3;
+import { MAX_ERROR_COUNT}  from '../../utils'
 let ACCOUNT = false;
 let TRANSIT = false;
 let INSTITUTE = false;

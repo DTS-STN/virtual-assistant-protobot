@@ -19,7 +19,7 @@ export const CONFIRM_CALLBACK_PHONE_NUMBER_STEP =
 const CONFIRM_CALLBACK_PHONE_NUMBER_WATERFALL_STEP =
   "CONFIRM_CALLBACK_PHONE_NUMBER_WATERFALL_STEP";
 
-const MAX_ERROR_COUNT = 3;
+  import { MAX_ERROR_COUNT}  from '../../utils'
 
 export class ConfirmCallbackPhoneNumberStep extends ComponentDialog {
   constructor() {

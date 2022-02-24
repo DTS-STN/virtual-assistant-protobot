@@ -17,7 +17,7 @@ const TEXT_PROMPT = "TEXT_PROMPT";
 export const CONFIRM_PHONE_STEP = "CONFIRM_PHONE_STEP";
 const CONFIRM_PHONE_WATERFALL_STEP = "CONFIRM_PHONE_WATERFALL_STEP";
 
-const MAX_ERROR_COUNT = 3;
+import { MAX_ERROR_COUNT}  from '../../utils'
 
 export class ConfirmPhoneStep extends ComponentDialog {
   constructor() {
