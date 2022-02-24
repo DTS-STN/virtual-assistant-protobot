@@ -6,7 +6,7 @@ import * as tsSinon from "ts-sinon";
 import { ContinueAndFeedbackStep } from "../../../../dialogs/alwaysonbotDialogs/Common/continueAndFeedbackStep";
 import { ApplicationStatusStep } from "../../../../dialogs/alwaysonbotDialogs/OASBenefit/applicationStatusStep";
 import { CommonChoiceCheckStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import i18n from "../../../../dialogs/locales/i18nconfig";
+import i18n from "../../../../dialogs/locales/i18nConfig";
 const assert = require("assert");
 chai.use(require("sinon-chai"));
 

@@ -7,7 +7,7 @@ import {
 import { CommonPromptValidatorModel } from "../../../models/commonPromptValidatorModel";
 import { LUISAlwaysOnBotSetup } from "../alwaysOnBotRecognizer";
 
-import i18n from "../../locales/i18nconfig";
+import i18n from "../../locales/i18nConfig";
 import { OAS_BENEFIT_STEP,OASBenefitStep } from "../OASBenefit/oASBenefitStep";
 import { COMMON_CHOICE_CHECK_STEP } from "../UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
 import { UpdateProfileStep, UPDATE_PROFILE_STEP } from "../UpdateProfile/updateProfileStep";

@@ -1,4 +1,3 @@
-
 import { Choice, ChoicePrompt, ComponentDialog, ConfirmPrompt, DialogTurnResult, PromptValidatorContext, WaterfallDialog, WaterfallStepContext } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
 import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from "../../Common/continueAndFeedbackStep";
@@ -6,7 +5,7 @@ import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
 import { COMMON_CHOICE_CHECK_STEP } from "../UpdatePhoneNumber/commonChoiceCheckStep";
 import { AddressDetails } from "./addressDetails";
 import { GetAddressesStep, GET_ADDRESS_STEP } from "./getAddressesStep";
-import i18n from "../../../locales/i18nconfig";
+import i18n from "../../../locales/i18nConfig";
 import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from "../commonCallBackStep";
 
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";

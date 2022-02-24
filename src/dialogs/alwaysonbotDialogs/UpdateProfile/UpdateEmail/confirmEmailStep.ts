@@ -5,7 +5,7 @@ import {
     WaterfallStepContext
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import i18n from "../../../locales/i18nconfig";
+import i18n from "../../../locales/i18nConfig";
 import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
 import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
 import { CommonCallBackStep, COMMON_CALL_BACK_STEP } from "../commonCallBackStep";

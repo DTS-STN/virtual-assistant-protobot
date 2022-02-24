@@ -7,7 +7,7 @@ import { CommonPromptValidatorModel } from "../../../models/commonPromptValidato
 import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../Common/continueAndFeedbackStep";
 import { FeedBackStep, FEED_BACK_STEP } from "../Common/feedBackStep";
 import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "./UpdatePhoneNumber/commonChoiceCheckStep";
-import i18n from "../../locales/i18nconfig";
+import i18n from "../../locales/i18nConfig";
 import { CallbackBotDetails } from "../../callbackDialogs/callbackBotDetails";
 import { CALLBACK_BOT_DIALOG,CallbackBotDialog } from "../../callbackDialogs/callbackBotDialog";
 const CHOISE_PROMPT = "CHOISE_PROMPT";
@@ -41,7 +41,7 @@ export class CommonCallBackStep extends ComponentDialog {
     }
 
     /**
-     * First step in the waterfall dialog. Prompts the user for a command.
+     * First step in the waterfall dialog. Prompts the user for a command
      */
     async continueStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
         const details = stepContext.options as CommonPromptValidatorModel;

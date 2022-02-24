@@ -4,7 +4,7 @@ import {
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
 import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from "../../Common/continueAndFeedbackStep";
-import i18n from "../../../locales/i18nconfig";
+import i18n from "../../../locales/i18nConfig";
 import { COMMON_CHOICE_CHECK_STEP } from "./commonChoiceCheckStep";
 import { CONFIRM_PHONE_NUMBER_STEP,ConfirmPhoneNumberStep } from "./confirmPhoneNumberStep";
 import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";

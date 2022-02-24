@@ -9,7 +9,7 @@ import { FeedBackStep, FEED_BACK_STEP } from "../Common/feedBackStep";
 import { UpdateAddressStep, UPDATE_ADDRESS_STEP } from "./UpdateAddress/updateAddressStep";
 import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "./UpdatePhoneNumber/commonChoiceCheckStep";
 import { UPDATE_PHONE_NUMBER_STEP,UpdateMyPhoneStep } from "./UpdatePhoneNumber/updateMyPhoneStep";
-import i18n from "../../locales/i18nconfig";
+import i18n from "../../locales/i18nConfig";
 import { UpdateMyEmailStep,UPDATE_EMAIL_STEP } from "./UpdateEmail/updateMyEmailStep";
 import { AddressDetails } from "./UpdateAddress/addressDetails";
 

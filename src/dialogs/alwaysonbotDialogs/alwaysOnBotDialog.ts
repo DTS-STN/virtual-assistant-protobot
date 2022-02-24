@@ -15,7 +15,7 @@ import { FeedBackStep, FEED_BACK_STEP } from "./Common/feedBackStep";
 import { OASBenefitStep, OAS_BENEFIT_STEP } from "./OASBenefit/oASBenefitStep";
 import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "./UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
 import { UpdateProfileStep, UPDATE_PROFILE_STEP } from "./UpdateProfile/updateProfileStep";
-import i18n from "../locales/i18nconfig";
+import i18n from "../locales/i18nConfig";
 
 
 const CHOICE_PROMPT = "CHOICE_PROMPT";

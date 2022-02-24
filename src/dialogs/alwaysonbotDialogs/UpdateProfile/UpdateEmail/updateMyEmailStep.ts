@@ -3,7 +3,7 @@ import {
     WaterfallDialog
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import i18n from "../../../locales/i18nconfig";
+import i18n from "../../../locales/i18nConfig";
 import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
 import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
 import { COMMON_CHOICE_CHECK_STEP } from "../UpdatePhoneNumber/commonChoiceCheckStep";

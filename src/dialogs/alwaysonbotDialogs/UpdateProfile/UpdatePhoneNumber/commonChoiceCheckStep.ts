@@ -7,7 +7,7 @@ import {
 import { adaptiveCard } from "../../../../cards";
 import { callbackCard } from "../../../../cards/callbackCard";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import i18n from "../../../locales/i18nconfig";
+import i18n from "../../../locales/i18nConfig";
 import { LUISAlwaysOnBotSetup } from "../../alwaysOnBotRecognizer";
 
 const CHOICE_PROMPT = "CHOICE_PROMPT";
@@ -31,8 +31,8 @@ export class CommonChoiceCheckStep extends ComponentDialog {
         return true;
     }
     /**
-    * 1. Initial step in the waterfall.
-    * 2. prompt user with a message based on the step in the flow
+    * 1.Initial step in the waterfall.
+    * 2.prompt user with a message based on the step in the flow
     */
     async promptStep(stepContext: WaterfallStepContext) {
         const commonPromptValidatorModel = stepContext.options as CommonPromptValidatorModel;

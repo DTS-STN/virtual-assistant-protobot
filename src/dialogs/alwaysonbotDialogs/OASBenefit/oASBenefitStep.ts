@@ -9,7 +9,7 @@ import {
 } from "botbuilder-dialogs";
 import { LUISAlwaysOnBotSetup } from "../alwaysOnBotRecognizer";
 
-import i18n from "../../locales/i18nconfig";
+import i18n from "../../locales/i18nConfig";
 import { APPLICATION_STATUS_STEP,ApplicationStatusStep } from "./applicationStatusStep";
 import { CommonPromptValidatorModel } from "../../../models/commonPromptValidatorModel";
 import { COMMON_CHOICE_CHECK_STEP,CommonChoiceCheckStep } from "../UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";

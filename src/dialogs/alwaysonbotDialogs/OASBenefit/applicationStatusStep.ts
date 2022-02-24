@@ -1,7 +1,7 @@
 import {
     ComponentDialog, ConfirmPrompt, WaterfallDialog
 } from "botbuilder-dialogs";
-import i18n from "../../locales/i18nconfig";
+import i18n from "../../locales/i18nConfig";
 import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../Common/continueAndFeedbackStep";
 
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";
@@ -9,7 +9,7 @@ const CONFIRM_PROMPT = "CONFIRM_PROMPT";
 export const APPLICATION_STATUS_STEP = "APPLICATION_STATUS_STEP";
 const APPLICATION_STATUS_WATERFALL_STEP = "APPLICATION_STATUS_WATERFALL_STEP";
 
-// Define the main dialog and its related components.
+// Define the main dialog and its related components
 
 export class ApplicationStatusStep extends ComponentDialog {
     constructor() {
