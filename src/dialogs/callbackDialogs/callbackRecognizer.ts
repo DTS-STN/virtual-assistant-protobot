@@ -18,11 +18,11 @@ export class CallbackRecognizer {
     if (lang === "fr") {
       this.applicationId = process.env.LuisCallbackAppIdFR;
       this.endpointKey = process.env.LuisCallbackAPIKeyFR;
-      this.endpoint = `https://${process.env.LuisCallbackAPIHostNameFR}.api.cognitive.microsoft.com`;
+      this.endpoint = `https://${process.env.LuisCallbackAPIHostNameFR}.cognitiveservices.azure.com/`;
     } else {
       this.applicationId = process.env.LuisCallbackAppIdEN;
       this.endpointKey = process.env.LuisCallbackAPIKeyEN;
-      this.endpoint = `https://${process.env.LuisCallbackAPIHostNameEN}.api.cognitive.microsoft.com`;
+      this.endpoint = `https://${process.env.LuisCallbackAPIHostNameEN}.cognitiveservices.azure.com/`;
     }
     const luisConfig: LuisApplication = {
       applicationId: this.applicationId,
