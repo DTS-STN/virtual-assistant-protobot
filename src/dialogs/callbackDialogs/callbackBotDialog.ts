@@ -33,8 +33,7 @@ export class CallbackBotDialog extends ComponentDialog {
   constructor(id?: string) {
     super(id || CALLBACK_BOT_DIALOG);
 
-    // Add the ConfirmCallbackStep dialog to the dialog stack
-    // this.addDialog(new ConfirmCallbackStep());
+
     this.addDialog(new ConfirmCallbackPhoneNumberStep());
     this.addDialog(new GetPreferredMethodOfContactStep());
 
@@ -47,16 +46,15 @@ export class CallbackBotDialog extends ComponentDialog {
     this.addDialog(
       new WaterfallDialog(MAIN_CALLBACK_BOT_WATERFALL_DIALOG, [
         this.welcomeStep.bind(this),
-        // this.confirmCallbackStep.bind(this),
+
         this.confirmCallbackPhoneNumberStep.bind(this),
         this.getPreferredMethodOfContactStep.bind(this),
         this.confirmEmailStep.bind(this),
         this.confirmPhoneStep.bind(this),
-        // this.confirmAuthWordStep.bind(this),
 
         this.getUserEmailStep.bind(this),
         this.getUserPhoneNumberStep.bind(this),
-        // this.confirmCallbackDetailsStep.bind(this),
+
         this.finalStep.bind(this)
       ])
     );
@@ -311,7 +309,7 @@ export class CallbackBotDialog extends ComponentDialog {
 
         case null:
           if (
-            callbackBotDetails.confirmCallbackStep === true &&
+
             callbackBotDetails.confirmCallbackPhoneNumberStep === true
           ) {
             return await stepContext.beginDialog(

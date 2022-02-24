@@ -2,7 +2,6 @@ module.exports = [
   {
     expectedResult: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: true,
       preferredEmailAndText: null,
@@ -21,7 +20,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -37,7 +35,6 @@ module.exports = [
     intent: 'None',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: true,
       preferredEmailAndText: null,
@@ -56,7 +53,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -83,7 +79,6 @@ module.exports = [
     expectedStatus: 'complete',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: true,
       preferredEmailAndText: null,
@@ -102,7 +97,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -130,7 +124,6 @@ module.exports = [
   {
     expectedResult: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: true,
       preferredEmailAndText: null,
@@ -149,7 +142,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -165,7 +157,6 @@ module.exports = [
     intent: 'None',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: true,
       preferredEmailAndText: null,
@@ -184,7 +175,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -211,7 +201,6 @@ module.exports = [
     intent: 'None',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: true,
       preferredEmailAndText: null,
@@ -230,7 +219,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -260,7 +248,6 @@ module.exports = [
     expectedStatus: 'complete',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: true,
       preferredEmailAndText: null,
@@ -279,7 +266,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -291,7 +277,7 @@ module.exports = [
         confirmPhoneStep: 0
       }
     },
-    name: 'input invalid user phone number more than 3 times',
+    name: 'input invalid user phone number more than 2 times',
     steps: [
       [
         null,
@@ -301,10 +287,7 @@ module.exports = [
         'testtest1.com',
         `Oops, looks like the phone number you entered isn’t formatted correctly (here’s an example: 123-456-7890). Let’s try again.`
       ],
-      [
-        `hha`,
-        `Oops, looks like the phone number you entered isn’t formatted correctly (here’s an example: 123-456-7890). Let’s try again.`
-      ],
+
       [
         `hahaha`,
         `Looks like the phone numbers you've entered aren't the correct format. Please double check your phone number before continuing. Do you want to try again? (1) Yes please! or (2) No thanks`

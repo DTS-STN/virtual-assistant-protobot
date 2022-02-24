@@ -2,7 +2,6 @@ module.exports = [
   {
     expectedResult: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: true,
       preferredText: null,
       preferredEmailAndText: null,
@@ -21,7 +20,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -37,7 +35,6 @@ module.exports = [
     intent: 'None',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: true,
       preferredText: null,
       preferredEmailAndText: null,
@@ -56,7 +53,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -83,7 +79,6 @@ module.exports = [
     expectedStatus: 'complete',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: true,
       preferredText: null,
       preferredEmailAndText: null,
@@ -102,7 +97,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -130,7 +124,6 @@ module.exports = [
   {
     expectedResult: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: true,
       preferredText: null,
       preferredEmailAndText: null,
@@ -149,7 +142,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -165,7 +157,6 @@ module.exports = [
     intent: 'None',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: true,
       preferredText: null,
       preferredEmailAndText: null,
@@ -184,7 +175,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -211,7 +201,6 @@ module.exports = [
     intent: 'None',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: true,
       preferredText: null,
       preferredEmailAndText: null,
@@ -230,7 +219,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -260,7 +248,6 @@ module.exports = [
     expectedStatus: 'complete',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: true,
       preferredText: null,
       preferredEmailAndText: null,
@@ -279,7 +266,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -291,16 +277,13 @@ module.exports = [
         confirmPhoneStep: 0
       }
     },
-    name: 'input invalid email address more than 3 times',
+    name: 'input invalid email address more than 2 times',
     steps: [
       [
         null,
         `No problem, let's update your profile. What's your new email address?`
       ],
-      [
-        'testtest1.com',
-        `Oops, looks like the email address you entered isn’t formatted correctly (here’s an example: name@mail.com). Let’s try again.`
-      ],
+
       [
         `hha`,
         `Oops, looks like the email address you entered isn’t formatted correctly (here’s an example: name@mail.com). Let’s try again.`

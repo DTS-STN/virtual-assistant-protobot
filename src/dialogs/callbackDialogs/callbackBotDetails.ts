@@ -3,7 +3,6 @@
 
 export class CallbackBotDetails {
   public masterError;
-  public confirmCallbackStep;
   public directDepositErrorCallback;
   public confirmCallbackDetailsStep;
   public getUserPhoneNumberStep;
@@ -28,7 +27,6 @@ export class CallbackBotDetails {
     // Master error - flag that is thrown when we hit a critical error in the conversation flow
     this.masterError = null;
 
-    this.confirmCallbackStep = null;
     this.preferredEmail = null;
     this.preferredText = null;
     this.preferredEmailAndText = null;
@@ -52,7 +50,6 @@ export class CallbackBotDetails {
 
     // State machine that stores the error counts of each step
     this.errorCount = {
-      confirmCallbackStep: 0,
       getUserPhoneNumberStep: 0,
       getPreferredCallbackDateAndTimeStep: 0,
       confirmCallbackDetailsStep: 0,

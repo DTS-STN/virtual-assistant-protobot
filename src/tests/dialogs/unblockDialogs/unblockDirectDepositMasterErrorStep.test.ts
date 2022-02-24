@@ -96,7 +96,7 @@ import { CallbackBotDialog } from '../../../dialogs/callbackDialogs/callbackBotD
           ]);
           sut.addDialog(new UnblockDirectDepositStep());
           sut.addDialog(new  CallbackBotDialog());
-          const expectedMsg = i18n.__('botGreatMsg');
+          const expectedMsg = i18n.__('confirmCallbackPhoneNumberStepStandardMsg');
           const updatedActivity: Partial<Activity> = {
             text: 'yes I do',
             locale: 'en'
@@ -115,15 +115,8 @@ import { CallbackBotDialog } from '../../../dialogs/callbackDialogs/callbackBotD
 
         assert.strictEqual(
           reply.text,
-          expectedMsg
+          expectedMsg + ` (1) Yes, correct or (2) No, it's not`
         );
-      reply =    await client.getNextReply();
-      const expectedStandardMsg = i18n.__('callbackBotDialogStepStandardMsg');
-          console.log('tesst0000', JSON.stringify(reply))
-          assert.strictEqual(
-            reply.text,
-            expectedStandardMsg + ` (1) Yes please! or (2) No thanks`
-          );
 
         });
 
@@ -192,7 +185,7 @@ import { CallbackBotDialog } from '../../../dialogs/callbackDialogs/callbackBotD
                 `{"intents": {"None": {"score": 1}}, "entities": {"$instance": {}}}`
               )
             );
-          const updatedActivity: Partial<Activity> = {
+          let updatedActivity: Partial<Activity> = {
             text: '',
             locale: 'en'
           };
@@ -200,25 +193,20 @@ import { CallbackBotDialog } from '../../../dialogs/callbackDialogs/callbackBotD
           const expectedRetryMsg = i18n.__('confirmLookIntoStepRetryMsg');
           await client.getNextReply();
           await client.getNextReply();
-          const updatedAct2: Partial<Activity> = {
+          updatedActivity = {
             text: '12345',
             locale: 'en'
           };
-          await client.sendActivity(updatedAct2);
-          const updatedAct3: Partial<Activity> = {
-            text: 'ssssss',
-            locale: 'en'
-          };
+         const replyOne =  await client.sendActivity(updatedActivity);
 
-          const reply = await client.sendActivity(updatedAct3);
 
           assert.strictEqual(
-            reply.text,
+            replyOne.text,
             expectedRetryMsg + ` (1) Yes, I do or (2) No, I don't`
           );
         });
 
-        it('Should fail gracefully after 3 gibberish input', async () => {
+        it('Should fail gracefully after 2 gibberish input', async () => {
           const sut = new UnblockDirectDepositMasterErrorStep();
           const client = new DialogTestClient('test', sut, testData.initialData, [
             new DialogTestLogger(console)
@@ -243,11 +231,7 @@ import { CallbackBotDialog } from '../../../dialogs/callbackDialogs/callbackBotD
               i18n.__('directDepositMasterErrorMsg') +
                 ` (1) setup a call or (2) nothing to do`
             ],
-            [
-              'nttttll',
-              i18n.__('directDepositMasterErrorMsg') +
-                ` (1) setup a call or (2) nothing to do`
-            ],
+
             ['thirdError!', i18n.__('unblockBotDialogMasterErrorMsg')]
           ];
 

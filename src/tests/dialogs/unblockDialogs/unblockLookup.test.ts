@@ -204,7 +204,7 @@ describe('Unblock LookUp Step', () => {
               `{"intents": {"None": {"score": 1}}, "entities": {"$instance": {}}}`
             )
           );
-        const updatedActivity: Partial<Activity> = {
+         let  updatedActivity: Partial<Activity> = {
           text: '',
           locale: 'en'
         };
@@ -212,17 +212,13 @@ describe('Unblock LookUp Step', () => {
         const expectedRetryMsg = i18n.__('confirmLookIntoStepRetryMsg');
         await client.getNextReply();
         await client.getNextReply();
-        const updatedAct2: Partial<Activity> = {
-          text: '12345',
-          locale: 'en'
-        };
-        await client.sendActivity(updatedAct2);
-        const updatedAct3: Partial<Activity> = {
+
+        updatedActivity = {
           text: 'ssssss',
           locale: 'en'
         };
 
-        const reply = await client.sendActivity(updatedAct3);
+        const reply = await client.sendActivity(updatedActivity);
 
         assert.strictEqual(
           reply.text,
@@ -230,7 +226,7 @@ describe('Unblock LookUp Step', () => {
         );
       });
 
-      it('Should fail gracefully after 3 errors', async () => {
+      it('Should fail gracefully after 2 errors', async () => {
         const sut = new ConfirmLookIntoStep();
         const client = new DialogTestClient('test', sut, testData.initialData, [
           new DialogTestLogger(console)
@@ -256,11 +252,7 @@ describe('Unblock LookUp Step', () => {
             i18n.__('unblock_lookup_update_prompt_msg') +
               ` (1) Yes, I do or (2) No, I don't`
           ],
-          [
-            'nttttll',
-            i18n.__('confirmLookIntoStepRetryMsg') +
-              ` (1) Yes, I do or (2) No, I don't`
-          ],
+
           [
             `hhh`,
             i18n.__('confirmLookIntoStepRetryMsg') +

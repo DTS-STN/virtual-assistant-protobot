@@ -2,7 +2,6 @@ module.exports = [
   {
     expectedResult: {
       masterError: null,
-      confirmCallbackStep: true,
       confirmCallbackPhoneNumberStep: null,
       preferredEmail: true,
       preferredText: null,
@@ -21,7 +20,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackPhoneNumberStep: 0,
@@ -38,7 +36,6 @@ module.exports = [
     intent: 'promptConfirmYes',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       confirmCallbackPhoneNumberStep: null,
       preferredEmail: true,
       preferredText: null,
@@ -57,7 +54,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackPhoneNumberStep: 0,
@@ -88,7 +84,6 @@ module.exports = [
     intent: 'promptConfirmNo',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       confirmCallbackPhoneNumberStep: null,
       preferredEmail: null,
       preferredText: null,
@@ -107,7 +102,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackPhoneNumberStep: 0,
@@ -139,7 +133,6 @@ module.exports = [
     intent: 'None',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       confirmCallbackPhoneNumberStep: null,
       preferredEmail: null,
       preferredText: null,
@@ -158,7 +151,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         confirmCallbackPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
@@ -186,7 +178,6 @@ module.exports = [
   {
     expectedResult: {
       masterError: true,
-      confirmCallbackStep: true,
       confirmCallbackPhoneNumberStep: null,
       preferredEmail: null,
       preferredText: null,
@@ -205,7 +196,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackPhoneNumberStep: 0,
@@ -215,14 +205,13 @@ module.exports = [
         confirmConfirmationStep: 0,
         getPreferredMethodOfContactStep: 0,
         confirmEmailStep: 0,
-        confirmPhoneStep: 3
+        confirmPhoneStep: 2
       }
     },
     intent: 'NONE',
     expectedStatus: 'complete',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       confirmCallbackPhoneNumberStep: null,
       preferredEmail: null,
       preferredText: null,
@@ -241,7 +230,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackPhoneNumberStep: 0,
@@ -254,7 +242,7 @@ module.exports = [
         confirmPhoneStep: 0
       }
     },
-    name: 'Error input more than 3 times',
+    name: 'Master Error input more than 2 times',
     steps: [
       [
         null,
@@ -264,10 +252,7 @@ module.exports = [
         'haha',
         `Hmm, I'm not sure what you meant. Is this the correct phone number? (1) Yes correct! or (2) No it's not`
       ],
-      [
-        'haha',
-        `Hmm, I'm not sure what you meant. Is this the correct phone number? (1) Yes correct! or (2) No it's not`
-      ],
+
       [
         'haha',
         `Hmm, I'm having a hard time understanding you. Sorry about that! Try visiting our Help Center or give us a call at (XXX-XXX-XXXX).`

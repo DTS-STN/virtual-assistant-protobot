@@ -302,7 +302,7 @@ describe('Unblock Direct Deposit Step Error', () => {
   });
   const testCases = require('../../testData/unblockTestData/UnblockDirectDepositTestData');
   testCases.map((testData) => {
-   it('Should go to direct deposit master error step after 3 gibberish input', async () => {
+   it('Should go to direct deposit master error step after 2 gibberish input', async () => {
 
     const sut = new UnblockDirectDepositStep();
     const client = new DialogTestClient('test', sut, testData.initialData, [
@@ -331,7 +331,7 @@ describe('Unblock Direct Deposit Step Error', () => {
 
     const steps = [
       ['hahaha',i18n.__('unblock_direct_deposit_transit_retry')],
-      [ 'dddddddd', i18n.__('unblock_direct_deposit_transit_retry')],
+
       [ `hhh`, i18n.__('directDepositMasterErrorMsg')]
     ];
 
@@ -341,6 +341,7 @@ describe('Unblock Direct Deposit Step Error', () => {
       };
 
       const reply = await client.sendActivity(updatedActivity);
+
       assert.strictEqual(
         reply ? reply.attachments[0].content.body[0].text : null,
         steps[0][1],
@@ -353,7 +354,7 @@ describe('Unblock Direct Deposit Step Error', () => {
         locale: 'en'
       };
      const replySecond =  await client.sendActivity(updatedActivity);
-
+   /*
       assert.strictEqual(
         replySecond ? replySecond.attachments[0].content.body[0].text : null,
         steps[0][1],
@@ -362,14 +363,15 @@ describe('Unblock Direct Deposit Step Error', () => {
       replyMsg = client.getNextReply();
       assert.strictEqual(replyMsg.text, expectedTransitMsg);
       updatedActivity= {
-        text: steps[2][0],
+        text: steps[1][0],
         locale: 'en'
       };
-      const replyLast = await client.sendActivity(updatedActivity);
+      */
+    //  const replyLast = await client.sendActivity(updatedActivity);
       assert.strictEqual(
-        replyLast ? replyLast.text : null,
-        steps[2][1] + ` (1) setup a call or (2) nothing to do`,
-        `${replyLast ?replyLast.text  : null} != ${steps[2][1]}`
+        replySecond ? replySecond.text : null,
+        steps[1][1] + ` (1) setup a call or (2) nothing to do`,
+        `${replySecond ?replySecond.text  : null} != ${steps[1][1]}`
       );
 
 
