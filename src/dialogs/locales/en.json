@@ -70,7 +70,11 @@
 	"confirmHomeAddressSavedThirdMsg": "Just a reminder: you'll recieve your first Old Age Security payment one month after your 65th birthday.",
 	"confirmHomeAddressFailedErrorMsg": "Thank you! Because I can't find that address in my records, I'd suggest we have a Service Canada officer give you a call. Does that sound good?",
   "unblockBotDialogMasterErrorMsg": "Hmm, I'm having a hard time understanding you. Sorry about that! Please visit our Help Centre or give us a call at [XXX-XXX-XXXX].",
-     "callback-dialog-msg":"-----------------------------------------",
+    "unblockToAlwaysOnBotOrCallbackBotQueryMsg": "Is there anything else I can help you with today?",
+
+	 "unblockToAlwaysOnBotOrCallbackBotQueryRetryMsg" : "Hmm, I'm not sure what you meant. Is there anything else I can help you with today?",
+	"callback-dialog-msg":"-----------------------------------------",
+
 	"callbackBotDialogWelcomeMsg": "Great - One of our officers will give you a call within the next 48 hours to help you with your missing record of employment.",
 	"confirmConfirmationStepStandardPromptOptions": [
 	  "Yes, email",

@@ -84,7 +84,7 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
 
       // Setup the prompt
       const promptText =
-        unblockBotDetails.confirmLookIntoStep === -1 ? retryMsg : promptMsg;
+        unblockBotDetails.directDepositMasterError === -1 ? retryMsg : promptMsg;
       const promptDetails = {
         prompt: ChoiceFactory.forChannel(
           stepContext.context,
