@@ -9,7 +9,7 @@ import {
 import { CallbackBotDetails } from './callbackBotDetails';
 import { CallbackRecognizer } from './callbackRecognizer';
 import { GET_PREFERRED_METHOD_OF_CONTACT_STEP } from './getPreferredMethodOfContactStep';
-
+import validatePhoneNumber from '../../utils/validateCanadianPhoneNumber';
 import i18n from '../locales/i18nConfig';
 
 const TEXT_PROMPT = 'TEXT_PROMPT';
@@ -161,9 +161,9 @@ export class GetUserPhoneNumberStep extends ComponentDialog {
         const results = stepContext.result;
         if (results) {
           // phone number validation
-          const re =
-            /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-          if (re.test(String(results).toLowerCase())) {
+
+          const  validPhoneNumber  = validatePhoneNumber(results);
+          if (validPhoneNumber) {
             const confirmMsg = i18n.__('getUserPhoneConfirmMsg');
             callbackBotDetails.confirmPhoneStep = true;
             callbackBotDetails.getUserPhoneNumberStep = true;

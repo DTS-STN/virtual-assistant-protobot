@@ -143,14 +143,8 @@ export class ConfirmLookIntoStep extends ComponentDialog {
     );
 
     // Top intent tell us which cognitive service to use.
-    // const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
-
-    // const recognizer = LUISUnblockSetup(stepContext);
-    // const recognizerResult = await recognizer.recognize(stepContext.context);
     const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
 
-    // DEBUG
-    console.log('unblockLookupUserConfirm', unblockBotDetails, intent);
 
     switch (intent) {
       // Proceed

@@ -163,20 +163,16 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
         console.log('INTENT: ', intent);
         callbackBotDetails.getPreferredMethodOfContactStep = true;
         callbackBotDetails.preferredText = true;
-        // callbackBotDetails.confirmPhoneStep = null;
-        // await stepContext.context.sendActivity(sendTextMsg);
         return await stepContext.replaceDialog(
           CONFIRM_PHONE_STEP,
           callbackBotDetails
         );
-      // return await stepContext.endDialog(callbackBotDetails);
 
       // Proceed with Both Messages
       case 'promptConfirmChoiceBoth':
         console.log('INTENT: ', intent);
         callbackBotDetails.getPreferredMethodOfContactStep = true;
         callbackBotDetails.preferredEmailAndText = true;
-        // await stepContext.context.sendActivity(sendBothMsg);
 
         return await stepContext.endDialog(callbackBotDetails);
 

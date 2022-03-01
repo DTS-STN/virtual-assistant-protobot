@@ -10,7 +10,7 @@ import i18n from "../../../locales/i18nConfig";
 import { LUISAlwaysOnBotSetup } from "../../alwaysOnBotRecognizer";
 import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
 import { CommonCallBackStep, COMMON_CALL_BACK_STEP } from "../commonCallBackStep";
-
+import validatePhoneNumber from "../../../../utils/validateCanadianPhoneNumber";
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";
 const TEXT_PROMPT = "TEXT_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
@@ -64,7 +64,7 @@ export class ConfirmPhoneNumberStep extends ComponentDialog {
             const PhoneNumber = stepContext.result;
             let validPhoneNumber:string;
             let updatedStatement = i18n.__("PhoneNumberConfirmStep")
-            validPhoneNumber = this.validatePhoneNumber(PhoneNumber);
+            validPhoneNumber = validatePhoneNumber(PhoneNumber);
             if(validPhoneNumber){
                 updatedStatement = updatedStatement.replace("@phoneNumber",validPhoneNumber);
                 await stepContext.context.sendActivity(updatedStatement);
@@ -75,17 +75,7 @@ export class ConfirmPhoneNumberStep extends ComponentDialog {
                 details.retryCount = details.retryCount+1;
                 return stepContext.replaceDialog(CONFIRM_PHONE_NUMBER_STEP,details);
             }
-        
+
     }
-    private validatePhoneNumber(response:string)
-    {
-        var cleaned = ('' + response).replace(/\D/g, '');
-        var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
-        if (match) {
-          var intlCode = (match[1] ? '+1 ' : '');
-          return [intlCode, match[2], '-', match[3], '-', match[4]].join('');
-        }
-        return null;
-        
-    }
+
 }

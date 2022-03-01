@@ -51,11 +51,7 @@ export class GetUserEmailStep extends ComponentDialog {
     // Check if the error count is greater than the max threshold
     if (callbackBotDetails.errorCount.getUserEmailStep >= MAX_ERROR_COUNT) {
       // Throw the master error flag
-      // callbackBotDetails.masterError = true;
       const errorMsg = i18n.__('emailFormatMaxErrorMsg');
-
-      // Send master error message
-      // await stepContext.context.sendActivity(errorMsg);
 
       const promptOptions = i18n.__('confirmEmailStepErrorPromptOptions');
 
@@ -67,9 +63,7 @@ export class GetUserEmailStep extends ComponentDialog {
         )
       };
       return await stepContext.prompt(TEXT_PROMPT, promptDetails);
-      // End the dialog and pass the updated details state machine
 
-      // return await stepContext.endDialog(callbackBotDetails);
     }
     // Check the user state to see if unblockBotDetails.getAndSendEmailStep is set to null or -1
     // If it is in the error state (-1) or or is set to null prompt the user

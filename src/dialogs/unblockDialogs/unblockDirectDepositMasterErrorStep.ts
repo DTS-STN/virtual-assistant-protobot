@@ -21,6 +21,8 @@ export const UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_STEP =
 const UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_WATERFALL_STEP =
   'UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_WATERFALL_STEP';
 import { MAX_ERROR_COUNT}  from '../../utils'
+import { CommonPromptValidatorModel } from '../../models/commonPromptValidatorModel';
+import { COMMON_CHOICE_CHECK_STEP } from '../alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep';
 
 export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
   constructor() {
@@ -147,12 +149,14 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
       case 'promptConfirmNo':
         unblockBotDetails.directDepositMasterError = false;
 
-        // go to always on bot
-        // TODO
-        return await stepContext.replaceDialog(
-          CALLBACK_BOT_DIALOG,
-          callbackErrorCause
-        );
+
+        let commonPromptValidatorModel = new CommonPromptValidatorModel(
+          ["IWantToUpdateMyPersonalInformation", "IHaveQuestionAboutOASPension"],
+          Number(i18n.__("MaxRetryCount")),
+          "AlwaysOnBot",i18n.__("AlwaysOnBotPromptMessage")
+      );
+      //call dialog
+      return await stepContext.replaceDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
 
       // Could not understand / No intent
       default: {
