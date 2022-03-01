@@ -132,7 +132,6 @@ export class ConfirmCallbackPhoneNumberStep extends ComponentDialog {
     // Top intent tell us which cognitive service to use.
     const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
 
-    const closeMsg = i18n.__('confirmNotifyROEReceivedStepCloseMsg');
 
     switch (intent) {
       // Proceed

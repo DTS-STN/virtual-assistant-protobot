@@ -37,7 +37,7 @@
 	"unblock_direct_deposit_account_name": "your 7-digit account number",
 	"unblock_direct_deposit_how_to_cheques": "All numbers can be found at the bottom of any personal cheques.",
 	"unblock_direct_deposit_how_to_bank": "You maybe also find these numbers by visiting your financial institution's website or log into your online bank account.",
-	"unblock_direct_deposit_cheque_path": "/src/assets/Attachments/cheque-en.svg",
+	"unblock_direct_deposit_cheque_path": "/attachments/cheque-en.svg",
 	"unblock_direct_deposit_cheque_altText": "An image of a cheque with the 3 numbers circled at the bottom.",
 	"unblock_direct_deposit_institute": "What is your 3-digit financial institution number?",
 	"unblock_direct_deposit_institute_retry": "Hmm, looks like this isn't a valid financial institution number, let's try again.",
@@ -65,9 +65,6 @@
 		"42 Sussex Dr",
 		"42 Sussex Dr, Ottawa"
 	],
-	"confirmHomeAddressSavedFirstMsg": "Ok, I've saved your home address and your pension file is up to date. You're all set for now!",
-	"confirmHomeAddressSavedSecondMsg": "Once your file is processed you will recieve more information my mail.",
-	"confirmHomeAddressSavedThirdMsg": "Just a reminder: you'll recieve your first Old Age Security payment one month after your 65th birthday.",
 	"confirmHomeAddressFailedErrorMsg": "Thank you! Because I can't find that address in my records, I'd suggest we have a Service Canada officer give you a call. Does that sound good?",
   "unblockBotDialogMasterErrorMsg": "Hmm, I'm having a hard time understanding you. Sorry about that! Please visit our Help Centre or give us a call at [XXX-XXX-XXXX].",
     "unblockToAlwaysOnBotOrCallbackBotQueryMsg": "Is there anything else I can help you with today?",
@@ -92,9 +89,6 @@
 	"confirmAuthWordStepStandardMsg": "Here is your confirmation code: [XXX-XXXXXXXXXXXXXXX].",
 	"confirmAuthWordMsg": "You will be contacted by an officer from Service Canada within the next 48 hours between 9-5pm EST.",
 	"confirmAuthStepMsg": "I'm also going to share a confirmation code with you. When the representative calls you, they'll read this code to prove they aren't a spam caller.",
-	"confirmAuthWordStepRetryMsg": "sorry, I dont understand what do you mean?",
-	"getUserPhoneNumberStepStandardMsg": "Ok, what phone number that the agent can reach you?",
-	"getUserPhoneNumberStepRetryMsg": "Sorry, do you want me to record your phone number?",
 	"getCallbackScheduleStandardMsg": "Great! A Service Canada representative will call you within the next 48 hours, between 9 a.m. and 5 p.m. (EST).",
 	"getPreferredMethodOfContactStepStandardMsg": "What's the best way to reach you? I can do email or text message (or both).",
 	"getPreferredMethodOfContactStepRetryMsg": "Hmm, I'm not sure what you meant. Do you prefer to receive your confirmation code via email, text message, or both?",
@@ -148,7 +142,6 @@
 	  "Yes, notify me",
 	  "No, don't notify me"
 	],
-	"confirmNotifyROEReceivedStepCloseMsg": "Ok, no problem!",
 	"callbackConfirmationQueryMsg": "Would you like to receive this confirmation code via email, text message, or both?",
 	"getUserEmailStepStandardMsg": "No problem, let's update your profile. What's your new email address?",
 	"getUserEmailStepRetryMsg": "Hmm, I'm not sure what you meant. Is this the correct email address?",
@@ -164,6 +157,167 @@
 	"phoneNumberFormatMaxErrorMsg": "Looks like the phone numbers you've entered aren't the correct format. Please double check your phone number before continuing. Do you want to try again?",
 	"rateRetryMsg": "Oops - I'm not sure what you meant. Can you rate the service you received today?",
 	"standardQueryMsg": [" Yes,please", "no thanks"],
-	"NoNotificationMsg": "Ok sounds good, you're all set then!"
+	"NoNotificationMsg": "Ok sounds good, you're all set then!",
+
+	"always-on-bot-block-start": "-------ALWAYS-ON-BOT-START------",
+	"welcomeVirtualAssistantMessage": "Hello Hafsa!, I’m your virtual assistant!",
+	"welcomeProfileStatement": "I can see that your profile is up-to-date as per your last visit on Fri Nov 12, 2021.",
+	"welcomeChoicePromptMain": "Choose one of the buttons or type something below.",
+	"AlwaysOnBotPromptOptions": [
+		"I want to update my personal information",
+		"I have a question about my Old Age Security pension"
+	],
+	"AlwaysOnBotPromptMessage": "How can I help?",
+	"AlwaysOnBotRetryPromptMessage": "Hmm, I'm not sure what you meant. How can I help?",
+	"oasBenefitChoicePrompt": "Here's what I can answer:",
+	"oasBenefitChoices": [
+		"What's my application status?"
+	],
+	"oasBenefitCheckProfile": "Right now, you're in the process of being automatically enrolled in Old Age Security.",
+	"oasBenefitPaymentDue": "That means, we're in the process of calculating how much you'll be getting per month. Based on the information we have today, you should receive for $642.25 Old Age Security every month.",
+	"oasBenefitShowDeposit": "Closer to your birthday, you'll receive a letter confirming your eligibility, and the amount you'll receive each month.",
+	"continueAndFeedPromptMessage": "Anything else that I can help you with today?",
+	"continueAndFeedRetryPromptMessage": "Hmm, I'm not sure what you meant. How can I help?",
+	"continueAndFeedPromptOptions": [
+		"Yes",
+		"No"
+	],
+	"continueAndFeedOK": "OK sounds good, you're all set then!",
+	"continueAndFeedRating": "Before you go, could I ask you to rate the service you received today?",
+	"continueAndFeedRatingChoices": [
+		"1=😡",
+		"2=😕",
+		"3=😐",
+		"4=🙂",
+		"5=😀"
+	],
+	"continueAndFeedExcellent": "Thank you for your time",
+	"UpdateMyProfilePromptMessage": "Ok, here are few more options below.",
+	"UpdateMyProfileRetryPromptMessage": "Hmm, I'm not sure what you meant. What do you want to update today?",
+	"UpdateMyProfilePromptOptions": [
+		"Update My Address",
+		"Update My Phone number",
+		"Update My Email"
+	],
+	"updateAddressPostalCodePrompt": "What's your new postal code? (here’s an example: T2T 4M4)",
+	"UpdateAddress": "Perfect! I've updated your address to ",
+	"UpdateAddressFinalMessage":"You're all set for now!",
+	"UpdateAddressPromptOptions": [
+		"Yes",
+		"No"
+	],
+	"UpdateAddressPromptMessage": "Ok, great! I can help with that. The address I have for you is 123 Fake Street, Markham, ON, C1C 1C1. Would you like to update to a new address?",
+	"UpdateAddressRetryPromptMessage": "Hmm, I'm not sure what you meant. Would you like to change your address?",
+	"RetryAddressCheckResponse": "Ok, let's see why I cannot find your new address. Is your new postal code @Postal_Code?",
+	"ConcludeAddressNotFound": "Hmm, I can't find that address in the system. Would you like me to have a Service Canada representative call you on the phone to complete your change of address?",
+	"ServiceRetryPostalCode": "Ok, let's try again. Please give me your new postal code.",
+	"DidntUnderstandMessageText": "Sorry i didn't understand that, try asking me different question",
+	"AddressFoundCheck": "Great! Your full address is #Unit_Number, @Postal_Code. Is that correct?",
+	"FullAddress":"#Unit_Number, @Postal_Code",
+	"updateAddressUnitNumberPrompt": "Ok great, what's the unit/apartment number?",
+	"ConfirmUnitNumberResultInputPrompt": "Ok, let's try again, the postal code you entered was @Postal_Code and teh street number you entered is 517 does that look right?",
+	"unitAdreessNotListedText": "Ok, let's see what we have. The postal code you gave me is @Postal_Code and the street number you gave me is 517. Is it the correct information?",
+	"unitAppartmentNumberChoice": "I don't have a unit or appartment number",
+	"RetryExceededMessage": "You have exceeded the retry attempts. Please try again later.",
+	"NoFurtherQuestionsText": "Also this article may help, Canada Life \"Nine Strategies\" to help seniors maximize their OAS & GIS Benefits.",
+	"subscriptionKey": "5fbe91e084be42af9793b7a24cd66baf",
+	"APILanguage": "en-CA",
+	"Ok great, what's the unit/apartment number?": "Ok great, what's the unit/apartment number?",
+	"maxRetryAddressChoices": [
+		"Yes, I want to request a call",
+		"No, not for now"
+	],
+	"AddressQuestion": "Ok, great! I can help with that. The address I have for you is 123 Fake Street, Markham, ON, C1C 1C1. Would you like to update to a new address?",
+	"NoStatementPhoneNumber": "Ok, no problem!",
+	"AskPhoneNUmber": "Ok, what's your new phone number? (here’s an example: 123-456-7890)",
+	"PhoneNumberConfirmStep": "Perfect! I have updated your phone number to @phoneNumber",
+	"SetStep": "Ok, you’re all set then!",
+	"MasterRetryExceededMessage": "Hmm, I'm having a hard time understanding you. Sorry about that! Please visit our help center or give a call at 123-456-7890.",
+	"MasterErrorMessageLink": "Go to Help Centre",
+	"UpdateMyPhoneNumberPromptMessage": "Ok, great! I can help with that. The phone number I have for you is 123-456-7890. Would you like to update to a new phone number?",
+	"UpdateMyPhoneNumberPromptOptions": [
+		"Yes",
+		"No"
+	],
+	"UpdateMyPhoneNumberRetryPromptMessage": "Hmm, I'm not sure what you meant. Would you like to update your phone number?",
+	"ConfirmPhoneNumberRetryPromptMessage": "Oops, looks like the phone number you entered isn't formatted correctly (here's an example: 123-456-7890). Let's try again.",
+	"ConfirmPhoneNumberRetryExceededMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada represtentative call you on the phone to help you with your phone number update.\n\n Would you like me to set up a call?",
+	"ConfirmPhoneNumberRetryExceededChoices": [
+		"Yes, I want to request a call",
+		"No, not for now"
+	],
+	"PoNumberPromptMessage": "Ok great, what's your new post office box number?",
+	"PoNumberPromptRetryMessage": "Hmm, I'm not sure what you meant. Please enter your new post office box number.",
+	"MoreStreetNumbersPrompt": "I found more than one street for that postal code, Please select your street from the ones provided below.",
+	"UnitORApartmentPrompt": "Ok great, What's your new apartment or unit number?",
+	"UnitORApartmentRetryPrompt": "Hmm, I'm not sure what you meant. Please enter your new apartment or unit number.",
+	"NewStreetNumberPrompt": "Ok great, What's your new street number? (For example, 36 if your address is 36 Maple Avenue)",
+	"NewStreetNumberRetryPrompt": "Hmm, I'm not sure what you meant. Please enter your new street number.",
+	"StreetNumbersPrompt": "Ok great, what's the street number?",
+	"IncorrectPostalCodePrompt": "Oops,looks like the postal code you entered isn't formatted correctly (here's an example: T2T 4M4). Let's try again.",
+	"GetAddressPromptOptions": [
+		"Yes",
+		"No"
+	],
+	"GetAddressPromptMessage": "",
+	"GetAddressRetryPromptMessage": "Hmm, I'm not sure what you meant. How can I help?",
+	"OASBenefitPromptOptions": [
+		"What's my application status?"
+	],
+	"OASBenefitPromptMessage": "Here's what I can answer:",
+	"OASBenefitRetryPromptMessage": "Hmm, I'm not sure what you meant. What question can I help you answer?",
+	"ServiceRepresentativePrompt": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a service Canada representative call with you on the phone to help you with your address update.\n\n Would you like me to set up a call?",
+	"SetupCallPrompt": "Would you like me to setup up a call?",
+	"AddressFoundPromptOptions": [
+		"Yes",
+		"No"
+	],
+	"AddressFoundRetryPromptMessage": "Hmm, I'm not sure what you meant. Is that correct address?",
+	"ServiceRepresentativePromptOptions": [
+		"Yes, I want to request a call",
+		"No, not for now"
+	],
+	"ServiceRepresentativePromptMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a service Canada representative call with you on the phone to help you with your address update.\n\n Would you like me to set up a call?",
+	"ServiceRepresentativeRetryPromptMessage": "Hmm, I'm not sure what you meant. How can I help?",
+	"MaxRetryCount": "2",
+	"ConfirmEmailCallBackPromptOptions": [
+		"Yes, I want to request a call",
+		"No, not for now"
+	],
+	"ConfirmPhoneNumberCallBackPromptMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada representative call you on the phone to help you with your phone number update.\n\n Would you like me to set up a call?",
+	"ConfirmPhoneNumberCallBackRetryPromptMessage": "Would you like me to set up a call?",
+	"ConfirmEmailCallBackRetryPromptMessage": "Would you like me to set up a call?",
+	"ConfirmEmailCallBackPromptMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada representative call you on the phone to help you with your email address update.\n\n Would you like me to set up a call?",
+	"EmailAddressConfirmStep": "Perfect! I have updated your email address to @email",
+	"UpdateMyEmailPromptMessage": "Ok, great! I can help with that. The email address I have for you is test@test.ca. Do you want to update to a new email address?",
+	"UpdateMyEmailPromptOptions": [
+		"Yes",
+		"No"
+	],
+	"UpdateMyEmailRetryPromptMessage": "Hmm, I'm not sure what you meant. Do you want to update this email address?",
+	"ConfirmEmailRetryPromptMessage": "Oops, looks like the email address you entered isn’t formatted correctly (here’s an example: name@mail.com). Let’s try again.",
+	"ConfirmEmailRetryExceededMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada represtentative call you on the phone to help you with your email update.\n\n Would you like me to set up a call?",
+	"ConfirmEmailRetryExceededChoices": [
+		"Yes, I want to request a call",
+		"No, not for now"
+	],
+	"AskEmailAddress": "Ok, what's your new email address? (here’s an example: name@mail.com)",
+	"NoStatementEmail": "Ok, no problem!",
+	"StreetAddressNotFoundPromptOptions": [
+		"Yes, I want to request a call",
+		"No, not for now"
+	],
+	"StreetAddressNotFoundMessage": "I'm sorry that I can't help you change your address today. If you'd like, I can have a Service Canada representative call you on the phone to help you.",
+	"StreetAddressNotFoundPromptMessage": "Would you like me to set up a call?",
+	"StreetAddressNotFoundRetryPromptMessage": "Hmm, I'm not sure what you meant. How can I help?",
+	"ConfirmPhoneNumberCallBackPromptOptions": [
+		"Yes, I want to request a call",
+		"No, not for now"
+	],
+	"CannotFindMyAddress":"I can't see my street address here",
+	"StreetNamePromtMessage":"What's your street name?",
+	"AddressNotFoundMessage":"No worries! We can try again.",
+	"UpdateAddressNoMessage":"Ok, no problem!",
+	"always-on-bot-block-end": "-------ALWAYS-ON-BOT-END------"
   }
 
