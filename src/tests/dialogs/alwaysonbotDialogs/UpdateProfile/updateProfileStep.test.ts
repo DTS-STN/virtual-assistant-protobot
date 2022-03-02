@@ -4,11 +4,11 @@ import chai from "chai";
 import * as tsSinon from "ts-sinon";
 chai.use(require("sinon-chai"));
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-import { CommonChoiceCheckStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import { UpdateAddressStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateAddress/updateAddressStep";
-import { UpdateProfileStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/updateProfileStep";
-import { UpdateMyEmailStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateEmail/updateMyEmailStep";
-import { UpdateMyPhoneStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/updateMyPhoneStep";
+import { UpdateAddressStep } from "../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateAddress/updateAddressStep";
+import { UpdateProfileStep } from "../../../../dialogs/alwaysOnDialogs/UpdateProfile/updateProfileStep";
+import { UpdateMyEmailStep } from "../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateEmail/updateMyEmailStep";
+import { UpdateMyPhoneStep } from "../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdatePhoneNumber/updateMyPhoneStep";
+import { CommonChoiceCheckStep } from "../../../../dialogs/common/commonChoiceCheckStep";
 
 describe("UpdateMyProfile", () => {
     describe("Should be able to initialize Update address,Update phoneNumebr,Update Email Step Dialog", () => {

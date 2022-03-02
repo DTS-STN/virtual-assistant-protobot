@@ -251,8 +251,8 @@ module.exports = [
       ],
 
       [
-        'haha',
-        `Hmm, I'm having a hard time understanding you. Sorry about that! Try visiting our Help Center or give us a call at (XXX-XXX-XXXX).`
+        'secondError',
+        `Hmm, I'm having a hard time understanding you. Sorry about that! Please visit our Help Centre or give us a call at 123-456-7890.`
       ]
     ]
   }

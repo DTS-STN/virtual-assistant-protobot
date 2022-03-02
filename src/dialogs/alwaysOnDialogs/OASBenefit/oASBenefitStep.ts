@@ -12,8 +12,8 @@ import { LUISAlwaysOnBotSetup } from "../alwaysOnBotRecognizer";
 import i18n from "../../locales/i18nConfig";
 import { APPLICATION_STATUS_STEP,ApplicationStatusStep } from "./applicationStatusStep";
 import { CommonPromptValidatorModel } from "../../../models/commonPromptValidatorModel";
-import { COMMON_CHOICE_CHECK_STEP,CommonChoiceCheckStep } from "../UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import { FEED_BACK_STEP,FeedBackStep } from "../Common/feedBackStep";
+import { FEED_BACK_STEP,FeedBackStep } from "../../common/feedBackStep";
+import { COMMON_CHOICE_CHECK_STEP } from "../../common/commonChoiceCheckStep";
 
 
 const CHOICE_PROMPT = "CHOICE_PROMPT";
@@ -49,17 +49,17 @@ export class OASBenefitStep extends ComponentDialog {
     async checkApplicationStatusStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
 
         let commonPromptValidatorModel = new CommonPromptValidatorModel(
-            ["WhatisMyApplicationStatus"],
+            ["WhatIsMyApplicationStatus"],
             Number(i18n.__("MaxRetryCount")),
             "OASBenefit",i18n.__("OASBenefitPromptMessage")
         );
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
     }
-     
+
    /**
    * This is the final step in the main waterfall dialog.
-   * Bot promts the "Date of Next Payment" and Application Status
-   * Users selects the "What's My Application Status" promt.
+   * Bot prompts the "Date of Next Payment" and Application Status
+   * Users selects the "What's My Application Status" prompt.
    */
 
     private async selectionStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
@@ -68,7 +68,7 @@ export class OASBenefitStep extends ComponentDialog {
         if (commonPromptValidatorModel != null && commonPromptValidatorModel.status)
         {
             switch (commonPromptValidatorModel.result) {
-                case "WhatisMyApplicationStatus":
+                case "WhatIsMyApplicationStatus":
                     return await stepContext.replaceDialog(APPLICATION_STATUS_STEP, ApplicationStatusStep)
             }
         }
@@ -78,4 +78,4 @@ export class OASBenefitStep extends ComponentDialog {
         }
     }
 }
-    
+

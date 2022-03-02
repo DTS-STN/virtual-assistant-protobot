@@ -290,7 +290,7 @@ module.exports = [
       ],
       [
         `hahaha`,
-        `Looks like the email addresses you've entered aren't the correct format. Please double check your email before continuing. Do you want to try again? (1) Yes please! or (2) No thanks`
+        `Looks like the email addresses you've entered aren't the correct format. Please double check your email before continuing. Do you want to try again?`
       ]
     ]
   }

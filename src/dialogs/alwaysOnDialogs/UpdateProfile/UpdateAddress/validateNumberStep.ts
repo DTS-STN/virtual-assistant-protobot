@@ -3,9 +3,9 @@ import {
     WaterfallDialog
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from "../../Common/continueAndFeedbackStep";
+import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from "../../../common/continueAndFeedbackStep";
 import i18n from "../../../locales/i18nConfig";
-import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
+import { FeedBackStep, FEED_BACK_STEP } from "../../../common/feedBackStep";
 import { AddressDetails } from "./addressDetails";
 import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from "../commonCallBackStep";
 
@@ -37,20 +37,20 @@ export class ValidateNumberStep extends ComponentDialog {
         const addressDetails = stepContext.options as AddressDetails;
         if(addressDetails.errorCount.numberValidationStep === 0){
           //call dialog
-          return await stepContext.prompt(TEXT_PROMPT, addressDetails.promtMessage); 
+          return await stepContext.prompt(TEXT_PROMPT, addressDetails.promptMessage);
         }else{
-          return await stepContext.prompt(TEXT_PROMPT, addressDetails.promtRetryMessage); 
-        }       
+          return await stepContext.prompt(TEXT_PROMPT, addressDetails.promptRetryMessage);
+        }
     }
     async checkNumberStep(stepContext) {
 
          const addressDetails = stepContext.options as AddressDetails;
-         let isValidNumber:boolean;  
+         let isValidNumber:boolean;
          isValidNumber = this.validateNumber(stepContext.context.activity.text);
          if(!isValidNumber){
             addressDetails.errorCount.numberValidationStep++;
             if (addressDetails.errorCount.numberValidationStep >= Number(i18n.__("MaxRetryCount"))) {
-               
+
                 let commonPromptValidatorModel = new CommonPromptValidatorModel(
                     ["YesIWantToRequestCall", "NoNotForNow"],
                     Number(i18n.__("MaxRetryCount")),
@@ -63,7 +63,7 @@ export class ValidateNumberStep extends ComponentDialog {
             }
          }
          else{
-            return await stepContext.next(); 
+            return await stepContext.next();
          }
      }
 
@@ -78,5 +78,5 @@ export class ValidateNumberStep extends ComponentDialog {
          }
          return validNumber;
      }
-  
+
 }

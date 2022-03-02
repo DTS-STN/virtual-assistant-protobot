@@ -3,7 +3,8 @@ import {
   ChoicePrompt,
   ComponentDialog,
   WaterfallDialog,
-  ChoiceFactory
+  ChoiceFactory,
+  ListStyle
 } from 'botbuilder-dialogs';
 
 import { LuisRecognizer } from 'botbuilder-ai';
@@ -18,6 +19,7 @@ const CHOICE_PROMPT = 'CHOICE_PROMPT';
 export const CONFIRM_LOOK_INTO_STEP = 'CONFIRM_LOOK_INTO_STEP';
 const CONFIRM_LOOK_INTO_WATERFALL_STEP = 'CONFIRM_LOOK_INTO_WATERFALL_STEP';
 import { MAX_ERROR_COUNT}  from '../../utils'
+import { callbackCard } from '../../cards/callbackCard';
 
 export class ConfirmLookIntoStep extends ComponentDialog {
   constructor() {
@@ -58,8 +60,8 @@ export class ConfirmLookIntoStep extends ComponentDialog {
     // Set master error message to send
     if (unblockBotDetails.errorCount.confirmLookIntoStep >= MAX_ERROR_COUNT) {
       unblockBotDetails.masterError = true;
-      const errorMsg = i18n.__('unblockBotDialogMasterErrorMsg');
-      await adaptiveCard(stepContext, TextBlock(errorMsg));
+      const errorMsg = i18n.__(`MasterRetryExceededMessage`);
+      await adaptiveCard(stepContext, callbackCard(stepContext.context.activity.locale,errorMsg));
       return await stepContext.endDialog(unblockBotDetails);
     }
 
@@ -98,7 +100,8 @@ export class ConfirmLookIntoStep extends ComponentDialog {
           stepContext.context,
           promptOptions,
           promptText
-        )
+        ),
+        style: ListStyle.suggestedAction
       };
       if (unblockBotDetails.confirmLookIntoStep !== -1) {
         // Send the welcome message and text prompt
@@ -144,7 +147,6 @@ export class ConfirmLookIntoStep extends ComponentDialog {
 
     // Top intent tell us which cognitive service to use.
     const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
-
 
     switch (intent) {
       // Proceed

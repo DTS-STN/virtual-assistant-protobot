@@ -11,7 +11,7 @@ module.exports=[
         name: ' common call back Yes step',
         steps: [
             ['hi', 'I\'m sorry, but it looks like I can\'t help you today. If you\'d like, I can have a Service Canada representative call you on the phone to help you with your phone number update.\n\n Would you like me to set up a call?'],
-            ['Yes i want to request call', 'I see, looks like you need more help than I can provide at the moment.']
+            ['Yes I want to request call', `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`]
         ]
     },
     {

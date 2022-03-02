@@ -12,8 +12,8 @@ export class AddressDetails{
     public masterError;
     public manyAddresses;
     public numberValidationStep;
-    public promtMessage;
-    public promtRetryMessage;
+    public promptMessage;
+    public promptRetryMessage;
     constructor(){
         this.masterError = null;
         this.PostalCode=null;
@@ -27,8 +27,8 @@ export class AddressDetails{
         this.updateAddressStep=null;
         this.manyAddresses=null;
         this.numberValidationStep=null;
-        this.promtMessage=null;
-        this.promtRetryMessage=null;
+        this.promptMessage=null;
+        this.promptRetryMessage=null;
          // State machine that stores the error counts of each step
     this.errorCount = {
         getAddressesStep: 0,

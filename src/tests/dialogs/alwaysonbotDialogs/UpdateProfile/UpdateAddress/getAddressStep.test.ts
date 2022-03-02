@@ -2,12 +2,12 @@ import { LuisRecognizer } from "botbuilder-ai";
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
 import chai, { expect } from "chai";
 import * as tsSinon from "ts-sinon";
-import { ContinueAndFeedbackStep } from "../../../../../dialogs/alwaysonbotDialogs/Common/continueAndFeedbackStep";
-import { CommonCallBackStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/commonCallBackStep";
-import { ChoiceCheckUpdateAddressStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateAddress/choiceCheckUpdateAddressStep";
-import { GetAddressesStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateAddress/getAddressesStep";
-import { CommonChoiceCheckStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
+import { ContinueAndFeedbackStep } from "../../../../../dialogs/common/continueAndFeedbackStep";
+import { CommonCallBackStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/commonCallBackStep";
+import { ChoiceCheckUpdateAddressStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateAddress/choiceCheckUpdateAddressStep";
+import { GetAddressesStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateAddress/getAddressesStep";
 import { AddressAPI } from "../../../../../utils/addressAPI";
+import { CommonChoiceCheckStep } from "../../../../../dialogs/common/commonChoiceCheckStep";
 const assert = require("assert");
 chai.use(require("sinon-chai"));
 
@@ -23,7 +23,7 @@ describe("GetAddressStep", () => {
         afterEach(() => {
             tsSinon.default.restore();
         });
-        
+
         const apiTestData = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataT2T");
         const testCases = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataT2T");
         testCases.map((testData) => {
@@ -41,7 +41,7 @@ describe("GetAddressStep", () => {
                     tsSinon.default
                     .stub(AddressAPI.prototype, "getAddress")
                     .returns(
-                            apiTestData  
+                            apiTestData
                     );
                     for (const step of testData.steps) {
                         let reply;
@@ -53,7 +53,7 @@ describe("GetAddressStep", () => {
                         {
                             reply = await client.getNextReply();
                         }
-    
+
                         if (step[1])
                         {
                             assert.strictEqual((reply ? reply.text : null), step[1], `${reply ? reply.text : null} != ${step[1]}`);
@@ -78,7 +78,7 @@ describe("GetAddressStep", () => {
         afterEach(() => {
             tsSinon.default.restore();
         });
-        
+
         const apiTestData = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataL4H");
         const testCases = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataL4H");
         testCases.map((testData) => {
@@ -96,7 +96,7 @@ describe("GetAddressStep", () => {
                     tsSinon.default
                     .stub(AddressAPI.prototype, "getAddress")
                     .returns(
-                            apiTestData  
+                            apiTestData
                     );
                     for (const step of testData.steps) {
                         let reply;
@@ -138,7 +138,7 @@ describe("GetAddressStep", () => {
         afterEach(() => {
             tsSinon.default.restore();
         });
-        
+
         const apiTestData = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataX0E");
         const testCases = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataX0E");
         testCases.map((testData) => {
@@ -156,7 +156,7 @@ describe("GetAddressStep", () => {
                     tsSinon.default
                     .stub(AddressAPI.prototype, "getAddress")
                     .returns(
-                            apiTestData  
+                            apiTestData
                     );
                     for (const step of testData.steps) {
                         let reply;
@@ -168,7 +168,7 @@ describe("GetAddressStep", () => {
                         {
                             reply = await client.getNextReply();
                         }
-    
+
                         if (step[1])
                         {
                             assert.strictEqual((reply ? reply.text : null), step[1], `${reply ? reply.text : null} != ${step[1]}`);
@@ -193,7 +193,7 @@ describe("GetAddressStep", () => {
         afterEach(() => {
             tsSinon.default.restore();
         });
-        
+
         const apiTestData = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataT7S");
         const testCases = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataT7S");
         testCases.map((testData) => {
@@ -211,7 +211,7 @@ describe("GetAddressStep", () => {
                     tsSinon.default
                     .stub(AddressAPI.prototype, "getAddress")
                     .returns(
-                            apiTestData  
+                            apiTestData
                     );
                     for (const step of testData.steps) {
                         let reply;
@@ -223,7 +223,7 @@ describe("GetAddressStep", () => {
                         {
                             reply = await client.getNextReply();
                         }
-    
+
                         if (step[1])
                         {
                             assert.strictEqual((reply ? reply.text : null), step[1], `${reply ? reply.text : null} != ${step[1]}`);

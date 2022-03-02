@@ -8,7 +8,7 @@ import {
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
 import i18n from "../../../locales/i18nConfig";
 import { LUISAlwaysOnBotSetup } from "../../alwaysOnBotRecognizer";
-import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
+import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../../common/continueAndFeedbackStep";
 import { CommonCallBackStep, COMMON_CALL_BACK_STEP } from "../commonCallBackStep";
 import validatePhoneNumber from "../../../../utils/validateCanadianPhoneNumber";
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";

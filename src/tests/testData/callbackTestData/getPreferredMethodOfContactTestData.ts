@@ -89,7 +89,7 @@ module.exports = [
       ],
       [
         `yes, text message`,
-        `The phone number I have for you is [XXX-XXX-XXXX]. Can this number receive text messages? (1) Yes correct! or (2) No it's not`
+        `The phone number I have for you is [123-456-7890]. Can this number receive text messages? (1) Yes correct! or (2) No it's not`
       ]
     ]
   },
@@ -366,8 +366,8 @@ module.exports = [
       ],
 
       [
-        'aaaa',
-        `Hmm, I'm having a hard time understanding you. Sorry about that! Try visiting our Help Center or give us a call at (XXX-XXX-XXXX).`
+        'secondError',
+        `Hmm, I'm having a hard time understanding you. Sorry about that! Please visit our Help Centre or give us a call at 123-456-7890.`
       ]
     ]
   }

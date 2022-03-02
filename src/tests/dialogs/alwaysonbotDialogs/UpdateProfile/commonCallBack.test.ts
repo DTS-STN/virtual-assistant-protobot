@@ -4,9 +4,9 @@ import chai, { expect } from "chai";
 import * as tsSinon from "ts-sinon";
 chai.use(require("sinon-chai"));
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-import { CommonChoiceCheckStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import { CommonCallBackStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/commonCallBackStep";
-import { FeedBackStep } from "../../../../dialogs/alwaysonbotDialogs/Common/feedBackStep";
+import { CommonCallBackStep } from "../../../../dialogs/alwaysOnDialogs/UpdateProfile/commonCallBackStep";
+import { FeedBackStep } from "../../../../dialogs/common/feedBackStep";
+import { CommonChoiceCheckStep } from "../../../../dialogs/common/commonChoiceCheckStep";
 
 describe("CommonCallBack", () => {
     describe("Should be able to initialize Common Call back Step Dialog", () => {
@@ -19,7 +19,7 @@ describe("CommonCallBack", () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require("../../../testdata/dialogs/commonCallbackdata");
+        const testCases = require("../../../testData/dialogs/commonCallbackData");
 
         testCases.map((testData) => {
             it(testData.name, async () => {
@@ -40,19 +40,21 @@ describe("CommonCallBack", () => {
                         if(step[0])
                         {
                             reply = await client.sendActivity(step[0]);
+
                         }
                         else
                         {
                             reply = await client.getNextReply();
                         }
-    
+
                         if (step[1])
                         {
+
                             assert.strictEqual((reply ? reply.text : null), step[1], `${reply ? reply.text : null} != ${step[1]}`);
                         }
                         else
                         {
-                            //assertNull(reply, null);
+
                             expect(reply).to.be.undefined;
                         }
                     }

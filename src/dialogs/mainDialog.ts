@@ -78,8 +78,6 @@ export class MainDialog extends ComponentDialog {
     // Here we are start the unblock dialog in the prototype,
     // in the real case, the callback flow will trigger from unblock bot, which
     // should run in a different instance
-    // const callbackBotDetails = new CallbackBotDetails();
-    // return await stepContext.beginDialog(CALLBACK_BOT_DIALOG, callbackBotDetails);
     const unblockBotDetails = new UnblockBotDetails();
     return await stepContext.beginDialog(UNBLOCK_BOT_DIALOG, unblockBotDetails);
   }
@@ -94,7 +92,7 @@ export class MainDialog extends ComponentDialog {
     // Running a prompt here means the next WaterfallStep will be run when the user's response is received.
     return await stepContext.prompt(CHOICE_PROMPT, {
       prompt: feedbackMsg,
-      choices: ChoiceFactory.toChoices(['😡', '🙁', '😐', '🙂', '😄'])
+      choices: ChoiceFactory.toChoices(['1 = 😡', '2 = 🙁', '3 = 😐', '4 = 🙂', '5 = 😄'])
     });
   }
 

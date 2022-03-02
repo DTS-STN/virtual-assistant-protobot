@@ -2,7 +2,7 @@ import {
     ComponentDialog, ConfirmPrompt, WaterfallDialog
 } from "botbuilder-dialogs";
 import i18n from "../../locales/i18nConfig";
-import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../Common/continueAndFeedbackStep";
+import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../common/continueAndFeedbackStep";
 
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";
 
@@ -18,13 +18,13 @@ export class ApplicationStatusStep extends ComponentDialog {
         this.addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new WaterfallDialog(APPLICATION_STATUS_WATERFALL_STEP, [
-               
+
                 this.checkProfileStep.bind(this)
             ]));
 
         this.initialDialogId = APPLICATION_STATUS_WATERFALL_STEP;
     }
-    
+
    /**
    * This is the final step in the main waterfall dialog.
    * Bot displays the Payment due amount and next payment details..etc.

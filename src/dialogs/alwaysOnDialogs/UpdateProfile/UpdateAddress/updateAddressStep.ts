@@ -1,12 +1,12 @@
 import { Choice, ChoicePrompt, ComponentDialog, ConfirmPrompt, DialogTurnResult, PromptValidatorContext, WaterfallDialog, WaterfallStepContext } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from "../../Common/continueAndFeedbackStep";
-import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
-import { COMMON_CHOICE_CHECK_STEP } from "../UpdatePhoneNumber/commonChoiceCheckStep";
+import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from "../../../common/continueAndFeedbackStep";
+import { FeedBackStep, FEED_BACK_STEP } from "../../../common/feedBackStep";
 import { AddressDetails } from "./addressDetails";
 import { GetAddressesStep, GET_ADDRESS_STEP } from "./getAddressesStep";
 import i18n from "../../../locales/i18nConfig";
 import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from "../commonCallBackStep";
+import { COMMON_CHOICE_CHECK_STEP } from "../../../common/commonChoiceCheckStep";
 
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
@@ -18,7 +18,7 @@ let isCallBackPassed:Boolean = false;
 export class UpdateAddressStep extends ComponentDialog {
     constructor() {
         super(UPDATE_ADDRESS_STEP);
-        
+
         this.addDialog(new ConfirmPrompt(CONFIRM_PROMPT))
             .addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
             .addDialog(new ContinueAndFeedbackStep())
@@ -64,7 +64,7 @@ export class UpdateAddressStep extends ComponentDialog {
                 await stepContext.context.sendActivity(i18n.__("AddressNotFoundMessage"));
                 const addressDetails = stepContext.options as AddressDetails;
                 return await stepContext.replaceDialog(GET_ADDRESS_STEP, addressDetails);
-                
+
             }
     }
     }
@@ -75,7 +75,7 @@ export class UpdateAddressStep extends ComponentDialog {
    * If users selects 'No' then bot will navigate to the continue and feedback flow
    */
      async selectionStep(stepContext) {
-        
+
         const commonPromptValidatorModel = stepContext.result as CommonPromptValidatorModel;
         if (commonPromptValidatorModel != null && commonPromptValidatorModel.status) {
             switch (commonPromptValidatorModel.result) {
@@ -92,6 +92,6 @@ export class UpdateAddressStep extends ComponentDialog {
             return stepContext.replaceDialog(FEED_BACK_STEP, FeedBackStep);
             }
         }
-    } 
+    }
 }
 

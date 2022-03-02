@@ -4,7 +4,7 @@ import { CommonPromptValidatorModel } from "../../../../models/commonPromptValid
 import { AddressAPI } from "../../../../utils/addressAPI";
 import i18n, { setLocale } from "../../../locales/i18nConfig";
 import { LUISAlwaysOnBotSetup } from "../../alwaysOnBotRecognizer";
-import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
+import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../../common/continueAndFeedbackStep";
 import { CommonCallBackStep, COMMON_CALL_BACK_STEP } from "../commonCallBackStep";
 import { AddressDetails } from "./addressDetails";
 import { ChoiceCheckUpdateAddressStep, CHOICE_CHECK_UPDATE_ADDRESS_STEP } from "./choiceCheckUpdateAddressStep";
@@ -51,7 +51,7 @@ export class GetAddressesStep extends ComponentDialog {
      async initialStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
         return await stepContext.prompt(TEXT_PROMPT, i18n.__("updateAddressPostalCodePrompt"));
     }
-    
+
    /**
    * Continue step in the waterfall.Once User Key-In the postal code then bot will try to get the full address from Address API
    * Call getAddress() Method to make a API call
@@ -87,29 +87,29 @@ export class GetAddressesStep extends ComponentDialog {
                     fullAddress =  deliveryInstallationDescritpion+ " " + deliveryInstallationQualifierName+ " " + deliveryInstallationAreaName;
                     addressDetails.FullAddress = this.getSentence(fullAddress) + " "+ String(province).toUpperCase()+ " " + String(addressDetails.PostalCode).toUpperCase();
                     addressDetails.AddressType = "PO BOX";
-                    
-                    addressDetails.promtMessage = i18n.__("PoNumberPromptMessage");
-                    addressDetails.promtRetryMessage = i18n.__("PoNumberPromptRetryMessage");
-                    return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails);  
+
+                    addressDetails.promptMessage = i18n.__("PoNumberPromptMessage");
+                    addressDetails.promptRetryMessage = i18n.__("PoNumberPromptRetryMessage");
+                    return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails);
                 }
                 else{
                     const addressResults = data["wsaddr:SearchResults"];
                     const addressMatches = addressResults["wsaddr:AddressMatches"];
-                    var manyAddresses:string[] = new Array();  
+                    var manyAddresses:string[] = new Array();
                     if(isStreetNumberRequired){
                         addressDetails.AddressType = "MULTIPLE";
                         for (var i=0; i < addressMatches.length; i++) {
                             fullAddress = this.getSentence(addressMatches[i]["nc:StreetName"])+ " " + this.getSentence(addressMatches[i]["can:StreetCategoryCode"])+ " " + this.getSentence(addressMatches[i]["nc:AddressCityName"])+ " " + addressMatches[i]["can:ProvinceCode"]+ " " +  String(addressDetails.PostalCode).toUpperCase();
-                            
+
                             if(!manyAddresses.includes(fullAddress)){
                             manyAddresses.push(fullAddress);
                             }
-                        } 
+                        }
                         let promptmsg = i18n.__("MoreStreetNumbersPrompt");
                         manyAddresses.push(i18n.__("CannotFindMyAddress"));
                         if(manyAddresses.length>4){
                             addressDetails.manyAddresses = manyAddresses;
-                            return await stepContext.next(); 
+                            return await stepContext.next();
                         }
                         else{
                         return await stepContext.prompt(CHOICE_PROMPT, {
@@ -135,29 +135,29 @@ export class GetAddressesStep extends ComponentDialog {
                     }
                     addressDetails.FullAddress = this.getSentence(fullAddress) + " " +  String(province).toUpperCase() + " " + String(addressDetails.PostalCode).toUpperCase();
                     addressDetails.AddressType = "";
-                    
+
                     if(streetMinText === streetMaxText){
-                        addressDetails.promtMessage = i18n.__("UnitORApartmentPrompt");
-                        addressDetails.promtRetryMessage = i18n.__("UnitORApartmentRetryPrompt");
-                        return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails); 
+                        addressDetails.promptMessage = i18n.__("UnitORApartmentPrompt");
+                        addressDetails.promptRetryMessage = i18n.__("UnitORApartmentRetryPrompt");
+                        return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails);
                       }
                       else{
-                        addressDetails.promtMessage = i18n.__("NewStreetNumberPrompt");
-                        addressDetails.promtRetryMessage = i18n.__("NewStreetNumberRetryPrompt");
+                        addressDetails.promptMessage = i18n.__("NewStreetNumberPrompt");
+                        addressDetails.promptRetryMessage = i18n.__("NewStreetNumberRetryPrompt");
                         return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails);
-                      }  
+                      }
                   }
-                }    
+                }
            }catch(e){
                 addressDetails.errorCount.getAddressesStep++;
                 addressDetails.masterError = true;
-                return await stepContext.next(); 
+                return await stepContext.next();
           }
     }
     /**
     * Check selected address step in the waterfall.
     * if we found more than one street addresses then bot asks the street number to the user.
-    * if any errors found in previous step bot repeats this step until it reaches the max error count 
+    * if any errors found in previous step bot repeats this step until it reaches the max error count
     */
     private async checkSelectedAddressStep(stepContext: WaterfallStepContext<AddressDetails>): Promise<DialogTurnResult> {
         const addressDetails = stepContext.options;
@@ -175,13 +175,13 @@ export class GetAddressesStep extends ComponentDialog {
                 return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
             }
             else{
-                        addressDetails.promtMessage = i18n.__("StreetNumbersPrompt");
-                        addressDetails.promtRetryMessage = i18n.__("NewStreetNumberRetryPrompt");
+                        addressDetails.promptMessage = i18n.__("StreetNumbersPrompt");
+                        addressDetails.promptRetryMessage = i18n.__("NewStreetNumberRetryPrompt");
                         return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails);
             }
            }
            else{
-              return await stepContext.prompt(TEXT_PROMPT, i18n.__("StreetNamePromtMessage")); 
+              return await stepContext.prompt(TEXT_PROMPT, i18n.__("StreetNamePromptMessage"));
            }
         }
         else if(addressDetails.masterError === true){
@@ -205,23 +205,23 @@ export class GetAddressesStep extends ComponentDialog {
             }
             else{
                 getAddresses.UnitNumber = stepContext.context.activity.text;
-            }          
-            let promptmsg = this.getEditedResponse(i18n.__("AddressFoundCheck"), getAddresses);
+            }
+            let promptMsg = this.getEditedResponse(i18n.__("AddressFoundCheck"), getAddresses);
             let commonPromptValidatorModel = new CommonPromptValidatorModel(
                 ["promptConfirmYes", "promptConfirmNo"],
                 Number(i18n.__("MaxRetryCount")),
-                "AddressFound",promptmsg
+                "AddressFound",promptMsg
             );
-            return await stepContext.beginDialog(CHOICE_CHECK_UPDATE_ADDRESS_STEP, commonPromptValidatorModel); 
+            return await stepContext.beginDialog(CHOICE_CHECK_UPDATE_ADDRESS_STEP, commonPromptValidatorModel);
         }
-    
+
     }
 
     private async streetNameStep(stepContext) {
         const addressDetails = stepContext.options as AddressDetails;
-        if(addressDetails.manyAddresses === null){          
+        if(addressDetails.manyAddresses === null){
             return await stepContext.next();
-        } 
+        }
         else{
             var inputStreetName = stepContext.context.activity.text;
             var manyAddresses:string[] = addressDetails.manyAddresses;
@@ -232,7 +232,7 @@ export class GetAddressesStep extends ComponentDialog {
                    outAddress = manyAddresses[i];
                   break;
                 }
-            } 
+            }
             if(outAddress === ""){
                 await stepContext.context.sendActivity(i18n.__("StreetAddressNotFoundMessage"));
                 let commonPromptValidatorModel = new CommonPromptValidatorModel(
@@ -244,12 +244,12 @@ export class GetAddressesStep extends ComponentDialog {
             }
             else{
             addressDetails.FullAddress = outAddress;
-            addressDetails.promtMessage = i18n.__("StreetNumbersPrompt");
-            addressDetails.promtRetryMessage = i18n.__("NewStreetNumberRetryPrompt");
+            addressDetails.promptMessage = i18n.__("StreetNumbersPrompt");
+            addressDetails.promptRetryMessage = i18n.__("NewStreetNumberRetryPrompt");
             return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails);
             }
-           
-        }  
+
+        }
      }
     private async streetNumberStep(stepContext) {
         const addressDetails = stepContext.options as AddressDetails;
@@ -268,31 +268,31 @@ export class GetAddressesStep extends ComponentDialog {
         }
         else{
         if(addressDetails.currentStep === "street number"){
-            addressDetails.FullAddress = stepContext.context.activity.text +" "+ addressDetails.FullAddress; 
-            addressDetails.promtMessage = i18n.__("UnitORApartmentPrompt");
-            addressDetails.promtRetryMessage = i18n.__("UnitORApartmentRetryPrompt");
-            return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails);          
-        } 
+            addressDetails.FullAddress = stepContext.context.activity.text +" "+ addressDetails.FullAddress;
+            addressDetails.promptMessage = i18n.__("UnitORApartmentPrompt");
+            addressDetails.promptRetryMessage = i18n.__("UnitORApartmentRetryPrompt");
+            return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails);
+        }
         else{
             return await stepContext.next();
-        }  
-      } 
+        }
+      }
     }
     private async streetAddressUnitStep(stepContext) {
         const addressDetails = stepContext.options as AddressDetails;
-        if(addressDetails.currentStep === "street number"){          
+        if(addressDetails.currentStep === "street number"){
             addressDetails.UnitNumber = stepContext.context.activity.text;
-            let promptmsg = this.getEditedResponse(i18n.__("AddressFoundCheck"), addressDetails);
+            let promptMsg = this.getEditedResponse(i18n.__("AddressFoundCheck"), addressDetails);
             let commonPromptValidatorModel = new CommonPromptValidatorModel(
                 ["promptConfirmYes", "promptConfirmNo"],
                 Number(i18n.__("MaxRetryCount")),
-                "AddressFound",promptmsg
+                "AddressFound",promptMsg
             );
             return await stepContext.beginDialog(CHOICE_CHECK_UPDATE_ADDRESS_STEP, commonPromptValidatorModel);
-        } 
+        }
         else{
             return await stepContext.next();
-        }  
+        }
     }
     /**
     * This is the final step in the waterfall.
@@ -326,7 +326,7 @@ export class GetAddressesStep extends ComponentDialog {
        }
    }
     /**
-    * This is GetEditResponce Method to create a Fulladdress for the postal code.
+    * This is GetEditResponce Method to create a Full address for the postal code.
     */
     private getEditedResponse(response:string,postalCode:AddressDetails)
     {
@@ -368,7 +368,7 @@ export class GetAddressesStep extends ComponentDialog {
         while(sentence.includes(" ")){
             sentence = sentence.replace("  ","");
             sentence = sentence.replace(" ","");
-        } 
+        }
      return sentence;
     }
 }

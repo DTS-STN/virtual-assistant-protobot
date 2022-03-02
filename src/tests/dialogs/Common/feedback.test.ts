@@ -4,7 +4,7 @@ import chai from "chai";
 import * as tsSinon from "ts-sinon";
 chai.use(require("sinon-chai"));
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-import { FeedBackStep } from "../../../../dialogs/alwaysonbotDialogs/Common/feedBackStep";
+import { FeedBackStep } from "../../../dialogs/common/feedBackStep";
 
 describe("FeedbackStep", () => {
     describe("Should be able to initialize Feedback Step End Dialog", () => {
@@ -13,7 +13,7 @@ describe("FeedbackStep", () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require("../../../testdata/dialogs/Common/feedbacktestdata");
+        const testCases = require("../../testData/dialogs/Common/feedbacktestdata");
         testCases.map((testData) => {
             it(testData.name, async () => {
                 const client = new DialogTestClient("test", sut, testData.initialData, [

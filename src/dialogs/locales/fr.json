@@ -38,7 +38,7 @@
 	"unblock_direct_deposit_complete": "Pour le moment, vous avez tout ce qu'il vous faut!",
 	"unblock_direct_deposit_main_error": "Hum, il semble que les numéros que vous avez entrés ne soient pas valides. \n\n Veuillez vérifier vos renseignements bancaires avant de continuer. Je peux aussi demander à un représentant de Service Canada de vous téléphoner pour vous aider à soumettre votre demande de pension. \n\n Est-ce que ça vous convient?",
 	"unblock_direct_deposit_cheque_path": "unblock_direct_deposit_cheque_path",
-	"unblockBotDialogMasterErrorMsg": "Hum, j'ai de la difficulté à vous comprendre. Excusez-moi! Veuillez consulter notre centre d'aide ou nous appeler au [XXX-XXX-XXXX].",
+	"unblockBotDialogMasterErrorMsg": "Hum, j'ai de la difficulté à vous comprendre. Excusez-moi! Veuillez consulter notre centre d'aide ou nous appeler au 123-456-7890.",
 	"unblockToAlwaysOnBotOrCallbackBotQueryMsg": "Y a-t-il autre chose que je puisse faire pour vous aujourd'hui?",
 	"unblockToAlwaysOnBotOrCallbackBotQueryRetryMsg":"Hum, je ne comprends pas. Y a-t-il autre chose que je puisse faire pour vous aujourd'hui?",
 	"callback-dialogs-msg": "-------------------------------",
@@ -96,7 +96,7 @@
 		"Oui correct!",
 		"Non ce n'est pas"
 	],
-	"confirmPhoneStepStandMsg": "Le numéro de téléphone que j'ai est le [XXX-XXX-XXXX]. Est-ce que ce numéro peut recevoir des messages texte?",
+	"confirmPhoneStepStandMsg": "Le numéro de téléphone que j'ai est le [123-456-7890]. Est-ce que ce numéro peut recevoir des messages texte?",
 	"confirmPhoneStepRetryMsg": "Hum, je ne comprends pas. Est-ce le bon numéro de téléphone?",
 	"confirmPhoneStepStandardPromptOptions": [
 		"Oui correct",
@@ -115,8 +115,8 @@
 	],
 	"botGreatMsg": "Je vois. Il semble que vous ayez besoin de plus d'aide que je ne peux vous en fournir pour le moment.",
 	"confirmEmailStepErrorPromptOptions": [
-		"Oui s'il vous plaît!",
-		"Non merci"
+		"Oui, appelez-moi",
+		"Non, pas pour l'instant"
 	],
 	"confirmCallbackPhoneNumberStepStandardMsg": "D'accord! Est-ce que le [XXX-XXX-XXXX] est toujours le meilleur numéro de téléphone pour vous joindre?",
 	"confirmCallbackPhoneNumberStepStandardPromptOptions": [
@@ -229,11 +229,10 @@
 	"RetryAddressCheckResponse": "D'accord, essayons de voir pourquoi je ne trouve pas votre nouvelle adresse. Est-ce que votre nouveau code postal est le @Postal_Code?",
 	"ConcludeAddressNotFound": "Hum, je ne trouve pas votre adresse dans le système. Désirez-vous que je demande à un représentant de Service Canada de vous téléphoner pour compléter votre changement d'adresse?",
 	"ServiceRetryPostalCode": "D'accord, essayons à nouveau. Donnez-moi votre code postal.",
-	"DidntUnderstandMessageText": "Sory i didn't understand that, try asking me different question",
 	"AddressFoundCheck": "D'accord! Votre adresse complète est #Unit_Number, @Postal_Code. Est-ce exact?",
 	"ConfirmUnitNumberResultInputPrompt": "D'accord, réessayez, le code postal que vous avez entré était @Postal_Code et le numéro de rue que vous avez entré est 517, cela vous semble-t-il correct?",
-	"unitAdreessNotListedText": "Ok, voyons ce que nous avons. Le code postal que vous m'avez donné est @Postal_Code et le numéro de rue que vous m'avez donné est le 517. S'agit-il des informations correctes?",
-	"unitAppartmentNumberChoice": "Je n'ai pas de numéro d'unité ou d'appartement",
+	"unitAddressNotListedText": "Ok, voyons ce que nous avons. Le code postal que vous m'avez donné est @Postal_Code et le numéro de rue que vous m'avez donné est le 517. S'agit-il des informations correctes?",
+	"unitApartmentNumberChoice": "Je n'ai pas de numéro d'unité ou d'appartement",
 	"APILanguage": "fr-CA",
 	"subscriptionKey": "5fbe91e084be42af9793b7a24cd66baf",
 	"AddressQuestion": "D'accord, je peux vous aider. L'adresse que j'ai pour vous est 123 Fake Street, Markham, ON, C1C 1C1. Avez-vous une nouvelle adresse?",
@@ -312,7 +311,7 @@
 		"Oui, appelez-moi",
 		"Non, pas pour l'instant"
 	],
-	"StreetNamePromtMessage": "Quel est le nom de votre rue?",
+	"StreetNamePromptMessage": "Quel est le nom de votre rue?",
 	"FullAddress": "#Unit_Number, @Postal_Code",
 	"StreetAddressNotFoundRetryPromptMessage": "Hum, je ne comprends pas. Comment puis-je vous aider?",
 	"AddressNotFoundMessage":"Pas de problème! Nous pouvons réessayer.",

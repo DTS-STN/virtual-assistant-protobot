@@ -4,13 +4,13 @@ import {
     WaterfallDialog,
     WaterfallStepContext
 } from "botbuilder-dialogs";
-import { CommonPromptValidatorModel } from "../../../models/commonPromptValidatorModel";
-import { LUISAlwaysOnBotSetup } from "../alwaysOnBotRecognizer";
+import { CommonPromptValidatorModel } from "../../models/commonPromptValidatorModel";
+import { LUISAlwaysOnBotSetup } from "../alwaysOnDialogs/alwaysOnBotRecognizer";
 
-import i18n from "../../locales/i18nConfig";
-import { OAS_BENEFIT_STEP,OASBenefitStep } from "../OASBenefit/oASBenefitStep";
-import { COMMON_CHOICE_CHECK_STEP } from "../UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import { UpdateProfileStep, UPDATE_PROFILE_STEP } from "../UpdateProfile/updateProfileStep";
+import i18n from "../locales/i18nConfig";
+import { OAS_BENEFIT_STEP,OASBenefitStep } from "../alwaysOnDialogs/OASBenefit/oASBenefitStep";
+import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "../common/commonChoiceCheckStep";
+import { UpdateProfileStep, UPDATE_PROFILE_STEP } from "../alwaysOnDialogs/UpdateProfile/updateProfileStep";
 import { FeedBackStep, FEED_BACK_STEP } from "./feedBackStep";
 
 const TEXT_PROMPT = "TEXT_PROMPT";
@@ -22,6 +22,7 @@ const CONTINUE_AND_FEEDBACK_WATERFALL_STEP = "CONTINUE_AND_FEEDBACK_WATERFALL_ST
 export class ContinueAndFeedbackStep extends ComponentDialog {
     constructor() {
         super(CONTINUE_AND_FEEDBACK_STEP);
+       this.addDialog(new CommonChoiceCheckStep());
 
         this.addDialog(new TextPrompt(TEXT_PROMPT))
             .addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
@@ -45,7 +46,7 @@ export class ContinueAndFeedbackStep extends ComponentDialog {
    * This is the end of the process,either user will go to the main flow or will end the process if there are no action required by the user.
    */
     async continueStep(stepContext:WaterfallStepContext): Promise<DialogTurnResult> {
-       
+
         let commonPromptValidatorModel = new CommonPromptValidatorModel(
             ["promptConfirmYes", "promptConfirmNo"],
             Number(i18n.__("MaxRetryCount")),
@@ -72,7 +73,7 @@ export class ContinueAndFeedbackStep extends ComponentDialog {
                     "AlwaysOnBot",i18n.__("AlwaysOnBotPromptMessage")
                 );
                 //call dialog 'COMMON_CHOICE_CHECK_DIALOG'
-                return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
+                return await stepContext.replaceDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
             case "promptConfirmNo":
                 return await stepContext.replaceDialog(FEED_BACK_STEP,FeedBackStep);
             default:
@@ -90,7 +91,7 @@ export class ContinueAndFeedbackStep extends ComponentDialog {
                 case "IWantToUpdateMyPersonalInformation":
                     return await stepContext.replaceDialog(UPDATE_PROFILE_STEP, UpdateProfileStep);
                 case "IHaveQuestionAboutOASPension":
-                    return await stepContext.replaceDialog(OAS_BENEFIT_STEP,OASBenefitStep); 
+                    return await stepContext.replaceDialog(OAS_BENEFIT_STEP,OASBenefitStep);
             }
         }
         else {

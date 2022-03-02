@@ -3,10 +3,10 @@ import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
 const assert = require("assert");
 import chai, { expect } from "chai";
 import * as tsSinon from "ts-sinon";
-import { CommonChoiceCheckStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
+import { CommonChoiceCheckStep } from "../../../dialogs/common/commonChoiceCheckStep";
 chai.use(require("sinon-chai"));
 
-describe("ConfirmEmailStep", () => {
+describe("commonChoiceCheckStep", () => {
     describe("", () => {
         const sut = new CommonChoiceCheckStep();
 
@@ -14,7 +14,7 @@ describe("ConfirmEmailStep", () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require("../../../../testdata/dialogs/commonChoiceCheckData");
+        const testCases = require("../../testData/dialogs/commonChoiceCheckData");
 
         testCases.map((testData) => {
             it(testData.name, async () => {

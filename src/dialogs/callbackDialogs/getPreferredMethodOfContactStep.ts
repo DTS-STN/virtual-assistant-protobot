@@ -19,6 +19,8 @@ const GET_PREFERRED_METHOD_OF_CONTACT_WATERFALL_STEP =
   'GET_PREFERRED_METHOD_OF_CONTACT_WATERFALL_STEP';
 
   import { MAX_ERROR_COUNT}  from '../../utils'
+import { adaptiveCard } from '../../cards';
+import { callbackCard } from '../../cards/callbackCard';
 
 export class GetPreferredMethodOfContactStep extends ComponentDialog {
   constructor() {
@@ -66,11 +68,9 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
       // Throw the master error flag
       callbackDetails.masterError = true;
       // End the dialog and pass the updated details state machine
-      // Set master error message to send
-      const errorMsg = i18n.__('masterErrorMsg');
-
       // Send master error message
-      await stepContext.context.sendActivity(errorMsg);
+      const errorMsg = i18n.__(`MasterRetryExceededMessage`);
+      await adaptiveCard(stepContext, callbackCard(stepContext.context.activity.locale,errorMsg));
       return await stepContext.endDialog(callbackDetails);
     }
 

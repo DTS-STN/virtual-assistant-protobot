@@ -4,10 +4,10 @@ import chai from "chai";
 import * as tsSinon from "ts-sinon";
 chai.use(require("sinon-chai"));
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-import { ConfirmPhoneNumberStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/confirmPhoneNumberStep";
-import { ContinueAndFeedbackStep } from "../../../../../dialogs/alwaysonbotDialogs/Common/continueAndFeedbackStep";
-import { UpdateMyPhoneStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/updateMyPhoneStep";
-import { CommonChoiceCheckStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
+import { ConfirmPhoneNumberStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdatePhoneNumber/confirmPhoneNumberStep";
+import { ContinueAndFeedbackStep } from "../../../../../dialogs/common/continueAndFeedbackStep";
+import { UpdateMyPhoneStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdatePhoneNumber/updateMyPhoneStep";
+import { CommonChoiceCheckStep } from "../../../../../dialogs/common/commonChoiceCheckStep";
 
 describe("UpdateMyPhoneNumber", () => {
     describe("Should be able to initialize Update phone number Step Dialog", () => {

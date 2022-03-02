@@ -4,9 +4,9 @@ import chai from "chai";
 import * as tsSinon from "ts-sinon";
 chai.use(require("sinon-chai"));
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-import { CommonChoiceCheckStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import { OASBenefitStep } from "../../../../dialogs/alwaysonbotDialogs/OASBenefit/oASBenefitStep";
-import { ApplicationStatusStep } from "../../../../dialogs/alwaysonbotDialogs/OASBenefit/applicationStatusStep";
+import { OASBenefitStep } from "../../../../dialogs/alwaysOnDialogs/OASBenefit/oASBenefitStep";
+import { ApplicationStatusStep } from "../../../../dialogs/alwaysOnDialogs/OASBenefit/applicationStatusStep";
+import { CommonChoiceCheckStep } from "../../../../dialogs/common/commonChoiceCheckStep";
 
 describe("OASBenefitStep", () => {
     describe("Should be able to initialize OAS Step Dialog", () => {

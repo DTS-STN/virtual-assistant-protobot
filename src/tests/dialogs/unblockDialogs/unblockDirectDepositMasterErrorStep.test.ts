@@ -85,7 +85,7 @@ import { CallbackBotDialog } from '../../../dialogs/callbackDialogs/callbackBotD
 
           assert.strictEqual(
             reply.text,
-            expectedInitialMsg  + ` (1) setup a call or (2) nothing to do`
+            expectedInitialMsg  + ` (1) Setup a call or (2) Not for now`
           );
         });
 
@@ -228,8 +228,8 @@ import { CallbackBotDialog } from '../../../dialogs/callbackDialogs/callbackBotD
           const steps = [
             [
               'hahahaha',
-              i18n.__('directDepositMasterErrorMsg') +
-                ` (1) setup a call or (2) nothing to do`
+              i18n.__('confirmCallbackStepRetryMsg') +
+                ` (1) Setup a call or (2) Not for now`
             ],
 
             ['thirdError!', i18n.__('unblockBotDialogMasterErrorMsg')]

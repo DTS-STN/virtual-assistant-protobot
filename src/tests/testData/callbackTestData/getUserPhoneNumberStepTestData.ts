@@ -287,11 +287,11 @@ module.exports = [
         'testtest1.com',
         `Oops, looks like the phone number you entered isn’t formatted correctly (here’s an example: 123-456-7890). Let’s try again.`
       ],
-
       [
         `hahaha`,
-        `Looks like the phone numbers you've entered aren't the correct format. Please double check your phone number before continuing. Do you want to try again? (1) Yes please! or (2) No thanks`
+        `Looks like the phone numbers you've entered aren't the correct format. Please double check your phone number before continuing. Do you want to try again?`
       ]
+
     ]
   }
 ];

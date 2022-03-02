@@ -26,6 +26,7 @@ import {
   ConfirmCallbackPhoneNumberStep,
   CONFIRM_CALLBACK_PHONE_NUMBER_STEP
 } from './confirmCallbackPhoneNumberStep';
+import { CallbackNextOptionStep, CALLBACK_NEXT_OPTION_STEP } from './callbackNext';
 
 export const CALLBACK_BOT_DIALOG = 'CALLBACK_BOT_DIALOG';
 const MAIN_CALLBACK_BOT_WATERFALL_DIALOG = 'MAIN_CALLBACK_BOT_WATERFALL_DIALOG';
@@ -41,7 +42,7 @@ export class CallbackBotDialog extends ComponentDialog {
     this.addDialog(new ConfirmPhoneStep());
     this.addDialog(new GetUserEmailStep());
     this.addDialog(new GetUserPhoneNumberStep());
-
+    this.addDialog(new CallbackNextOptionStep());
 
     this.addDialog(
       new WaterfallDialog(MAIN_CALLBACK_BOT_WATERFALL_DIALOG, [
@@ -54,7 +55,7 @@ export class CallbackBotDialog extends ComponentDialog {
 
         this.getUserEmailStep.bind(this),
         this.getUserPhoneNumberStep.bind(this),
-
+        this.NextOptionStep.bind(this),
         this.finalStep.bind(this)
       ])
     );
@@ -211,7 +212,36 @@ export class CallbackBotDialog extends ComponentDialog {
     }
   }
 
+  async NextOptionStep(stepContext) {
+    // Get the state machine from the last step
+    const callbackBotDetails = stepContext.result;
+    // Check if a master error occurred and then end the dialog
+    if (callbackBotDetails.masterError) {
+      return await stepContext.endDialog(callbackBotDetails);
+    } else {
+      // If no master error occurred continue on to the next step
+      switch (callbackBotDetails.nextOptionStep) {
+        // The flag in the state machine isn't set
+        // so we are sending the user to that step
+        case null:
+          return await stepContext.beginDialog(
+            CALLBACK_NEXT_OPTION_STEP,
+            callbackBotDetails
+          );
 
+        // The confirmLookIntoStep flag in the state machine is set to true
+        // so we are sending the user to next step
+        case true:
+          return await stepContext.next(callbackBotDetails);
+
+        // The flag in the state machine is set to false
+        // so we are sending to the end because they don't want to continue
+        case false:
+        default:
+          return await stepContext.endDialog(callbackBotDetails);
+      }
+    }
+  }
 
   /**
    * ask user confirm their existing email is correct or not

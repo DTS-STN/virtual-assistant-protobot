@@ -3,17 +3,17 @@ import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
 const assert = require("assert");
 import chai from "chai";
 import * as tsSinon from "ts-sinon";
-import { CommonChoiceCheckStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import { ContinueAndFeedbackStep } from "../../../../../dialogs/alwaysonbotDialogs/Common/continueAndFeedbackStep";
-import { FeedBackStep } from "../../../../../dialogs/alwaysonbotDialogs/Common/feedBackStep";
-import { CommonCallBackStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/commonCallBackStep";
-import { ConfirmEmailStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateEmail/confirmEmailStep";
+import { ContinueAndFeedbackStep } from "../../../../../dialogs/common/continueAndFeedbackStep";
+import { FeedBackStep } from "../../../../../dialogs/common/feedBackStep";
+import { CommonCallBackStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/commonCallBackStep";
+import { ConfirmEmailStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateEmail/confirmEmailStep";
+import { CommonChoiceCheckStep } from "../../../../../dialogs/common/commonChoiceCheckStep";
 chai.use(require("sinon-chai"));
 
 describe("ConfirmEmailStep", () => {
     describe("Should be able to initialize confirm email step", () => {
         const sut = new ConfirmEmailStep();
-        
+
         sut.addDialog(new CommonCallBackStep());
         sut.addDialog(new ContinueAndFeedbackStep());
         sut.addDialog(new ConfirmEmailStep());

@@ -43,12 +43,41 @@ describe('ConfirmCallbackPhoneNumberStep', () => {
         };
 
         const reply = await client.sendActivity(updatedActivity);
+        if (step[0] !== 'secondError') {
         assert.strictEqual(
           reply ? reply.text : null,
           step[1],
           `${reply ? reply.text : null} != ${step[1]}`
         );
+      }else {
+        assert.strictEqual(
+          reply.attachments[0].content.body[0].type,
+          'TextBlock'
+        );
+        assert.strictEqual(
+          reply.attachments[0].content.body[0].text,
+          step[1]
+        );
+        assert.strictEqual(reply.attachments.length, 1);
+        assert.strictEqual(
+          reply.attachments[0].contentType,
+          'application/vnd.microsoft.card.adaptive'
+        );
+        assert.strictEqual(
+          reply.attachments[0].content.actions[0].type,
+          'Action.OpenUrl'
+        );
+        assert.strictEqual(
+          reply.attachments[0].content.actions[0].title,
+          'Go to Help Centre'
+        );
+        assert.strictEqual(
+          reply.attachments[0].content.actions[0].url,
+          'https://www.canada.ca/en/contact/contact-1-800-o-canada.html'
+        );
       }
+    }
+
 
       console.log(
         `Dialog result: ${JSON.stringify(client.dialogTurnResult.result)}`

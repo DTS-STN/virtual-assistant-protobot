@@ -2,10 +2,10 @@ import { LuisRecognizer } from "botbuilder-ai";
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
 import chai from "chai";
 import * as tsSinon from "ts-sinon";
-import { ContinueAndFeedbackStep } from "../../../../../dialogs/alwaysonbotDialogs/Common/continueAndFeedbackStep";
-import { ConfirmEmailStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateEmail/confirmEmailStep";
-import { UpdateMyEmailStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateEmail/updateMyEmailStep";
-import { CommonChoiceCheckStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
+import { ContinueAndFeedbackStep } from "../../../../../dialogs/common/continueAndFeedbackStep";
+import { ConfirmEmailStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateEmail/confirmEmailStep";
+import { UpdateMyEmailStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateEmail/updateMyEmailStep";
+import { CommonChoiceCheckStep } from "../../../../../dialogs/common/commonChoiceCheckStep";
 
 const assert = require("assert");
 chai.use(require("sinon-chai"));

@@ -6,8 +6,8 @@ import {
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
 import i18n from "../../../locales/i18nConfig";
-import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../Common/continueAndFeedbackStep";
-import { FeedBackStep, FEED_BACK_STEP } from "../../Common/feedBackStep";
+import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../../common/continueAndFeedbackStep";
+import { FeedBackStep, FEED_BACK_STEP } from "../../../common/feedBackStep";
 import { CommonCallBackStep, COMMON_CALL_BACK_STEP } from "../commonCallBackStep";
 
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";
@@ -55,7 +55,7 @@ export class ConfirmEmailStep extends ComponentDialog {
         else if(details.retryCount === details.maxRetryCount){
             let commonPromptValidatorModel = new CommonPromptValidatorModel(
                 ["YesIWantToRequestCall", "NoNotForNow"],
-                3,
+                2,
                 'ConfirmEmailCallBack',i18n.__("ConfirmEmailCallBackPromptMessage")
             );
            return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP,commonPromptValidatorModel);
@@ -83,7 +83,7 @@ export class ConfirmEmailStep extends ComponentDialog {
         }
         else{
             return await stepContext.beginDialog(FEED_BACK_STEP,null);
-        }  
+        }
     }
     private validateEmailaddress(response:string)
     {

@@ -70,7 +70,7 @@ module.exports = [
     steps: [
       [
         null,
-        `Ok, is [XXX-XXX-XXXX] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
       ],
       [
         'Yes, correct',
@@ -118,7 +118,7 @@ module.exports = [
     steps: [
       [
         null,
-        `Ok, is [XXX-XXX-XXXX] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
       ],
       [
         'Yes, correct',
@@ -167,11 +167,11 @@ module.exports = [
     steps: [
       [
         null,
-        `Ok, is [XXX-XXX-XXXX] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
       ],
       [
         'haha',
-        `Hmm, I'm not sure what you meant. Is [XXX-XXX-XXXX] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Hmm, I'm not sure what you meant. Is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
       ]
     ]
   },
@@ -246,16 +246,16 @@ module.exports = [
     steps: [
       [
         null,
-        `Ok, is [XXX-XXX-XXXX] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
       ],
       [
         'haha',
-        `Hmm, I'm not sure what you meant. Is [XXX-XXX-XXXX] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Hmm, I'm not sure what you meant. Is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
       ],
 
       [
-        'haha',
-        `Hmm, I'm having a hard time understanding you. Sorry about that! Try visiting our Help Center or give us a call at (XXX-XXX-XXXX).`
+        'secondError',
+        `Hmm, I'm having a hard time understanding you. Sorry about that! Please visit our Help Centre or give us a call at 123-456-7890.`
       ]
     ]
   }

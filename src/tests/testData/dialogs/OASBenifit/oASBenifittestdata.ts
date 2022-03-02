@@ -1,6 +1,6 @@
 module.exports=[
     {
-        intent: 'WhatisMyApplicationStatus',
+        intent: 'WhatIsMyApplicationStatus',
         initialData: {
             locale: 'en',
         },

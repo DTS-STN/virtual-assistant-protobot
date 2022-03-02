@@ -22,7 +22,7 @@ const UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_WATERFALL_STEP =
   'UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_WATERFALL_STEP';
 import { MAX_ERROR_COUNT}  from '../../utils'
 import { CommonPromptValidatorModel } from '../../models/commonPromptValidatorModel';
-import { COMMON_CHOICE_CHECK_STEP } from '../alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep';
+import { AlwaysOnBotDialog, ALWAYS_ON_BOT_DIALOG } from '../alwaysOnDialogs/alwaysOnBotDialog';
 
 export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
   constructor() {
@@ -31,7 +31,7 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
     // Add a text prompt to the dialog stack
     this.addDialog(new TextPrompt(TEXT_PROMPT));
     this.addDialog(new ChoicePrompt(CHOICE_PROMPT));
-
+    this.addDialog(new AlwaysOnBotDialog());
     this.addDialog(
       new WaterfallDialog(UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_WATERFALL_STEP, [
         this.unblockMasterErrorProcessStart.bind(this),
@@ -80,7 +80,7 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
       let promptMsg: any;
       const cardMessage = null;
       const promptOptions = i18n.__('directDepositMasterErrorPromptRetryOpts');
-      const retryMsg = i18n.__('confirmLookIntoStepRetryMsg');
+      const retryMsg = i18n.__('confirmCallbackStepRetryMsg');
 
       promptMsg = i18n.__('directDepositMasterErrorMsg');
 
@@ -146,18 +146,12 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
         );
 
       // route user to always on bot
-      case 'promptConfirmNo':
+      case 'NoNotForNow':
         unblockBotDetails.directDepositMasterError = false;
 
-
-        let commonPromptValidatorModel = new CommonPromptValidatorModel(
-          ["IWantToUpdateMyPersonalInformation", "IHaveQuestionAboutOASPension"],
-          Number(i18n.__("MaxRetryCount")),
-          "AlwaysOnBot",i18n.__("AlwaysOnBotPromptMessage")
-      );
-      //call dialog
-      return await stepContext.replaceDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
-
+        const commonPromptValidatorModel = new CommonPromptValidatorModel();
+        //call dialog
+        return await stepContext.replaceDialog(ALWAYS_ON_BOT_DIALOG, commonPromptValidatorModel);
       // Could not understand / No intent
       default: {
         unblockBotDetails.directDepositMasterError = -1;

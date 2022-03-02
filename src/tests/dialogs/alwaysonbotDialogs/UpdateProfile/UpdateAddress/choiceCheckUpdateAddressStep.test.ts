@@ -2,7 +2,7 @@ import { LuisRecognizer } from "botbuilder-ai";
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
 import chai, { expect } from "chai";
 import * as tsSinon from "ts-sinon";
-import { ChoiceCheckUpdateAddressStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateAddress/choiceCheckUpdateAddressStep";
+import { ChoiceCheckUpdateAddressStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateAddress/choiceCheckUpdateAddressStep";
 const assert = require("assert");
 chai.use(require("sinon-chai"));
 

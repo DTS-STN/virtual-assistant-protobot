@@ -3,16 +3,16 @@ import { LuisRecognizer } from "botbuilder-ai";
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
 import chai, { expect } from "chai";
 import * as tsSinon from "ts-sinon";
-import { ContinueAndFeedbackStep } from "../../../../dialogs/alwaysonbotDialogs/Common/continueAndFeedbackStep";
-import { ApplicationStatusStep } from "../../../../dialogs/alwaysonbotDialogs/OASBenefit/applicationStatusStep";
-import { CommonChoiceCheckStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
+import { ContinueAndFeedbackStep } from "../../../../dialogs/common/continueAndFeedbackStep";
+import { ApplicationStatusStep } from "../../../../dialogs/alwaysOnDialogs/OASBenefit/applicationStatusStep";
 import i18n from "../../../../dialogs/locales/i18nConfig";
+import { CommonChoiceCheckStep } from "../../../../dialogs/common/commonChoiceCheckStep";
 const assert = require("assert");
 chai.use(require("sinon-chai"));
 
 describe("ApplicationStatusStep", () => {
     describe("Should be able to complete applicationStatusStep dialog", () => {
-        
+
         const sut = new ApplicationStatusStep();
         const  mockcontinueandFeedbackDialog= new ContinueAndFeedbackStep();
         sut.addDialog(mockcontinueandFeedbackDialog);

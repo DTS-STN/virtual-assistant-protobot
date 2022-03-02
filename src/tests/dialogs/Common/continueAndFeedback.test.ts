@@ -2,9 +2,9 @@ import { LuisRecognizer } from "botbuilder-ai";
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
 import chai from "chai";
 import * as tsSinon from "ts-sinon";
-import { ContinueAndFeedbackStep } from "../../../../dialogs/alwaysonbotDialogs/Common/continueAndFeedbackStep";
-import { FeedBackStep } from "../../../../dialogs/alwaysonbotDialogs/Common/feedBackStep";
-import { CommonChoiceCheckStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
+import { CommonChoiceCheckStep } from "../../../dialogs/common/commonChoiceCheckStep";
+import { ContinueAndFeedbackStep } from "../../../dialogs/common/continueAndFeedbackStep";
+import { FeedBackStep } from "../../../dialogs/common/feedBackStep";
 const assert = require("assert");
 chai.use(require("sinon-chai"));
 
@@ -18,7 +18,7 @@ describe("ContinueAndFeed", () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require("../../../testdata/dialogs/Common/continueAndFeedbacktestdata");
+        const testCases = require("../../testData/dialogs/Common/continueAndFeedbacktestdata");
         testCases.map((testData) => {
             it(testData.name, async () => {
                 const client = new DialogTestClient("test", sut, testData.initialData, [

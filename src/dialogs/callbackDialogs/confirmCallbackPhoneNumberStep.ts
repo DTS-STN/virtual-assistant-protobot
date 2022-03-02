@@ -20,6 +20,8 @@ const CONFIRM_CALLBACK_PHONE_NUMBER_WATERFALL_STEP =
   'CONFIRM_CALLBACK_PHONE_NUMBER_WATERFALL_STEP';
 
   import { MAX_ERROR_COUNT}  from '../../utils'
+import { adaptiveCard, TextBlock } from '../../cards';
+import { callbackCard } from '../../cards/callbackCard';
 
 export class ConfirmCallbackPhoneNumberStep extends ComponentDialog {
   constructor() {
@@ -61,11 +63,8 @@ export class ConfirmCallbackPhoneNumberStep extends ComponentDialog {
       callbackBotDetails.masterError = true;
 
       // Set master error message to send
-      const errorMsg = i18n.__('masterErrorMsg');
-
-      // Send master error message
-      await stepContext.context.sendActivity(errorMsg);
-
+      const errorMsg = i18n.__(`MasterRetryExceededMessage`);
+      await adaptiveCard(stepContext, callbackCard(stepContext.context.activity.locale,errorMsg));
       // End the dialog and pass the updated details state machine
       return await stepContext.endDialog(callbackBotDetails);
     }

@@ -2,11 +2,11 @@ import { LuisRecognizer } from "botbuilder-ai";
 import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
 import chai from "chai";
 import * as tsSinon from "ts-sinon";
-import { ContinueAndFeedbackStep } from "../../../../../dialogs/alwaysonbotDialogs/Common/continueAndFeedbackStep";
-import { FeedBackStep } from "../../../../../dialogs/alwaysonbotDialogs/Common/feedBackStep";
-import { CommonCallBackStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/commonCallBackStep";
-import { CommonChoiceCheckStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import { ConfirmPhoneNumberStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/confirmPhoneNumberStep";
+import { ContinueAndFeedbackStep } from "../../../../../dialogs/common/continueAndFeedbackStep";
+import { FeedBackStep } from "../../../../../dialogs/common/feedBackStep";
+import { CommonCallBackStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/commonCallBackStep";
+import { ConfirmPhoneNumberStep } from "../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdatePhoneNumber/confirmPhoneNumberStep";
+import { CommonChoiceCheckStep } from "../../../../../dialogs/common/commonChoiceCheckStep";
 const assert = require("assert");
 chai.use(require("sinon-chai"));
 

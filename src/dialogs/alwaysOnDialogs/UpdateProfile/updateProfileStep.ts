@@ -4,14 +4,14 @@ import {
     WaterfallStepContext
 } from "botbuilder-dialogs";
 import { CommonPromptValidatorModel } from "../../../models/commonPromptValidatorModel";
-import { ContinueAndFeedbackStep } from "../Common/continueAndFeedbackStep";
-import { FeedBackStep, FEED_BACK_STEP } from "../Common/feedBackStep";
+import { ContinueAndFeedbackStep } from "../../common/continueAndFeedbackStep";
+import { FeedBackStep, FEED_BACK_STEP } from "../../common/feedBackStep";
 import { UpdateAddressStep, UPDATE_ADDRESS_STEP } from "./UpdateAddress/updateAddressStep";
-import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "./UpdatePhoneNumber/commonChoiceCheckStep";
 import { UPDATE_PHONE_NUMBER_STEP,UpdateMyPhoneStep } from "./UpdatePhoneNumber/updateMyPhoneStep";
 import i18n from "../../locales/i18nConfig";
 import { UpdateMyEmailStep,UPDATE_EMAIL_STEP } from "./UpdateEmail/updateMyEmailStep";
 import { AddressDetails } from "./UpdateAddress/addressDetails";
+import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "../../common/commonChoiceCheckStep";
 
 
 const TEXT_PROMPT = "TEXT_PROMPT";
@@ -29,7 +29,6 @@ export class UpdateProfileStep extends ComponentDialog {
             .addDialog(new UpdateMyPhoneStep())
             .addDialog(new UpdateAddressStep())
             .addDialog(new UpdateMyEmailStep())
-            .addDialog(new CommonChoiceCheckStep())
             .addDialog(new ContinueAndFeedbackStep())
             .addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
             .addDialog(new WaterfallDialog(UPDATE_PROFILE_WATERFALL_STEP, [
@@ -75,7 +74,7 @@ export class UpdateProfileStep extends ComponentDialog {
                 case "UpdateMyPhoneNumber":
                     return await stepContext.replaceDialog(UPDATE_PHONE_NUMBER_STEP, UpdateMyPhoneStep);
                 case "UpdateMyEmail":
-                    return await stepContext.replaceDialog(UPDATE_EMAIL_STEP, UpdateMyEmailStep);  
+                    return await stepContext.replaceDialog(UPDATE_EMAIL_STEP, UpdateMyEmailStep);
             }
         }
         else {

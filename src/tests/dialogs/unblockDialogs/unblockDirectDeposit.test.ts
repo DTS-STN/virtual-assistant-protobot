@@ -370,7 +370,7 @@ describe('Unblock Direct Deposit Step Error', () => {
     //  const replyLast = await client.sendActivity(updatedActivity);
       assert.strictEqual(
         replySecond ? replySecond.text : null,
-        steps[1][1] + ` (1) setup a call or (2) nothing to do`,
+        steps[1][1] + ` (1) Setup a call or (2) Not for now`,
         `${replySecond ?replySecond.text  : null} != ${steps[1][1]}`
       );
 

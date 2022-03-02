@@ -4,11 +4,14 @@ import {
     ChoicePrompt, ComponentDialog, ListStyle, PromptValidatorContext, WaterfallDialog,
     WaterfallStepContext
 } from "botbuilder-dialogs";
-import { adaptiveCard } from "../../../../cards";
-import { callbackCard } from "../../../../cards/callbackCard";
-import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import i18n from "../../../locales/i18nConfig";
-import { LUISAlwaysOnBotSetup } from "../../alwaysOnBotRecognizer";
+import { adaptiveCard } from "../../cards";
+import { callbackCard } from "../../cards/callbackCard";
+import { CommonPromptValidatorModel } from "../../models/commonPromptValidatorModel";
+import i18n from "../locales/i18nConfig";
+import { LUISAlwaysOnBotSetup } from "../alwaysOnDialogs/alwaysOnBotRecognizer";
+import { CommonCallBackStep, COMMON_CALL_BACK_STEP } from "../alwaysOnDialogs/UpdateProfile/commonCallBackStep";
+import { UpdateProfileStep, UPDATE_PROFILE_STEP } from "../alwaysOnDialogs/UpdateProfile/updateProfileStep";
+import { OASBenefitStep, OAS_BENEFIT_STEP } from "../alwaysOnDialogs/OASBenefit/oASBenefitStep";
 
 const CHOICE_PROMPT = "CHOICE_PROMPT";
 export const COMMON_CHOICE_CHECK_STEP = "COMMON_CHOICE_CHECK_STEP";
@@ -17,6 +20,8 @@ const COMMON_CHOICE_CHECK_WATERFALL_STEP = "COMMON_CHOICE_CHECK_WATERFALL_STEP";
 export class CommonChoiceCheckStep extends ComponentDialog {
     constructor() {
         super(COMMON_CHOICE_CHECK_STEP);
+       this.addDialog(new UpdateProfileStep())
+         this.addDialog(new OASBenefitStep())
 
         this.addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
             .addDialog(new WaterfallDialog(COMMON_CHOICE_CHECK_WATERFALL_STEP, [
@@ -50,7 +55,7 @@ export class CommonChoiceCheckStep extends ComponentDialog {
             await adaptiveCard(stepContext, callbackCard(stepContext.context.activity.locale,exceededRetryMessage));
             return await stepContext.endDialog(commonPromptValidatorModel);
         }
-        // on every rerty attempt made by the user
+        // on every retry attempt made by the user
         else {
             promptMessage = i18n.__(`${commonPromptValidatorModel.promptCode}RetryPromptMessage`);
         }
@@ -73,10 +78,19 @@ export class CommonChoiceCheckStep extends ComponentDialog {
         {
             commonPromptValidatorModel.result = intent;
             commonPromptValidatorModel.status = true;
+     /* switch(intent) {
+          case 'IWantToUpdateMyPersonalInformation':
+            return await stepContext.replaceDialog(UPDATE_PROFILE_STEP,commonPromptValidatorModel);
+          case 'IHaveQuestionAboutOASPension':
+            return await stepContext.replaceDialog(OAS_BENEFIT_STEP,commonPromptValidatorModel);
+            default:
+  */
             return await stepContext.endDialog(commonPromptValidatorModel);
+   //  }
+
         }
         commonPromptValidatorModel.result = intent;
         commonPromptValidatorModel.retryCount++;
-        return await stepContext.replaceDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);       
+        return await stepContext.replaceDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
    }
 }
