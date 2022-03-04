@@ -19,7 +19,7 @@ describe('OASBenefitStep', () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require('../../../testdata/dialogs/OASBenifit/oASBenifittestdata');
+        const testCases = require('../../../testData/dialogs/OASBenifit/oASBenifittestdata');
 
         testCases.map((testData) => {
             it(testData.name, async () => {

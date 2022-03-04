@@ -2,6 +2,7 @@ import { LuisRecognizer } from 'botbuilder-ai';
 import { DialogTestClient, DialogTestLogger } from 'botbuilder-testing';
 import chai from 'chai';
 import * as tsSinon from 'ts-sinon';
+import { AlwaysOnBotDialog } from '../../../dialogs/alwaysOnDialogs/alwaysOnBotDialog';
 import { CommonChoiceCheckStep } from '../../../dialogs/common/commonChoiceCheckStep';
 import { ContinueAndFeedbackStep } from '../../../dialogs/common/continueAndFeedbackStep';
 import { FeedBackStep } from '../../../dialogs/common/feedBackStep';
@@ -14,6 +15,7 @@ describe('ContinueAndFeed', () => {
         const sut = new ContinueAndFeedbackStep();
         sut.addDialog(new FeedBackStep());
         sut.addDialog(new CommonChoiceCheckStep())
+        sut.addDialog(new AlwaysOnBotDialog())
         afterEach(() => {
             tsSinon.default.restore();
         });
