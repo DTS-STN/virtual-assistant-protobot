@@ -20,8 +20,6 @@ const COMMON_CHOICE_CHECK_WATERFALL_STEP = "COMMON_CHOICE_CHECK_WATERFALL_STEP";
 export class CommonChoiceCheckStep extends ComponentDialog {
     constructor() {
         super(COMMON_CHOICE_CHECK_STEP);
-       this.addDialog(new UpdateProfileStep())
-         this.addDialog(new OASBenefitStep())
 
         this.addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator))
             .addDialog(new WaterfallDialog(COMMON_CHOICE_CHECK_WATERFALL_STEP, [
@@ -78,19 +76,11 @@ export class CommonChoiceCheckStep extends ComponentDialog {
         {
             commonPromptValidatorModel.result = intent;
             commonPromptValidatorModel.status = true;
-     /* switch(intent) {
-          case 'IWantToUpdateMyPersonalInformation':
-            return await stepContext.replaceDialog(UPDATE_PROFILE_STEP,commonPromptValidatorModel);
-          case 'IHaveQuestionAboutOASPension':
-            return await stepContext.replaceDialog(OAS_BENEFIT_STEP,commonPromptValidatorModel);
-            default:
-  */
             return await stepContext.endDialog(commonPromptValidatorModel);
-   //  }
-
         }
         commonPromptValidatorModel.result = intent;
         commonPromptValidatorModel.retryCount++;
         return await stepContext.replaceDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
    }
 }
+

@@ -41,7 +41,6 @@ export class CallbackNextOptionStep extends ComponentDialog {
     this.addDialog(new TextPrompt(TEXT_PROMPT));
     this.addDialog(new ChoicePrompt(CHOICE_PROMPT));
     this.addDialog(new CommonChoiceCheckStep());
-    //this.addDialog(new AlwaysOnBotDialog())
     this.addDialog(
       new WaterfallDialog(CALLBACK_NEXT_OPTION_WATERFALL_STEP, [
         this.unblockBotNextStepStart.bind(this),
@@ -126,14 +125,7 @@ export class CallbackNextOptionStep extends ComponentDialog {
     switch (intent) {
       // route user to always on bot
       case "promptConfirmYes":
-        let commonPromptValidatorModel = new CommonPromptValidatorModel(
-          ["IWantToUpdateMyPersonalInformation", "IHaveQuestionAboutOASPension"],
-          Number(i18n.__("MaxRetryCount")),
-          "AlwaysOnBot",i18n.__("AlwaysOnBotPromptMessage")
-      );
-      //call dialog
-      //TODO this is a hack to bypass cyclic refer in alwaysonbot dialog, need to fix it later
-      return await stepContext.replaceDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
+      return await stepContext.replaceDialog(ALWAYS_ON_BOT_DIALOG, null);
 
       // route user to feedback
       case "promptConfirmNo":

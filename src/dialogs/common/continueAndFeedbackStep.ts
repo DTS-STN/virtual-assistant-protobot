@@ -12,6 +12,7 @@ import { OAS_BENEFIT_STEP,OASBenefitStep } from "../alwaysOnDialogs/OASBenefit/o
 import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "../common/commonChoiceCheckStep";
 import { UpdateProfileStep, UPDATE_PROFILE_STEP } from "../alwaysOnDialogs/UpdateProfile/updateProfileStep";
 import { FeedBackStep, FEED_BACK_STEP } from "./feedBackStep";
+import { ALWAYS_ON_BOT_DIALOG } from "../alwaysOnDialogs/alwaysOnBotDialog";
 
 const TEXT_PROMPT = "TEXT_PROMPT";
 const CHOICE_PROMPT = "CHOICE_PROMPT";
@@ -29,9 +30,7 @@ export class ContinueAndFeedbackStep extends ComponentDialog {
             .addDialog(new FeedBackStep())
             .addDialog(new WaterfallDialog(CONTINUE_AND_FEEDBACK_WATERFALL_STEP, [
                 this.continueStep.bind(this),
-                this.confirmStep.bind(this),
-                this.finalStep.bind(this)
-
+                this.confirmStep.bind(this)
             ]));
 
         this.initialDialogId = CONTINUE_AND_FEEDBACK_WATERFALL_STEP;
@@ -67,37 +66,12 @@ export class ContinueAndFeedbackStep extends ComponentDialog {
         const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
         switch (intent) {
             case "promptConfirmYes":
-                let commonPromptValidatorModel = new CommonPromptValidatorModel(
-                    ["IWantToUpdateMyPersonalInformation", "IHaveQuestionAboutOASPension"],
-                    Number(i18n.__("MaxRetryCount")),
-                    "AlwaysOnBot",i18n.__("AlwaysOnBotPromptMessage")
-                );
-                //call dialog 'COMMON_CHOICE_CHECK_DIALOG'
-                return await stepContext.replaceDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
+                return await stepContext.replaceDialog(ALWAYS_ON_BOT_DIALOG, null);
             case "promptConfirmNo":
                 return await stepContext.replaceDialog(FEED_BACK_STEP,FeedBackStep);
             default:
                 isFeedBackStepPassed =  true;
                 return stepContext.replaceDialog(FEED_BACK_STEP, FeedBackStep);
-        }
-    }
-   /**
-   * This is the final step in waterfall.bot displays the main workflow prompt suggestions to the user only if users select the 'Yes' in above step.
-   */
-    async finalStep(stepContext) {
-        const commonPromptValidatorModel = stepContext.result as CommonPromptValidatorModel;
-        if (commonPromptValidatorModel != null && commonPromptValidatorModel.status) {
-            switch (commonPromptValidatorModel.result) {
-                case "IWantToUpdateMyPersonalInformation":
-                    return await stepContext.replaceDialog(UPDATE_PROFILE_STEP, UpdateProfileStep);
-                case "IHaveQuestionAboutOASPension":
-                    return await stepContext.replaceDialog(OAS_BENEFIT_STEP,OASBenefitStep);
-            }
-        }
-        else {
-            if(!isFeedBackStepPassed){
-                return stepContext.replaceDialog(FEED_BACK_STEP, FeedBackStep);
-            }
         }
     }
 }
