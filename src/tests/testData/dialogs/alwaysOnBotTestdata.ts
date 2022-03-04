@@ -2,7 +2,7 @@ module.exports=[
     {
         intent: 'IWantToUpdateMyPersonalInformation',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'Update Profile Step Dialog',
         steps: [
@@ -13,7 +13,7 @@ module.exports=[
     {
         intent: 'IHaveQuestionAboutOASPension',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'Question about OAS Pension Dialog',
         steps: [
@@ -24,7 +24,7 @@ module.exports=[
     {
         intent: 'None',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'Choosing None intent',
         steps: [

@@ -1,24 +1,24 @@
-import { LuisRecognizer } from "botbuilder-ai";
+import { LuisRecognizer } from 'botbuilder-ai';
 import {
     Choice, ChoiceFactory, ChoicePrompt, ComponentDialog, DialogTurnResult, ListStyle, PromptValidatorContext, TextPrompt,
     WaterfallDialog,
     WaterfallStepContext
-} from "botbuilder-dialogs";
-import { CommonPromptValidatorModel } from "../../models/commonPromptValidatorModel";
-import { LUISAlwaysOnBotSetup } from "../alwaysOnDialogs/alwaysOnBotRecognizer";
+} from 'botbuilder-dialogs';
+import { CommonPromptValidatorModel } from '../../models/commonPromptValidatorModel';
+import { LUISAlwaysOnBotSetup } from '../alwaysOnDialogs/alwaysOnBotRecognizer';
 
-import i18n from "../locales/i18nConfig";
-import { OAS_BENEFIT_STEP,OASBenefitStep } from "../alwaysOnDialogs/OASBenefit/oASBenefitStep";
-import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "../common/commonChoiceCheckStep";
-import { UpdateProfileStep, UPDATE_PROFILE_STEP } from "../alwaysOnDialogs/UpdateProfile/updateProfileStep";
-import { FeedBackStep, FEED_BACK_STEP } from "./feedBackStep";
-import { ALWAYS_ON_BOT_DIALOG } from "../alwaysOnDialogs/alwaysOnBotDialog";
+import i18n from '../locales/i18nConfig';
+import { OAS_BENEFIT_STEP,OASBenefitStep } from '../alwaysOnDialogs/OASBenefit/oASBenefitStep';
+import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from '../common/commonChoiceCheckStep';
+import { UpdateProfileStep, UPDATE_PROFILE_STEP } from '../alwaysOnDialogs/UpdateProfile/updateProfileStep';
+import { FeedBackStep, FEED_BACK_STEP } from './feedBackStep';
+import { ALWAYS_ON_BOT_DIALOG } from '../alwaysOnDialogs/alwaysOnBotDialog';
 
-const TEXT_PROMPT = "TEXT_PROMPT";
-const CHOICE_PROMPT = "CHOICE_PROMPT";
-let isFeedBackStepPassed:Boolean = false;
-export const CONTINUE_AND_FEEDBACK_STEP = "CONTINUE_AND_FEEDBACK_STEP";
-const CONTINUE_AND_FEEDBACK_WATERFALL_STEP = "CONTINUE_AND_FEEDBACK_WATERFALL_STEP";
+const TEXT_PROMPT = 'TEXT_PROMPT';
+const CHOICE_PROMPT = 'CHOICE_PROMPT';
+let isFeedBackStepPassed:boolean = false;
+export const CONTINUE_AND_FEEDBACK_STEP = 'CONTINUE_AND_FEEDBACK_STEP';
+const CONTINUE_AND_FEEDBACK_WATERFALL_STEP = 'CONTINUE_AND_FEEDBACK_WATERFALL_STEP';
 
 export class ContinueAndFeedbackStep extends ComponentDialog {
     constructor() {
@@ -40,34 +40,34 @@ export class ContinueAndFeedbackStep extends ComponentDialog {
         return true;
     }
    /**
-   * Initial step in the waterfall. This will prompts Yes and No to the User like confirmation step.
-   *
-   * This is the end of the process,either user will go to the main flow or will end the process if there are no action required by the user.
-   */
+    * Initial step in the waterfall. This will prompts Yes and No to the User like confirmation step.
+    *
+    * This is the end of the process,either user will go to the main flow or will end the process if there are no action required by the user.
+    */
     async continueStep(stepContext:WaterfallStepContext): Promise<DialogTurnResult> {
 
-        let commonPromptValidatorModel = new CommonPromptValidatorModel(
-            ["promptConfirmYes", "promptConfirmNo"],
-            Number(i18n.__("MaxRetryCount")),
-            "continueAndFeed",i18n.__("continueAndFeedPromptMessage")
+        const commonPromptValidatorModel = new CommonPromptValidatorModel(
+            ['promptConfirmYes', 'promptConfirmNo'],
+            Number(i18n.__('MaxRetryCount')),
+            'continueAndFeed',i18n.__('continueAndFeedPromptMessage')
         );
-        //call dialog
+        // call dialog
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
     }
 
    /**
-   * Confirmation step in the waterfall.bot chooses the different flows depends on user's input
-   * If users selects 'Yes' then bot will navigate to the main workflow
-   * If users selects 'No' then bot will navigate to the feedback flow
-   */
+    * Confirmation step in the waterfall.bot chooses the different flows depends on user's input
+    * If users selects 'Yes' then bot will navigate to the main workflow
+    * If users selects 'No' then bot will navigate to the feedback flow
+    */
     async confirmStep(stepContext:WaterfallStepContext): Promise<DialogTurnResult> {
         const recognizer = LUISAlwaysOnBotSetup(stepContext);
         const recognizerResult = await recognizer.recognize(stepContext.context);
-        const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
+        const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
         switch (intent) {
-            case "promptConfirmYes":
+            case 'promptConfirmYes':
                 return await stepContext.replaceDialog(ALWAYS_ON_BOT_DIALOG, null);
-            case "promptConfirmNo":
+            case 'promptConfirmNo':
                 return await stepContext.replaceDialog(FEED_BACK_STEP,FeedBackStep);
             default:
                 isFeedBackStepPassed =  true;

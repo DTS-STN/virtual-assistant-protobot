@@ -1,26 +1,26 @@
-import { InputHints } from "botbuilder";
-import { LuisRecognizer } from "botbuilder-ai";
+import { InputHints } from 'botbuilder';
+import { LuisRecognizer } from 'botbuilder-ai';
 import {
     Choice, ChoiceFactory, ChoicePrompt, ComponentDialog, DialogTurnResult, ListStyle,
     PromptValidatorContext, TextPrompt,
     WaterfallDialog,
-    WaterfallStepContext,
+    WaterfallStepContext
 
-} from "botbuilder-dialogs";
-import { LUISAlwaysOnBotSetup } from "../alwaysOnBotRecognizer";
+} from 'botbuilder-dialogs';
+import { LUISAlwaysOnBotSetup } from '../alwaysOnBotRecognizer';
 
-import i18n from "../../locales/i18nConfig";
-import { APPLICATION_STATUS_STEP,ApplicationStatusStep } from "./applicationStatusStep";
-import { CommonPromptValidatorModel } from "../../../models/commonPromptValidatorModel";
-import { FEED_BACK_STEP,FeedBackStep } from "../../common/feedBackStep";
-import { COMMON_CHOICE_CHECK_STEP } from "../../common/commonChoiceCheckStep";
+import i18n from '../../locales/i18nConfig';
+import { APPLICATION_STATUS_STEP,ApplicationStatusStep } from './applicationStatusStep';
+import { CommonPromptValidatorModel } from '../../../models/commonPromptValidatorModel';
+import { FEED_BACK_STEP,FeedBackStep } from '../../common/feedBackStep';
+import { COMMON_CHOICE_CHECK_STEP } from '../../common/commonChoiceCheckStep';
 
 
-const CHOICE_PROMPT = "CHOICE_PROMPT";
-const TEXT_PROMPT = "TEXT_PROMPT";
+const CHOICE_PROMPT = 'CHOICE_PROMPT';
+const TEXT_PROMPT = 'TEXT_PROMPT';
 
-export const OAS_BENEFIT_STEP = "OAS_BENEFIT_STEP";
-const OAS_BENEFIT_WATERFALL_STEP = "OAS_BENEFIT_WATERFALL_STEP";
+export const OAS_BENEFIT_STEP = 'OAS_BENEFIT_STEP';
+const OAS_BENEFIT_WATERFALL_STEP = 'OAS_BENEFIT_WATERFALL_STEP';
 // Define the main dialog and its related components.
 
 export class OASBenefitStep extends ComponentDialog {
@@ -48,19 +48,19 @@ export class OASBenefitStep extends ComponentDialog {
      */
     async checkApplicationStatusStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
 
-        let commonPromptValidatorModel = new CommonPromptValidatorModel(
-            ["WhatIsMyApplicationStatus"],
-            Number(i18n.__("MaxRetryCount")),
-            "OASBenefit",i18n.__("OASBenefitPromptMessage")
+        const commonPromptValidatorModel = new CommonPromptValidatorModel(
+            ['WhatIsMyApplicationStatus'],
+            Number(i18n.__('MaxRetryCount')),
+            'OASBenefit',i18n.__('OASBenefitPromptMessage')
         );
         return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
     }
 
    /**
-   * This is the final step in the main waterfall dialog.
-   * Bot prompts the "Date of Next Payment" and Application Status
-   * Users selects the "What's My Application Status" prompt.
-   */
+    * This is the final step in the main waterfall dialog.
+    * Bot prompts the "Date of Next Payment" and Application Status
+    * Users selects the "What's My Application Status" prompt.
+    */
 
     private async selectionStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
         const commonPromptValidatorModel = stepContext.result as CommonPromptValidatorModel;
@@ -68,7 +68,7 @@ export class OASBenefitStep extends ComponentDialog {
         if (commonPromptValidatorModel != null && commonPromptValidatorModel.status)
         {
             switch (commonPromptValidatorModel.result) {
-                case "WhatIsMyApplicationStatus":
+                case 'WhatIsMyApplicationStatus':
                     return await stepContext.replaceDialog(APPLICATION_STATUS_STEP, ApplicationStatusStep)
             }
         }

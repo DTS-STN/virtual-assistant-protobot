@@ -4,34 +4,34 @@ import {
   ComponentDialog,
   WaterfallDialog,
   ChoiceFactory,
-  ListStyle,
-} from "botbuilder-dialogs";
+  ListStyle
+} from 'botbuilder-dialogs';
 
-import i18n from "../locales/i18nConfig";
+import i18n from '../locales/i18nConfig';
 
 import {
   whatNumbersToFindSchema,
   howToFindNumbersSchema,
   TwoTextBlock,
   TextBlock,
-  adaptiveCard,
-} from "../../cards";
+  adaptiveCard
+} from '../../cards';
 
 
-const TEXT_PROMPT = "TEXT_PROMPT";
-const CHOICE_PROMPT = "CHOICE_PROMPT";
-export const CALLBACK_NEXT_OPTION_STEP = "CALLBACK_NEXT_OPTION_STEP";
-const CALLBACK_NEXT_OPTION_WATERFALL_STEP = "CALLBACK_NEXT_OPTION_WATERFALL_STEP";
+const TEXT_PROMPT = 'TEXT_PROMPT';
+const CHOICE_PROMPT = 'CHOICE_PROMPT';
+export const CALLBACK_NEXT_OPTION_STEP = 'CALLBACK_NEXT_OPTION_STEP';
+const CALLBACK_NEXT_OPTION_WATERFALL_STEP = 'CALLBACK_NEXT_OPTION_WATERFALL_STEP';
 
 // Error handling
-import { MAX_ERROR_COUNT } from "../../utils";
-import { UnblockRecognizer } from "../unblockDialogs/unblockRecognizer";
-import { LuisRecognizer } from "botbuilder-ai";
-import { CommonPromptValidatorModel } from "../../models/commonPromptValidatorModel";
-import { callbackCard } from "../../cards/callbackCard";
-import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from "../common/commonChoiceCheckStep";
-import { AlwaysOnBotDialog, ALWAYS_ON_BOT_DIALOG } from "../alwaysOnDialogs/alwaysOnBotDialog";
-import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../common/continueAndFeedbackStep";
+import { MAX_ERROR_COUNT } from '../../utils';
+import { UnblockRecognizer } from '../unblockDialogs/unblockRecognizer';
+import { LuisRecognizer } from 'botbuilder-ai';
+import { CommonPromptValidatorModel } from '../../models/commonPromptValidatorModel';
+import { callbackCard } from '../../cards/callbackCard';
+import { CommonChoiceCheckStep, COMMON_CHOICE_CHECK_STEP } from '../common/commonChoiceCheckStep';
+import { AlwaysOnBotDialog, ALWAYS_ON_BOT_DIALOG } from '../alwaysOnDialogs/alwaysOnBotDialog';
+import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from '../common/continueAndFeedbackStep';
 
 export class CallbackNextOptionStep extends ComponentDialog {
   constructor() {
@@ -44,7 +44,7 @@ export class CallbackNextOptionStep extends ComponentDialog {
     this.addDialog(
       new WaterfallDialog(CALLBACK_NEXT_OPTION_WATERFALL_STEP, [
         this.unblockBotNextStepStart.bind(this),
-        this.unblockBotNextStepEnd.bind(this),
+        this.unblockBotNextStepEnd.bind(this)
       ])
     );
 
@@ -73,10 +73,10 @@ export class CallbackNextOptionStep extends ComponentDialog {
     ) {
       // Set dialog messages
       let promptMsg: any;
-      promptMsg = i18n.__("unblockToAlwaysOnBotOrCallbackBotQueryMsg");
-      const promptOptions = i18n.__("unblock_lookup_prompt_confirm_opts");
+      promptMsg = i18n.__('unblockToAlwaysOnBotOrCallbackBotQueryMsg');
+      const promptOptions = i18n.__('unblock_lookup_prompt_confirm_opts');
       const retryMsg = i18n.__(
-        "unblockToAlwaysOnBotOrCallbackBotQueryRetryMsg"
+        'unblockToAlwaysOnBotOrCallbackBotQueryRetryMsg'
       );
 
       // Setup the prompt
@@ -102,16 +102,16 @@ export class CallbackNextOptionStep extends ComponentDialog {
 
     // Setup the LUIS to recognize intents
     let luisRecognizer;
-    let lang = "en";
+    let lang = 'en';
     // Language check
 
     // Then change LUIZ appID
     if (
-      stepContext.context.activity.locale.toLowerCase() === "fr-ca" ||
-      stepContext.context.activity.locale.toLowerCase() === "fr-fr" ||
-      stepContext.context.activity.locale.toLowerCase() === "fr"
+      stepContext.context.activity.locale.toLowerCase() === 'fr-ca' ||
+      stepContext.context.activity.locale.toLowerCase() === 'fr-fr' ||
+      stepContext.context.activity.locale.toLowerCase() === 'fr'
     ) {
-      lang = "fr";
+      lang = 'fr';
     }
 
     // LUIZ Recogniser processing
@@ -120,15 +120,15 @@ export class CallbackNextOptionStep extends ComponentDialog {
     const recognizerResult = await luisRecognizer.executeLuisQuery(
       stepContext.context
     );
-    const intent = LuisRecognizer.topIntent(recognizerResult, "None", 0.5);
+    const intent = LuisRecognizer.topIntent(recognizerResult, 'None', 0.5);
 
     switch (intent) {
       // route user to always on bot
-      case "promptConfirmYes":
+      case 'promptConfirmYes':
       return await stepContext.replaceDialog(ALWAYS_ON_BOT_DIALOG, null);
 
       // route user to feedback
-      case "promptConfirmNo":
+      case 'promptConfirmNo':
 
         return await stepContext.endDialog(callbackBotDetails);
 

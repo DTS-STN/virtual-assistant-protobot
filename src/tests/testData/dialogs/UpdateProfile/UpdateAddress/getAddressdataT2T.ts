@@ -9,7 +9,7 @@ module.exports = [
                 numberValidationStep: 0,
                 updateAddressStep: 0
             },
-            
+
             getAddressesStep:null,
             manyAddresses:null,
             masterError:false,

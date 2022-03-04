@@ -24,7 +24,7 @@ import { adaptiveCard } from '../../cards';
 import { callbackCard } from '../../cards/callbackCard';
 import { CommonPromptValidatorModel } from '../../models/commonPromptValidatorModel';
 import { ALWAYS_ON_BOT_DIALOG } from '../alwaysOnDialogs/alwaysOnBotDialog';
-const CHOICE_PROMPT = "CHOICE_PROMPT";
+const CHOICE_PROMPT = 'CHOICE_PROMPT';
 export class GetUserPhoneNumberStep extends ComponentDialog {
   constructor() {
     super(GET_USER_PHONE_NUMBER_STEP);
@@ -157,7 +157,7 @@ export class GetUserPhoneNumberStep extends ComponentDialog {
       case 'NoNotForNow':
 
         const commonPromptValidatorModel = new CommonPromptValidatorModel();
-        //call dialog
+        // call dialog
         return await stepContext.replaceDialog(ALWAYS_ON_BOT_DIALOG, commonPromptValidatorModel);
 
       // Could not understand / None intent

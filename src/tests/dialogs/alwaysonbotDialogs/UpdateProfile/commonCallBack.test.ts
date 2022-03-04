@@ -1,15 +1,15 @@
-import { LuisRecognizer } from "botbuilder-ai";
-const assert = require("assert");
-import chai, { expect } from "chai";
-import * as tsSinon from "ts-sinon";
-chai.use(require("sinon-chai"));
-import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-import { CommonCallBackStep } from "../../../../dialogs/alwaysOnDialogs/UpdateProfile/commonCallBackStep";
-import { FeedBackStep } from "../../../../dialogs/common/feedBackStep";
-import { CommonChoiceCheckStep } from "../../../../dialogs/common/commonChoiceCheckStep";
+import { LuisRecognizer } from 'botbuilder-ai';
+const assert = require('assert');
+import chai, { expect } from 'chai';
+import * as tsSinon from 'ts-sinon';
+chai.use(require('sinon-chai'));
+import { DialogTestClient, DialogTestLogger } from 'botbuilder-testing';
+import { CommonCallBackStep } from '../../../../dialogs/alwaysOnDialogs/UpdateProfile/commonCallBackStep';
+import { FeedBackStep } from '../../../../dialogs/common/feedBackStep';
+import { CommonChoiceCheckStep } from '../../../../dialogs/common/commonChoiceCheckStep';
 
-describe("CommonCallBack", () => {
-    describe("Should be able to initialize Common Call back Step Dialog", () => {
+describe('CommonCallBack', () => {
+    describe('Should be able to initialize Common Call back Step Dialog', () => {
         const sut = new CommonCallBackStep();
 
         sut.addDialog(new CommonChoiceCheckStep());
@@ -19,16 +19,16 @@ describe("CommonCallBack", () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require("../../../testData/dialogs/commonCallbackData");
+        const testCases = require('../../../testData/dialogs/commonCallbackData');
 
         testCases.map((testData) => {
             it(testData.name, async () => {
-                const client = new DialogTestClient("test", sut, testData.initialData, [
+                const client = new DialogTestClient('test', sut, testData.initialData, [
                     new DialogTestLogger()
                 ]);
 
                 tsSinon.default
-                    .stub(LuisRecognizer.prototype, "recognize")
+                    .stub(LuisRecognizer.prototype, 'recognize')
                     .callsFake(() =>
                         JSON.parse(
                             `{"intents": {"${testData.intent}": {"score": 1}}, "entities": {"$instance": {}}}`

@@ -347,7 +347,7 @@ describe('Unblock Direct Deposit Step Error', () => {
         steps[0][1],
         `${reply ?reply.attachments[0].content.body[0].text  : null} != ${steps[0][1]}`
       );
-      let replyMsg = client.getNextReply();
+      const replyMsg = client.getNextReply();
       assert.strictEqual(replyMsg.text, expectedTransitMsg);
       updatedActivity= {
         text: steps[1][0],

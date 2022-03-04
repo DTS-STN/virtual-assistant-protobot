@@ -1,29 +1,29 @@
-import { LuisRecognizer } from "botbuilder-ai";
-import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-const assert = require("assert");
-import chai, { expect } from "chai";
-import * as tsSinon from "ts-sinon";
-import { CommonChoiceCheckStep } from "../../../dialogs/common/commonChoiceCheckStep";
-chai.use(require("sinon-chai"));
+import { LuisRecognizer } from 'botbuilder-ai';
+import { DialogTestClient, DialogTestLogger } from 'botbuilder-testing';
+const assert = require('assert');
+import chai, { expect } from 'chai';
+import * as tsSinon from 'ts-sinon';
+import { CommonChoiceCheckStep } from '../../../dialogs/common/commonChoiceCheckStep';
+chai.use(require('sinon-chai'));
 
-describe("commonChoiceCheckStep", () => {
-    describe("", () => {
+describe('commonChoiceCheckStep', () => {
+    describe('', () => {
         const sut = new CommonChoiceCheckStep();
 
         afterEach(() => {
             tsSinon.default.restore();
         });
 
-        const testCases = require("../../testData/dialogs/commonChoiceCheckData");
+        const testCases = require('../../testData/dialogs/commonChoiceCheckData');
 
         testCases.map((testData) => {
             it(testData.name, async () => {
-                const client = new DialogTestClient("test", sut, testData.initialData, [
+                const client = new DialogTestClient('test', sut, testData.initialData, [
                     new DialogTestLogger()
                 ]);
 
                 tsSinon.default
-                    .stub(LuisRecognizer.prototype, "recognize")
+                    .stub(LuisRecognizer.prototype, 'recognize')
                     .callsFake(() =>
                         JSON.parse(
                             `{"intents": {"${testData.intent}": {"score": 1}}, "entities": {"$instance": {}}}`
@@ -47,7 +47,7 @@ describe("commonChoiceCheckStep", () => {
                     }
                     else
                     {
-                        //assertNull(reply, null);
+                        // assertNull(reply, null);
                         expect(reply).to.be.undefined;
                     }
                 }

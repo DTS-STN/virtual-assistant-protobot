@@ -4,7 +4,7 @@ module.exports=[
         initialData: {
             locale: 'en',
             retryCount: 0,
-            intents: ["promptConfirmYes", "promptConfirmNo"],
+            intents: ['promptConfirmYes', 'promptConfirmNo'],
             maxRetryCount: 2,
             promptCode: 'UpdateMyEmail',
             result: ''
@@ -22,7 +22,7 @@ module.exports=[
         initialData: {
             locale: 'en',
             retryCount: 0,
-            intents: ["Yes", "No"],
+            intents: ['Yes', 'No'],
             maxRetryCount: 2,
             promptCode: 'UpdateMyEmail',
             result: ''

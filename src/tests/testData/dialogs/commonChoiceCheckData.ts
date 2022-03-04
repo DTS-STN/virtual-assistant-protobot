@@ -4,7 +4,7 @@ module.exports=[
         initialData: {
             locale: 'en',
             retryCount: 0,
-            intents: ["IWantToUpdateMyPersonalInformation", "IHaveQuestionAboutOASPension"],
+            intents: ['IWantToUpdateMyPersonalInformation', 'IHaveQuestionAboutOASPension'],
             maxRetryCount: 4,
             promptCode: 'AlwaysOnBot',
             result: ''
@@ -20,7 +20,7 @@ module.exports=[
         initialData: {
             locale: 'en',
             retryCount: 0,
-            intents: ["IWantToUpdateMyPersonalInformation", "IHaveQuestionAboutOASPension"],
+            intents: ['IWantToUpdateMyPersonalInformation', 'IHaveQuestionAboutOASPension'],
             maxRetryCount: 4,
             promptCode: 'AlwaysOnBot',
             result: ''

@@ -13,7 +13,7 @@ import { CallbackBotDetails } from './callbackBotDetails';
 import { CallbackRecognizer } from './callbackRecognizer';
 import { GET_PREFERRED_METHOD_OF_CONTACT_STEP } from './getPreferredMethodOfContactStep';
 import i18n from '../locales/i18nConfig';
-const CHOICE_PROMPT = "CHOICE_PROMPT";
+const CHOICE_PROMPT = 'CHOICE_PROMPT';
 const TEXT_PROMPT = 'TEXT_PROMPT';
 export const GET_USER_EMAIL_STEP = 'GET_USER_EMAIL_STEP';
 const GET_USER_EMAIL_WATERFALL_STEP = 'GET_USER_EMAIL_WATERFALL_STEP';
@@ -150,7 +150,7 @@ export class GetUserEmailStep extends ComponentDialog {
       case 'promptConfirmNo':
       case 'NoNotForNow':
        const commonPromptValidatorModel = new CommonPromptValidatorModel();
-      //call dialog
+      // call dialog
       return await stepContext.beginDialog(ALWAYS_ON_BOT_DIALOG, commonPromptValidatorModel);
 
       // Could not understand / None intent

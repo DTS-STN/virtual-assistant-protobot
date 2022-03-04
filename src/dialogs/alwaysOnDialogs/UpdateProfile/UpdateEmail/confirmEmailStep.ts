@@ -3,19 +3,19 @@ import {
     ConfirmPrompt, DialogTurnResult, PromptValidatorContext, TextPrompt,
     WaterfallDialog,
     WaterfallStepContext
-} from "botbuilder-dialogs";
-import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import i18n from "../../../locales/i18nConfig";
-import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from "../../../common/continueAndFeedbackStep";
-import { FeedBackStep, FEED_BACK_STEP } from "../../../common/feedBackStep";
-import { CommonCallBackStep, COMMON_CALL_BACK_STEP } from "../commonCallBackStep";
+} from 'botbuilder-dialogs';
+import { CommonPromptValidatorModel } from '../../../../models/commonPromptValidatorModel';
+import i18n from '../../../locales/i18nConfig';
+import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from '../../../common/continueAndFeedbackStep';
+import { FeedBackStep, FEED_BACK_STEP } from '../../../common/feedBackStep';
+import { CommonCallBackStep, COMMON_CALL_BACK_STEP } from '../commonCallBackStep';
 
-const CONFIRM_PROMPT = "CONFIRM_PROMPT";
-const TEXT_PROMPT = "TEXT_PROMPT";
-const CHOICE_PROMPT = "CHOICE_PROMPT";
+const CONFIRM_PROMPT = 'CONFIRM_PROMPT';
+const TEXT_PROMPT = 'TEXT_PROMPT';
+const CHOICE_PROMPT = 'CHOICE_PROMPT';
 
-export const CONFIRM_EMAIL_STEP = "CONFIRM_EMAIL_STEP";
-const CONFIRM_EMAIL_WATERFALL_STEP = "CONFIRM_EMAIL_WATERFALL_STEP";
+export const CONFIRM_EMAIL_STEP = 'CONFIRM_EMAIL_STEP';
+const CONFIRM_EMAIL_WATERFALL_STEP = 'CONFIRM_EMAIL_WATERFALL_STEP';
 
 // Define the main dialog and its related components.
 export class ConfirmEmailStep extends ComponentDialog {
@@ -39,31 +39,31 @@ export class ConfirmEmailStep extends ComponentDialog {
         return true;
     }
     /**
-    *  Initial step in the waterfall. This will kick off the confirmPhoneNumberStep
-    *  prompt user to enter the phone number and covers the case where user enters invalid phone number
-    */
+     *  Initial step in the waterfall. This will kick off the confirmPhoneNumberStep
+     *  prompt user to enter the phone number and covers the case where user enters invalid phone number
+     */
     async askEmailStep(stepContext:WaterfallStepContext): Promise<DialogTurnResult>{
         const details= stepContext.options as CommonPromptValidatorModel;
         if(details.retryCount === 0)
         {
-            return await stepContext.prompt(TEXT_PROMPT, i18n.__("AskEmailAddress"))
+            return await stepContext.prompt(TEXT_PROMPT, i18n.__('AskEmailAddress'))
         }
         else if(details.retryCount < details.maxRetryCount)
         {
-            return await stepContext.prompt(TEXT_PROMPT, i18n.__("ConfirmEmailRetryPromptMessage"))
+            return await stepContext.prompt(TEXT_PROMPT, i18n.__('ConfirmEmailRetryPromptMessage'))
         }
         else if(details.retryCount === details.maxRetryCount){
-            let commonPromptValidatorModel = new CommonPromptValidatorModel(
-                ["YesIWantToRequestCall", "NoNotForNow"],
+            const commonPromptValidatorModel = new CommonPromptValidatorModel(
+                ['YesIWantToRequestCall', 'NoNotForNow'],
                 2,
-                'ConfirmEmailCallBack',i18n.__("ConfirmEmailCallBackPromptMessage")
+                'ConfirmEmailCallBack',i18n.__('ConfirmEmailCallBackPromptMessage')
             );
            return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP,commonPromptValidatorModel);
         }
     }
     // confirm the users intent to proceed with the step
     async updatedStep(stepContext:WaterfallStepContext): Promise<DialogTurnResult> {
-        let details = stepContext.options as CommonPromptValidatorModel ;
+        const details = stepContext.options as CommonPromptValidatorModel ;
         // ask the user to confirm the phone number and save it to the system
         const Emailaddress = stepContext.result;
         if(Emailaddress){
@@ -71,7 +71,7 @@ export class ConfirmEmailStep extends ComponentDialog {
             let updatedstatement = i18n.__('EmailAddressConfirmStep')
             validEmailaddress = this.validateEmailaddress(Emailaddress);
             if(validEmailaddress){
-                updatedstatement = updatedstatement.replace("@email",Emailaddress);
+                updatedstatement = updatedstatement.replace('@email',Emailaddress);
                 await stepContext.context.sendActivity(updatedstatement);
                 await stepContext.context.sendActivity(i18n.__('SetStep'));
                 return stepContext.replaceDialog(CONTINUE_AND_FEEDBACK_STEP,null);

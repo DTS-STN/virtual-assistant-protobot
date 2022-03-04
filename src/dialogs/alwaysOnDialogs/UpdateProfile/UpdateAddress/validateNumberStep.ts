@@ -1,19 +1,19 @@
 import {
     Choice, ChoicePrompt, ComponentDialog, PromptValidatorContext, TextPrompt,
     WaterfallDialog
-} from "botbuilder-dialogs";
-import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from "../../../common/continueAndFeedbackStep";
-import i18n from "../../../locales/i18nConfig";
-import { FeedBackStep, FEED_BACK_STEP } from "../../../common/feedBackStep";
-import { AddressDetails } from "./addressDetails";
-import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from "../commonCallBackStep";
+} from 'botbuilder-dialogs';
+import { CommonPromptValidatorModel } from '../../../../models/commonPromptValidatorModel';
+import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from '../../../common/continueAndFeedbackStep';
+import i18n from '../../../locales/i18nConfig';
+import { FeedBackStep, FEED_BACK_STEP } from '../../../common/feedBackStep';
+import { AddressDetails } from './addressDetails';
+import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from '../commonCallBackStep';
 
-const TEXT_PROMPT = "TEXT_PROMPT";
-const CHOICE_PROMPT = "CHOICE_PROMPT";
+const TEXT_PROMPT = 'TEXT_PROMPT';
+const CHOICE_PROMPT = 'CHOICE_PROMPT';
 
-export const VALIDATE_NUMBER_STEP = "VALIDATE_NUMBER_STEP";
-const VALIDATE_NUMBER_STEP_WATERFALL_STEP = "VALIDATE_NUMBER_STEP_WATERFALL_STEP";
+export const VALIDATE_NUMBER_STEP = 'VALIDATE_NUMBER_STEP';
+const VALIDATE_NUMBER_STEP_WATERFALL_STEP = 'VALIDATE_NUMBER_STEP_WATERFALL_STEP';
 // Define the main dialog and its related components.
 export class ValidateNumberStep extends ComponentDialog {
     constructor() {
@@ -36,7 +36,7 @@ export class ValidateNumberStep extends ComponentDialog {
     async initPrompt(stepContext) {
         const addressDetails = stepContext.options as AddressDetails;
         if(addressDetails.errorCount.numberValidationStep === 0){
-          //call dialog
+          // call dialog
           return await stepContext.prompt(TEXT_PROMPT, addressDetails.promptMessage);
         }else{
           return await stepContext.prompt(TEXT_PROMPT, addressDetails.promptRetryMessage);
@@ -49,12 +49,12 @@ export class ValidateNumberStep extends ComponentDialog {
          isValidNumber = this.validateNumber(stepContext.context.activity.text);
          if(!isValidNumber){
             addressDetails.errorCount.numberValidationStep++;
-            if (addressDetails.errorCount.numberValidationStep >= Number(i18n.__("MaxRetryCount"))) {
+            if (addressDetails.errorCount.numberValidationStep >= Number(i18n.__('MaxRetryCount'))) {
 
-                let commonPromptValidatorModel = new CommonPromptValidatorModel(
-                    ["YesIWantToRequestCall", "NoNotForNow"],
-                    Number(i18n.__("MaxRetryCount")),
-                    "ServiceRepresentative",i18n.__("ServiceRepresentativePromptMessage")
+                const commonPromptValidatorModel = new CommonPromptValidatorModel(
+                    ['YesIWantToRequestCall', 'NoNotForNow'],
+                    Number(i18n.__('MaxRetryCount')),
+                    'ServiceRepresentative',i18n.__('ServiceRepresentativePromptMessage')
                 );
                 return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
             }

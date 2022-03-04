@@ -110,7 +110,7 @@ import { CallbackBotDialog } from '../../../dialogs/callbackDialogs/callbackBotD
               )
             );
            await client.sendActivity(updatedActivity);
-          let reply = await client.sendActivity(updatedActivity);
+          const reply = await client.sendActivity(updatedActivity);
 
 
         assert.strictEqual(

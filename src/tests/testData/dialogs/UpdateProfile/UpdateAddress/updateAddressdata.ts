@@ -5,7 +5,7 @@ module.exports=[
             locale: 'en',
             errorCount :{
                 getAddressesStep: 0,
-                updateAddressStep: -1,
+                updateAddressStep: -1
               }
         },
         name: 'Update Address Step Yes Dialog',
@@ -20,7 +20,7 @@ module.exports=[
             locale: 'en',
             errorCount :{
                 getAddressesStep: 0,
-                updateAddressStep: -1,
+                updateAddressStep: -1
               }
         },
         name: 'Update address no step',
@@ -35,7 +35,7 @@ module.exports=[
             locale: 'en',
             errorCount :{
                 getAddressesStep: 0,
-                updateAddressStep: -1,
+                updateAddressStep: -1
               }
         },
         name: 'Choosing None intent on Update Address Dialog',

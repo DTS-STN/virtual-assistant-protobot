@@ -2,7 +2,7 @@ module.exports=[
     {
         intent: 'UpdateMyAddress',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'Update Address Step Dialog',
         steps: [
@@ -13,7 +13,7 @@ module.exports=[
     {
         intent: 'UpdateMyPhoneNumber',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'Update My Phone Number step Dialog',
         steps: [
@@ -24,7 +24,7 @@ module.exports=[
     {
         intent: 'UpdateMyEmail',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'Choosing Update My Email Step Dialog',
         steps: [
@@ -35,7 +35,7 @@ module.exports=[
     {
         intent: 'None',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'Choosing None intent on Update profile',
         steps: [

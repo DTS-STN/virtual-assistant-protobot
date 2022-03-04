@@ -1,19 +1,19 @@
-import { Choice, ChoicePrompt, ComponentDialog, ConfirmPrompt, DialogTurnResult, PromptValidatorContext, WaterfallDialog, WaterfallStepContext } from "botbuilder-dialogs";
-import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from "../../../common/continueAndFeedbackStep";
-import { FeedBackStep, FEED_BACK_STEP } from "../../../common/feedBackStep";
-import { AddressDetails } from "./addressDetails";
-import { GetAddressesStep, GET_ADDRESS_STEP } from "./getAddressesStep";
-import i18n from "../../../locales/i18nConfig";
-import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from "../commonCallBackStep";
-import { COMMON_CHOICE_CHECK_STEP } from "../../../common/commonChoiceCheckStep";
+import { Choice, ChoicePrompt, ComponentDialog, ConfirmPrompt, DialogTurnResult, PromptValidatorContext, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
+import { CommonPromptValidatorModel } from '../../../../models/commonPromptValidatorModel';
+import { CONTINUE_AND_FEEDBACK_STEP,ContinueAndFeedbackStep } from '../../../common/continueAndFeedbackStep';
+import { FeedBackStep, FEED_BACK_STEP } from '../../../common/feedBackStep';
+import { AddressDetails } from './addressDetails';
+import { GetAddressesStep, GET_ADDRESS_STEP } from './getAddressesStep';
+import i18n from '../../../locales/i18nConfig';
+import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from '../commonCallBackStep';
+import { COMMON_CHOICE_CHECK_STEP } from '../../../common/commonChoiceCheckStep';
 
-const CONFIRM_PROMPT = "CONFIRM_PROMPT";
-const CHOICE_PROMPT = "CHOICE_PROMPT";
-export const UPDATE_ADDRESS_STEP = "UPDATE_ADDRESS_STEP";
-const UPDATE_ADDRESS_WATERFALL_STEP = "UPDATE_ADDRESS_WATERFALL_STEP";
+const CONFIRM_PROMPT = 'CONFIRM_PROMPT';
+const CHOICE_PROMPT = 'CHOICE_PROMPT';
+export const UPDATE_ADDRESS_STEP = 'UPDATE_ADDRESS_STEP';
+const UPDATE_ADDRESS_WATERFALL_STEP = 'UPDATE_ADDRESS_WATERFALL_STEP';
 
-let isCallBackPassed:Boolean = false;
+let isCallBackPassed:boolean = false;
 // Define the main dialog and its related components.
 export class UpdateAddressStep extends ComponentDialog {
     constructor() {
@@ -25,7 +25,7 @@ export class UpdateAddressStep extends ComponentDialog {
             .addDialog(new GetAddressesStep())
             .addDialog(new WaterfallDialog(UPDATE_ADDRESS_WATERFALL_STEP, [
                 this.checkAddressStep.bind(this),
-                this.selectionStep.bind(this),
+                this.selectionStep.bind(this)
             ]));
 
         this.initialDialogId = UPDATE_ADDRESS_WATERFALL_STEP;
@@ -40,29 +40,29 @@ export class UpdateAddressStep extends ComponentDialog {
      * Passing current dialog name to common choice dialog.
      */
     async checkAddressStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-        const addressDetails = stepContext.options as AddressDetails;
+        let addressDetails = stepContext.options as AddressDetails;
         addressDetails.errorCount.updateAddressStep++;
-        if (addressDetails.errorCount.updateAddressStep >= Number(i18n.__("MaxRetryCount"))) {
-            let commonPromptValidatorModel = new CommonPromptValidatorModel(
-                ["YesIWantToRequestCall", "NoNotForNow"],
-                Number(i18n.__("MaxRetryCount")),
-                "ServiceRepresentative",i18n.__("ServiceRepresentativePromptMessage")
+        if (addressDetails.errorCount.updateAddressStep >= Number(i18n.__('MaxRetryCount'))) {
+            const commonPromptValidatorModel = new CommonPromptValidatorModel(
+                ['YesIWantToRequestCall', 'NoNotForNow'],
+                Number(i18n.__('MaxRetryCount')),
+                'ServiceRepresentative',i18n.__('ServiceRepresentativePromptMessage')
             );
             isCallBackPassed = true;
             return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
         }
         else{
             if (addressDetails.errorCount.updateAddressStep === 0){
-            let commonPromptValidatorModel = new CommonPromptValidatorModel(
-               ["promptConfirmYes", "promptConfirmNo"],
-               Number(i18n.__("MaxRetryCount")),
-              "UpdateAddress",i18n.__("UpdateAddressPromptMessage")
+            const commonPromptValidatorModel = new CommonPromptValidatorModel(
+               ['promptConfirmYes', 'promptConfirmNo'],
+               Number(i18n.__('MaxRetryCount')),
+              'UpdateAddress',i18n.__('UpdateAddressPromptMessage')
               );
             return await stepContext.beginDialog(COMMON_CHOICE_CHECK_STEP, commonPromptValidatorModel);
             }else{
                 isCallBackPassed = true;
-                await stepContext.context.sendActivity(i18n.__("AddressNotFoundMessage"));
-                const addressDetails = stepContext.options as AddressDetails;
+                await stepContext.context.sendActivity(i18n.__('AddressNotFoundMessage'));
+                addressDetails = stepContext.options as AddressDetails;
                 return await stepContext.replaceDialog(GET_ADDRESS_STEP, addressDetails);
 
             }
@@ -70,20 +70,20 @@ export class UpdateAddressStep extends ComponentDialog {
     }
 
    /**
-   * Selection step in the waterfall.bot chooses the different flows depends on user's input
-   * If users selects 'Yes' then bot will navigate to the Get Address workflow
-   * If users selects 'No' then bot will navigate to the continue and feedback flow
-   */
+    * Selection step in the waterfall.bot chooses the different flows depends on user's input
+    * If users selects 'Yes' then bot will navigate to the Get Address workflow
+    * If users selects 'No' then bot will navigate to the continue and feedback flow
+    */
      async selectionStep(stepContext) {
 
         const commonPromptValidatorModel = stepContext.result as CommonPromptValidatorModel;
         if (commonPromptValidatorModel != null && commonPromptValidatorModel.status) {
             switch (commonPromptValidatorModel.result) {
-                case "promptConfirmYes":
+                case 'promptConfirmYes':
                     const addressDetails = stepContext.options as AddressDetails;
                     return await stepContext.replaceDialog(GET_ADDRESS_STEP, addressDetails);
-                case "promptConfirmNo":
-                    await stepContext.context.sendActivity(i18n.__("UpdateAddressNoMessage"));
+                case 'promptConfirmNo':
+                    await stepContext.context.sendActivity(i18n.__('UpdateAddressNoMessage'));
                     return await stepContext.replaceDialog(CONTINUE_AND_FEEDBACK_STEP, ContinueAndFeedbackStep);
             }
         }

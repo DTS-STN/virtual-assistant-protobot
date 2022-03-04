@@ -150,7 +150,7 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
         unblockBotDetails.directDepositMasterError = false;
 
         const commonPromptValidatorModel = new CommonPromptValidatorModel();
-        //call dialog
+        // call dialog
         return await stepContext.replaceDialog(ALWAYS_ON_BOT_DIALOG, commonPromptValidatorModel);
       // Could not understand / No intent
       default: {
