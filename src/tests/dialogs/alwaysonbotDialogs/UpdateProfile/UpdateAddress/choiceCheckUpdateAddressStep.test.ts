@@ -14,7 +14,7 @@ describe('ChoiceCheckUpdateAddressStep', () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require('../../../../testdata/dialogs/UpdateProfile/UpdateAddress/choicecheckUpdateAddressdata')
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/choiceCheckUpdateAddressDataOne')
 
         testCases.map((testData) => {
             it(testData.name, async () => {
