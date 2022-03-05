@@ -24,8 +24,8 @@ describe('GetAddressStep', () => {
             tsSinon.default.restore();
         });
 
-        const apiTestData = require('../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataT2T');
-        const testCases = require('../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataT2T');
+        const apiTestData = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataT2T');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getAddressdataT2T');
         testCases.map((testData) => {
             it(testData.name, async () => {
                 const client = new DialogTestClient('test', sut, testData.initialData, [
@@ -79,8 +79,8 @@ describe('GetAddressStep', () => {
             tsSinon.default.restore();
         });
 
-        const apiTestData = require('../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataL4H');
-        const testCases = require('../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataL4H');
+        const apiTestData = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataL4H');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getAddressdataL4H');
         testCases.map((testData) => {
             it(testData.name, async () => {
                 const client = new DialogTestClient('test', sut, testData.initialData, [
@@ -139,8 +139,8 @@ describe('GetAddressStep', () => {
             tsSinon.default.restore();
         });
 
-        const apiTestData = require('../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataX0E');
-        const testCases = require('../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataX0E');
+        const apiTestData = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataX0E');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getAddressdataX0E');
         testCases.map((testData) => {
             it(testData.name, async () => {
                 const client = new DialogTestClient('test', sut, testData.initialData, [
@@ -194,8 +194,8 @@ describe('GetAddressStep', () => {
             tsSinon.default.restore();
         });
 
-        const apiTestData = require('../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataT7S');
-        const testCases = require('../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataT7S');
+        const apiTestData = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataT7S');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getAddressdataT7S');
         testCases.map((testData) => {
             it(testData.name, async () => {
                 const client = new DialogTestClient('test', sut, testData.initialData, [

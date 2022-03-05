@@ -24,7 +24,7 @@ describe('ConfirmPhoneNumber', () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require('../../../../testdata/dialogs/UpdateProfile/UpdatePhoneNumber/confirmPhoneNumberdata');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdatePhoneNumber/confirmPhoneNumberdata');
 
         testCases.map((testData) => {
             it(testData.name, async () => {

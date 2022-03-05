@@ -24,7 +24,7 @@ describe('ConfirmEmailStep', () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require('../../../../testdata/dialogs/UpdateProfile/UpdateEmail/ConfirmEmailtestdata');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateEmail/ConfirmEmailtestdata');
         testCases.map((testData) => {
             it(testData.name, async () => {
                 const client = new DialogTestClient('test', sut, testData.initialData, [

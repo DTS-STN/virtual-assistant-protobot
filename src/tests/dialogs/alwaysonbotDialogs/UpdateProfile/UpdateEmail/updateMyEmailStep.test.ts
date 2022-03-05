@@ -22,7 +22,7 @@ describe('UpdateMyEmail', () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require('../../../../testdata/dialogs/UpdateProfile/UpdateEmail/updateMyEmaildata');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateEmail/updateMyEmaildata');
 
         testCases.map((testData) => {
             it(testData.name, async () => {

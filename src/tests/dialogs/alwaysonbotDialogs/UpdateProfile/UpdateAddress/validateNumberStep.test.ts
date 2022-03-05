@@ -22,7 +22,7 @@ describe('ValidateNumberStep', () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require('../../../../testdata/dialogs/UpdateProfile/UpdateAddress/validateNumberData');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/validateNumberData');
 
         testCases.map((testData) => {
             it(testData.name, async () => {
