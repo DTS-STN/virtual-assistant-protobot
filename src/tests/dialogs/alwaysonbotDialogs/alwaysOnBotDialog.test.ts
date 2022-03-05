@@ -22,7 +22,7 @@ describe('AlwaysOnBotDialog', () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require('../../testData/dialogs/alwaysOnBotTestDataOne');
+        const testCases = require('../../testData/dialogs/alwaysOnBotTestData');
 
         testCases.map((testData) => {
             it(testData.name, async () => {
