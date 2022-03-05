@@ -1,16 +1,16 @@
-import { LuisRecognizer } from "botbuilder-ai";
-const assert = require("assert");
-import chai from "chai";
-import * as tsSinon from "ts-sinon";
-chai.use(require("sinon-chai"));
-import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-import { CommonChoiceCheckStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import { UpdateAddressStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateAddress/updateAddressStep";
-import { GetAddressesStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateAddress/getAddressesStep";
-import { ContinueAndFeedbackStep } from "../../../../../dialogs/alwaysonbotDialogs/Common/continueAndFeedbackStep";
+import { LuisRecognizer } from 'botbuilder-ai';
+const assert = require('assert');
+import chai from 'chai';
+import * as tsSinon from 'ts-sinon';
+chai.use(require('sinon-chai'));
+import { DialogTestClient, DialogTestLogger } from 'botbuilder-testing';
+import { UpdateAddressStep } from '../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateAddress/updateAddressStep';
+import { GetAddressesStep } from '../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateAddress/getAddressesStep';
+import { ContinueAndFeedbackStep } from '../../../../../dialogs/common/continueAndFeedbackStep';
+import { CommonChoiceCheckStep } from '../../../../../dialogs/common/commonChoiceCheckStep';
 
-describe("UpdateAddress", () => {
-    describe("Should be able to initialize Update Address Step Dialog", () => {
+describe('UpdateAddress', () => {
+    describe('Should be able to initialize Update Address Step Dialog', () => {
         const sut = new UpdateAddressStep();
 
         sut.addDialog(new CommonChoiceCheckStep());
@@ -21,16 +21,16 @@ describe("UpdateAddress", () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require("../../../../testData/dialogs/UpdateProfile/UpdateAddress/updateAddressdata")
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/updateAddressdata')
 
         testCases.map((testData) => {
             it(testData.name, async () => {
-                const client = new DialogTestClient("test", sut, testData.initialData, [
+                const client = new DialogTestClient('test', sut, testData.initialData, [
                     new DialogTestLogger()
                 ]);
 
                 tsSinon.default
-                    .stub(LuisRecognizer.prototype, "recognize")
+                    .stub(LuisRecognizer.prototype, 'recognize')
                     .callsFake(() =>
                         JSON.parse(
                             `{"intents": {"${testData.intent}": {"score": 1}}, "entities": {"$instance": {}}}`

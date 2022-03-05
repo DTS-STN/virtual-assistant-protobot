@@ -1,18 +1,18 @@
-import { LuisRecognizer } from "botbuilder-ai";
-import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-import chai, { expect } from "chai";
-import * as tsSinon from "ts-sinon";
-import { ContinueAndFeedbackStep } from "../../../../../dialogs/alwaysonbotDialogs/Common/continueAndFeedbackStep";
-import { CommonCallBackStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/commonCallBackStep";
-import { ChoiceCheckUpdateAddressStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateAddress/choiceCheckUpdateAddressStep";
-import { GetAddressesStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdateAddress/getAddressesStep";
-import { CommonChoiceCheckStep } from "../../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import { AddressAPI } from "../../../../../utils/addressAPI";
-const assert = require("assert");
-chai.use(require("sinon-chai"));
+import { LuisRecognizer } from 'botbuilder-ai';
+import { DialogTestClient, DialogTestLogger } from 'botbuilder-testing';
+import chai, { expect } from 'chai';
+import * as tsSinon from 'ts-sinon';
+import { ContinueAndFeedbackStep } from '../../../../../dialogs/common/continueAndFeedbackStep';
+import { CommonCallBackStep } from '../../../../../dialogs/alwaysOnDialogs/UpdateProfile/commonCallBackStep';
+import { ChoiceCheckUpdateAddressStep } from '../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateAddress/choiceCheckUpdateAddressStep';
+import { GetAddressesStep } from '../../../../../dialogs/alwaysOnDialogs/UpdateProfile/UpdateAddress/getAddressesStep';
+import { AddressAPI } from '../../../../../utils/addressAPI';
+import { CommonChoiceCheckStep } from '../../../../../dialogs/common/commonChoiceCheckStep';
+const assert = require('assert');
+chai.use(require('sinon-chai'));
 
-describe("GetAddressStep", () => {
-    describe("should be able to initialize get address step with excat postal code", () => {
+describe('GetAddressStep', () => {
+    describe('should be able to initialize get address step with excat postal code', () => {
         const sut = new GetAddressesStep();
 
         sut.addDialog(new ChoiceCheckUpdateAddressStep());
@@ -23,25 +23,25 @@ describe("GetAddressStep", () => {
         afterEach(() => {
             tsSinon.default.restore();
         });
-        
-        const apiTestData = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataT2T");
-        const testCases = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataT2T");
+
+        const apiTestData = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataT2T');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getAddressdataT2T');
         testCases.map((testData) => {
             it(testData.name, async () => {
-                const client = new DialogTestClient("test", sut, testData.initialData, [
+                const client = new DialogTestClient('test', sut, testData.initialData, [
                     new DialogTestLogger()
                 ]);
                 tsSinon.default
-                    .stub(LuisRecognizer.prototype, "recognize")
+                    .stub(LuisRecognizer.prototype, 'recognize')
                     .callsFake(() =>
                         JSON.parse(
                             `{"intents": {"${testData.intent}": {"score": 1}}, "entities": {"$instance": {}}}`
                         )
                     );
                     tsSinon.default
-                    .stub(AddressAPI.prototype, "getAddress")
+                    .stub(AddressAPI.prototype, 'getAddress')
                     .returns(
-                            apiTestData  
+                            apiTestData
                     );
                     for (const step of testData.steps) {
                         let reply;
@@ -53,21 +53,21 @@ describe("GetAddressStep", () => {
                         {
                             reply = await client.getNextReply();
                         }
-    
+
                         if (step[1])
                         {
                             assert.strictEqual((reply ? reply.text : null), step[1], `${reply ? reply.text : null} != ${step[1]}`);
                         }
                         else
                         {
-                            //assertNull(reply, null);
+                            // assertNull(reply, null);
                             expect(reply).to.be.undefined;
                         }
                     }
             });
         });
     });
-    describe("should be able to initialize get address step with found 3 address with postal code", () => {
+    describe('should be able to initialize get address step with found 3 address with postal code', () => {
         const sut = new GetAddressesStep();
 
         sut.addDialog(new ChoiceCheckUpdateAddressStep());
@@ -78,25 +78,25 @@ describe("GetAddressStep", () => {
         afterEach(() => {
             tsSinon.default.restore();
         });
-        
-        const apiTestData = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataL4H");
-        const testCases = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataL4H");
+
+        const apiTestData = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataL4H');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getAddressdataL4H');
         testCases.map((testData) => {
             it(testData.name, async () => {
-                const client = new DialogTestClient("test", sut, testData.initialData, [
+                const client = new DialogTestClient('test', sut, testData.initialData, [
                     new DialogTestLogger()
                 ]);
                 tsSinon.default
-                    .stub(LuisRecognizer.prototype, "recognize")
+                    .stub(LuisRecognizer.prototype, 'recognize')
                     .callsFake(() =>
                         JSON.parse(
                             `{"intents": {"${testData.intent}": {"score": 1}}, "entities": {"$instance": {}}}`
                         )
                     );
                     tsSinon.default
-                    .stub(AddressAPI.prototype, "getAddress")
+                    .stub(AddressAPI.prototype, 'getAddress')
                     .returns(
-                            apiTestData  
+                            apiTestData
                     );
                     for (const step of testData.steps) {
                         let reply;
@@ -127,7 +127,7 @@ describe("GetAddressStep", () => {
             });
         });
     });
-    describe("should be able to initialize get address step with found greater than 5  address with postal code", () => {
+    describe('should be able to initialize get address step with found greater than 5  address with postal code', () => {
         const sut = new GetAddressesStep();
 
         sut.addDialog(new ChoiceCheckUpdateAddressStep());
@@ -138,25 +138,25 @@ describe("GetAddressStep", () => {
         afterEach(() => {
             tsSinon.default.restore();
         });
-        
-        const apiTestData = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataX0E");
-        const testCases = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataX0E");
+
+        const apiTestData = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataX0E');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getAddressdataX0E');
         testCases.map((testData) => {
             it(testData.name, async () => {
-                const client = new DialogTestClient("test", sut, testData.initialData, [
+                const client = new DialogTestClient('test', sut, testData.initialData, [
                     new DialogTestLogger()
                 ]);
                 tsSinon.default
-                    .stub(LuisRecognizer.prototype, "recognize")
+                    .stub(LuisRecognizer.prototype, 'recognize')
                     .callsFake(() =>
                         JSON.parse(
                             `{"intents": {"${testData.intent}": {"score": 1}}, "entities": {"$instance": {}}}`
                         )
                     );
                     tsSinon.default
-                    .stub(AddressAPI.prototype, "getAddress")
+                    .stub(AddressAPI.prototype, 'getAddress')
                     .returns(
-                            apiTestData  
+                            apiTestData
                     );
                     for (const step of testData.steps) {
                         let reply;
@@ -168,21 +168,21 @@ describe("GetAddressStep", () => {
                         {
                             reply = await client.getNextReply();
                         }
-    
+
                         if (step[1])
                         {
                             assert.strictEqual((reply ? reply.text : null), step[1], `${reply ? reply.text : null} != ${step[1]}`);
                         }
                         else
                         {
-                            //assertNull(reply, null);
+                            // assertNull(reply, null);
                             expect(reply).to.be.undefined;
                         }
                     }
             });
         });
     });
-    describe("should be able to initialize get address step with Postal Box", () => {
+    describe('should be able to initialize get address step with Postal Box', () => {
         const sut = new GetAddressesStep();
 
         sut.addDialog(new ChoiceCheckUpdateAddressStep());
@@ -193,25 +193,25 @@ describe("GetAddressStep", () => {
         afterEach(() => {
             tsSinon.default.restore();
         });
-        
-        const apiTestData = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataT7S");
-        const testCases = require("../../../../testdata/dialogs/UpdateProfile/UpdateAddress/getAddressdataT7S");
+
+        const apiTestData = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getaddresstestdataT7S');
+        const testCases = require('../../../../testData/dialogs/UpdateProfile/UpdateAddress/getAddressdataT7S');
         testCases.map((testData) => {
             it(testData.name, async () => {
-                const client = new DialogTestClient("test", sut, testData.initialData, [
+                const client = new DialogTestClient('test', sut, testData.initialData, [
                     new DialogTestLogger()
                 ]);
                 tsSinon.default
-                    .stub(LuisRecognizer.prototype, "recognize")
+                    .stub(LuisRecognizer.prototype, 'recognize')
                     .callsFake(() =>
                         JSON.parse(
                             `{"intents": {"${testData.intent}": {"score": 1}}, "entities": {"$instance": {}}}`
                         )
                     );
                     tsSinon.default
-                    .stub(AddressAPI.prototype, "getAddress")
+                    .stub(AddressAPI.prototype, 'getAddress')
                     .returns(
-                            apiTestData  
+                            apiTestData
                     );
                     for (const step of testData.steps) {
                         let reply;
@@ -223,14 +223,14 @@ describe("GetAddressStep", () => {
                         {
                             reply = await client.getNextReply();
                         }
-    
+
                         if (step[1])
                         {
                             assert.strictEqual((reply ? reply.text : null), step[1], `${reply ? reply.text : null} != ${step[1]}`);
                         }
                         else
                         {
-                            //assertNull(reply, null);
+                            // assertNull(reply, null);
                             expect(reply).to.be.undefined;
                         }
                     }

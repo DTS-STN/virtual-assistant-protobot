@@ -7,31 +7,34 @@ import {
   WaterfallDialog,
   DialogTurnResult,
   WaterfallStepContext,
-  DialogState,
-} from "botbuilder-dialogs";
+  DialogState
+} from 'botbuilder-dialogs';
 
-import { TurnContext, StatePropertyAccessor } from "botbuilder";
+import { TurnContext, StatePropertyAccessor } from 'botbuilder';
 
-import i18n from "./locales/i18nConfig";
-import { UnblockBotDetails } from "./unblockDialogs/unblockBotDetails";
+import i18n from './locales/i18nConfig';
+import { UnblockBotDetails } from './unblockDialogs/unblockBotDetails';
 import {
   UNBLOCK_BOT_DIALOG,
-  UnblockBotDialog,
-} from "./unblockDialogs/unblockBotDialog";
+  UnblockBotDialog
+} from './unblockDialogs/unblockBotDialog';
+import { CallbackBotDetails } from './callbackDialogs/callbackBotDetails';
+import { CallbackBotDialog, CALLBACK_BOT_DIALOG } from './callbackDialogs/callbackBotDialog';
 
-const CHOICE_PROMPT = "CHOICE_PROMPT";
+const CHOICE_PROMPT = 'CHOICE_PROMPT';
 
 // The String ID name for the main dialog
-const MAIN_DIALOG = "MAIN_DIALOG";
+const MAIN_DIALOG = 'MAIN_DIALOG';
 
 // The String ID of the waterfall dialog that exists in the main dialog
-const MAIN_WATERFALL_DIALOG = "MAIN_WATERFALL_DIALOG";
+const MAIN_WATERFALL_DIALOG = 'MAIN_WATERFALL_DIALOG';
 
 export class MainDialog extends ComponentDialog {
   constructor() {
     super(MAIN_DIALOG);
 
     // Add the unblockBot dialog to the dialog
+    this.addDialog(new CallbackBotDialog());
     this.addDialog(new UnblockBotDialog());
     this.addDialog(new ChoicePrompt(CHOICE_PROMPT));
 
@@ -39,7 +42,7 @@ export class MainDialog extends ComponentDialog {
       new WaterfallDialog(MAIN_WATERFALL_DIALOG, [
         this.initialStep.bind(this),
         this.rateStep.bind(this),
-        this.finalStep.bind(this),
+        this.finalStep.bind(this)
       ])
     );
 
@@ -84,12 +87,12 @@ export class MainDialog extends ComponentDialog {
    * ask users to review the user experience for future improvement
    */
   async rateStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-    const feedbackMsg = i18n.__("mainDialogFeedbackMsg");
+    const feedbackMsg = i18n.__('mainDialogFeedbackMsg');
 
     // Running a prompt here means the next WaterfallStep will be run when the user's response is received.
     return await stepContext.prompt(CHOICE_PROMPT, {
       prompt: feedbackMsg,
-      choices: ChoiceFactory.toChoices(["😡", "🙁", "😐", "🙂", "😄"]),
+      choices: ChoiceFactory.toChoices(['1 = 😡', '2 = 🙁', '3 = 😐', '4 = 🙂', '5 = 😄'])
     });
   }
 
@@ -99,7 +102,7 @@ export class MainDialog extends ComponentDialog {
   async finalStep(
     stepContext: WaterfallStepContext
   ): Promise<DialogTurnResult> {
-    const greatDayMsg = i18n.__("mainDialogGreatDayMsg");
+    const greatDayMsg = i18n.__('mainDialogGreatDayMsg');
 
     await stepContext.context.sendActivity(greatDayMsg);
     // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is the end.

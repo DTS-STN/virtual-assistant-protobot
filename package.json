@@ -13,7 +13,7 @@
         "lint:fix": "tslint -p tsconfig.json -c tslint.json --fix",
         "start:prod": "node build/app.js",
         "start:dev": "npm run build && nodemon --exec ts-node src/app.ts",
-        "test": "nyc mocha --timeout 10000 -r ts-node/register 'src/tests/**/*.test.ts'",
+        "test": "nyc mocha -r ts-node/register 'src/tests/**/*.test.ts'",
         "coverage": "nyc mocha",
         "test-coverage-ci": "nyc --reporter=cobertura mocha --reporter mocha-junit-reporter",
         "watch": "npm run copy-files && nodemon --watch ./src -e ts --exec \"npm run start\"",

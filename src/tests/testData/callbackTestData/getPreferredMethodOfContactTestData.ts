@@ -5,7 +5,6 @@ module.exports = [
     intent: 'promptConfirmChoiceEmail',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: null,
       preferredEmailAndText: null,
@@ -24,7 +23,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -54,7 +52,6 @@ module.exports = [
     expectedStatus: 'complete',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: null,
       preferredEmailAndText: null,
@@ -73,7 +70,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -93,14 +89,13 @@ module.exports = [
       ],
       [
         `yes, text message`,
-        `The phone number I have for you is [XXX-XXX-XXXX]. Can this number receive text messages? (1) Yes correct! or (2) No it's not`
+        `The phone number I have for you is [123-456-7890]. Can this number receive text messages? (1) Yes correct! or (2) No it's not`
       ]
     ]
   },
   {
     expectedResult: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: null,
       preferredEmailAndText: true,
@@ -119,7 +114,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -135,7 +129,6 @@ module.exports = [
     intent: 'promptConfirmChoiceBoth',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: null,
       preferredEmailAndText: null,
@@ -154,7 +147,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -179,7 +171,6 @@ module.exports = [
   {
     expectedResult: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: null,
       preferredEmailAndText: null,
@@ -198,7 +189,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -214,7 +204,6 @@ module.exports = [
     intent: 'promptConfirmChoiceNone',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: null,
       preferredEmailAndText: null,
@@ -233,7 +222,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -259,7 +247,6 @@ module.exports = [
     expectedStatus: 'complete',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: null,
       preferredEmailAndText: null,
@@ -278,7 +265,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -305,7 +291,6 @@ module.exports = [
   {
     expectedResult: {
       masterError: true,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: null,
       preferredEmailAndText: null,
@@ -324,14 +309,13 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
         confirmAuthWordStep: 0,
         getUserEmailStep: 0,
         confirmConfirmationStep: 0,
-        getPreferredMethodOfContactStep: 3,
+        getPreferredMethodOfContactStep: 2,
         confirmEmailStep: 0,
         confirmPhoneStep: 0
       }
@@ -340,7 +324,6 @@ module.exports = [
     expectedStatus: 'complete',
     initialData: {
       masterError: null,
-      confirmCallbackStep: true,
       preferredEmail: null,
       preferredText: null,
       preferredEmailAndText: null,
@@ -359,7 +342,6 @@ module.exports = [
       time: '',
       authCode: '',
       errorCount: {
-        confirmCallbackStep: 0,
         getUserPhoneNumberStep: 0,
         getPreferredCallbackDateAndTimeStep: 0,
         confirmCallbackDetailsStep: 0,
@@ -369,9 +351,10 @@ module.exports = [
         getPreferredMethodOfContactStep: 0,
         confirmEmailStep: 0,
         confirmPhoneStep: 0
+
       }
     },
-    name: 'Error input more than 3 times',
+    name: 'Error input more than 2 times',
     steps: [
       [
         null,
@@ -381,13 +364,10 @@ module.exports = [
         `hha`,
         `Hmm, I'm not sure what you meant. Do you prefer to receive your confirmation code via email, text message, or both?\n\n   1. Email\n   2. Text message\n   3. Both\n   4. No need at all`
       ],
+
       [
-        `hahaha`,
-        `Hmm, I'm not sure what you meant. Do you prefer to receive your confirmation code via email, text message, or both?\n\n   1. Email\n   2. Text message\n   3. Both\n   4. No need at all`
-      ],
-      [
-        'aaaa',
-        `Hmm, I'm having a hard time understanding you. Sorry about that! Try visiting our Help Center or give us a call at (XXX-XXX-XXXX).`
+        'secondError',
+        `Hmm, I'm having a hard time understanding you. Sorry about that! Please visit our Help Centre or give us a call at 123-456-7890.`
       ]
     ]
   }

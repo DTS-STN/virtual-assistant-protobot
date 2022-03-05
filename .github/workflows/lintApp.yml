@@ -2,7 +2,7 @@ name: Lint App code
 
 on:
   pull_request:
-    branches: [main]
+    branches: [develop]
 
 jobs:
   test:

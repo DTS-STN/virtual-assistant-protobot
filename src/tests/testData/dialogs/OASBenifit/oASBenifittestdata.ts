@@ -1,8 +1,8 @@
 module.exports=[
     {
-        intent: 'WhatisMyApplicationStatus',
+        intent: 'WhatIsMyApplicationStatus',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'What is My Application Status',
         steps: [

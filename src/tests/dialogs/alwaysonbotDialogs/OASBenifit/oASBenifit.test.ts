@@ -1,15 +1,15 @@
-import { LuisRecognizer } from "botbuilder-ai";
-const assert = require("assert");
-import chai from "chai";
-import * as tsSinon from "ts-sinon";
-chai.use(require("sinon-chai"));
-import { DialogTestClient, DialogTestLogger } from "botbuilder-testing";
-import { CommonChoiceCheckStep } from "../../../../dialogs/alwaysonbotDialogs/UpdateProfile/UpdatePhoneNumber/commonChoiceCheckStep";
-import { OASBenefitStep } from "../../../../dialogs/alwaysonbotDialogs/OASBenefit/oASBenefitStep";
-import { ApplicationStatusStep } from "../../../../dialogs/alwaysonbotDialogs/OASBenefit/applicationStatusStep";
+import { LuisRecognizer } from 'botbuilder-ai';
+const assert = require('assert');
+import chai from 'chai';
+import * as tsSinon from 'ts-sinon';
+chai.use(require('sinon-chai'));
+import { DialogTestClient, DialogTestLogger } from 'botbuilder-testing';
+import { OASBenefitStep } from '../../../../dialogs/alwaysOnDialogs/OASBenefit/oASBenefitStep';
+import { ApplicationStatusStep } from '../../../../dialogs/alwaysOnDialogs/OASBenefit/applicationStatusStep';
+import { CommonChoiceCheckStep } from '../../../../dialogs/common/commonChoiceCheckStep';
 
-describe("OASBenefitStep", () => {
-    describe("Should be able to initialize OAS Step Dialog", () => {
+describe('OASBenefitStep', () => {
+    describe('Should be able to initialize OAS Step Dialog', () => {
         const sut = new OASBenefitStep();
 
         sut.addDialog(new CommonChoiceCheckStep());
@@ -19,16 +19,16 @@ describe("OASBenefitStep", () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require("../../../testdata/dialogs/OASBenifit/oASBenifittestdata");
+        const testCases = require('../../../testData/dialogs/OASBenifit/oASBenifittestdata');
 
         testCases.map((testData) => {
             it(testData.name, async () => {
-                const client = new DialogTestClient("test", sut, testData.initialData, [
+                const client = new DialogTestClient('test', sut, testData.initialData, [
                     new DialogTestLogger()
                 ]);
 
                 tsSinon.default
-                    .stub(LuisRecognizer.prototype, "recognize")
+                    .stub(LuisRecognizer.prototype, 'recognize')
                     .callsFake(() =>
                         JSON.parse(
                             `{"intents": {"${testData.intent}": {"score": 1}}, "entities": {"$instance": {}}}`

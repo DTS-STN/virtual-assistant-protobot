@@ -2,7 +2,7 @@ module.exports=[
     {
         intent: 'promptConfirmYes',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'Yes Update email address',
         steps: [
@@ -13,7 +13,7 @@ module.exports=[
     {
         intent: 'promptConfirmNo',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'No Dont Update email address',
         steps: [
@@ -24,7 +24,7 @@ module.exports=[
     {
         intent: 'None',
         initialData: {
-            locale: 'en',
+            locale: 'en'
         },
         name: 'Choosing None intent on Update Email',
         steps: [

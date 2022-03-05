@@ -15,7 +15,7 @@ module.exports = [
             numberValidationStep:null,
             AddressType:'PO BOX',
             UnitNumber:null,
-            updateAddressStep:null,            
+            updateAddressStep:null,
             currentCount:0,
             currentStep:''
         },
@@ -26,5 +26,5 @@ module.exports = [
             ['123','Great! Your full address is #PO BOX 123    Tsiigehtchic  NT X0E 1W0. Is that correct?'],
             ['Yes','Perfect! I\'ve updated your address to #PO BOX 123    Tsiigehtchic  NT X0E 1W0']
         ]
-    },
+    }
 ]

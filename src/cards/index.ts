@@ -1,8 +1,8 @@
-import { MessageFactory, CardFactory } from "botbuilder";
+import { MessageFactory, CardFactory } from 'botbuilder';
 
-export * from "./uiSchemaDirectDeposit";
-export * from "./uiSchemaLookup";
-export * from "./uiSchemaUtil";
+export * from './uiSchemaDirectDeposit';
+export * from './uiSchemaLookup';
+export * from './uiSchemaUtil';
 
 // Helper function to attach adaptive card.
 export function addACard(schema: any): any {
