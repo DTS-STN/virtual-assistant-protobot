@@ -19,7 +19,7 @@ describe('CommonCallBack', () => {
             tsSinon.default.restore();
         });
 
-        const testCases = require('../../../testData/dialogs/commonCallbackData');
+        const testCases = require('../../../testData/dialogs/commonCallbackDataOne');
 
         testCases.map((testData) => {
             it(testData.name, async () => {
