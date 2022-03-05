@@ -14,12 +14,12 @@ export class CallbackRecognizer {
     // Then change LUIZ appID
 
     if (lang === 'fr') {
-      this.applicationId = process.env.LuisCallbackAppIdFR;
-      this.endpointKey = process.env.LuisCallbackAPIKeyFR;
+      this.applicationId = process.env.LuisAppIdFR;
+      this.endpointKey = process.env.LuisAPIKeyFR;
       this.endpoint = `https://${process.env.LuisAPIHostNameFR}.cognitiveservices.azure.com`;
     } else {
-      this.applicationId = process.env.LuisCallbackAppIdEN;
-      this.endpointKey = process.env.LuisCallbackAPIKeyEN;
+      this.applicationId = process.env.LuisAppIdEN;
+      this.endpointKey = process.env.LuisAPIKeyEN;
       this.endpoint = `https://${process.env.LuisAPIHostNameEN}.cognitiveservices.azure.com`;
     }
     const luisConfig: LuisApplication = {
