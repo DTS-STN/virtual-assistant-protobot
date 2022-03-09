@@ -35,7 +35,7 @@
 	"unblock_direct_deposit_transit_name": "your 5-digit transit number",
 	"unblock_direct_deposit_account_name": "your 7-digit bank account number",
 	"unblock_direct_deposit_how_to_cheques": "All numbers can be found at the bottom of any personal cheques.",
-	"unblock_direct_deposit_how_to_bank": "You maybe also find these numbers by visiting your financial institution's website or log into your online bank account.",
+	"unblock_direct_deposit_how_to_bank": "You may also find these numbers by visiting your financial institution's website or log into your online bank account.",
 	"unblock_direct_deposit_cheque_path": "/attachments/cheque-en.svg",
 	"unblock_direct_deposit_cheque_altText": "An image of a cheque with the 3 numbers circled at the bottom.",
 	"unblock_direct_deposit_institute": "What is your 3-digit financial institution number?",
