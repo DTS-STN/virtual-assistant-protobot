@@ -41,7 +41,6 @@ export class CommonCallBackStep extends ComponentDialog {
      * First step in the waterfall dialog. Prompts the user for a command
      */
     async continueStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
-        console.log('0000000')
         const details = stepContext.options as CommonPromptValidatorModel;
         const commonPromptValidatorModel = new CommonPromptValidatorModel(
             ['YesIWantToRequestCall', 'NoNotForNow'],
@@ -59,7 +58,6 @@ export class CommonCallBackStep extends ComponentDialog {
 
     async selectionStep(stepContext: WaterfallStepContext): Promise<DialogTurnResult> {
         const commonPromptValidatorModel = stepContext.result as CommonPromptValidatorModel;
-          console.log('modle ', JSON.stringify(commonPromptValidatorModel))
         if (commonPromptValidatorModel !== null && commonPromptValidatorModel.status)
         {
             switch (commonPromptValidatorModel.result) {

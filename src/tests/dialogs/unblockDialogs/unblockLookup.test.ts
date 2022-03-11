@@ -42,6 +42,7 @@ import {
   UnblockDirectDepositStep
 } from '../../../dialogs/unblockDialogs/unblockDirectDeposit';
 import { UnblockRecognizer } from '../../../dialogs/unblockDialogs/unblockRecognizer';
+import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNext';
 
 /**
  * The lookup step more or less the same as bot
@@ -62,6 +63,7 @@ describe('Unblock LookUp Step', () => {
     testCases.map((testData) => {
       it('should display an adaptive card', async () => {
         const sut = new ConfirmLookIntoStep();
+        sut.addDialog(new UnblockNextOptionStep());
         const client = new DialogTestClient('test', sut, testData.initialData, [
           new DialogTestLogger(console)
         ]);
@@ -106,6 +108,7 @@ describe('Unblock LookUp Step', () => {
 
       it('Should go to direct deposit if user say they do have a canadian bank account', async () => {
         const sut = new ConfirmLookIntoStep();
+        sut.addDialog(new UnblockNextOptionStep());
         const client = new DialogTestClient('test', sut, testData.initialData, [
           new DialogTestLogger(console)
         ]);
@@ -142,6 +145,7 @@ describe('Unblock LookUp Step', () => {
 
       it('Should display OAS button if user say they do not have a canadian bank account', async () => {
         const sut = new ConfirmLookIntoStep();
+        sut.addDialog(new UnblockNextOptionStep());
         const client = new DialogTestClient('test', sut, testData.initialData, [
           new DialogTestLogger(console)
         ]);
@@ -189,11 +193,15 @@ describe('Unblock LookUp Step', () => {
           reply.attachments[0].content.actions[0].url,
           'https://canada.ca'
         );
+
+
+
       });
 
 
       it('Should provide retry msg when user input something that bot does not understand', async () => {
         const sut = new ConfirmLookIntoStep();
+        sut.addDialog(new UnblockNextOptionStep());
         const client = new DialogTestClient('test', sut, testData.initialData, [
           new DialogTestLogger(console)
         ]);
@@ -228,6 +236,7 @@ describe('Unblock LookUp Step', () => {
 
       it('Should fail gracefully after 2 errors', async () => {
         const sut = new ConfirmLookIntoStep();
+        sut.addDialog(new UnblockNextOptionStep());
         const client = new DialogTestClient('test', sut, testData.initialData, [
           new DialogTestLogger(console)
         ]);

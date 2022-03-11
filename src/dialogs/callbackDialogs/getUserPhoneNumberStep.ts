@@ -142,7 +142,6 @@ export class GetUserPhoneNumberStep extends ComponentDialog {
       case 'promptConfirmChoiceText':
       case 'promptConfirmYes':
       case 'promptTryAgainYes':
-        console.log('INTENT getUserPhone: ', intent);
         callbackBotDetails.getPreferredMethodOfContactStep = null;
         callbackBotDetails.confirmPhoneStep = null;
         callbackBotDetails.getUserPhoneNumberStep = null;

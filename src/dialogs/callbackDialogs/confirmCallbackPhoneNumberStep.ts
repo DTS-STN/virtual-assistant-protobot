@@ -138,7 +138,6 @@ export class ConfirmCallbackPhoneNumberStep extends ComponentDialog {
 
       case 'promptConfirmYes':
       case 'promptConfirmPhoneYes':
-        console.log('confirmCallbackPhoneNumberStep INTENT: ', intent);
         callbackBotDetails.confirmCallbackPhoneNumberStep = true;
         //  const confirmMsg = i18n.__('getUserPhoneConfirmMsg');
         // await stepContext.context.sendActivity(confirmMsg);
@@ -153,7 +152,6 @@ export class ConfirmCallbackPhoneNumberStep extends ComponentDialog {
       // Don't Proceed
 
       case 'promptConfirmNo':
-        console.log('confirmCallbackPhoneNumberStep INTENT: ', intent);
         callbackBotDetails.confirmCallbackPhoneNumberStep = false;
 
         return await stepContext.replaceDialog(
@@ -163,7 +161,6 @@ export class ConfirmCallbackPhoneNumberStep extends ComponentDialog {
       // Could not understand / None intent
       default: {
         // Catch all
-        console.log('confirmCallbackPhoneNumberStep NONE INTENT');
         callbackBotDetails.confirmCallbackPhoneNumberStep = -1;
         callbackBotDetails.errorCount.confirmCallbackPhoneNumberStep++;
 
