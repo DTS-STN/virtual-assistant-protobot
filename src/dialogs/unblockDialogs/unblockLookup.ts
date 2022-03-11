@@ -20,6 +20,7 @@ export const CONFIRM_LOOK_INTO_STEP = 'CONFIRM_LOOK_INTO_STEP';
 const CONFIRM_LOOK_INTO_WATERFALL_STEP = 'CONFIRM_LOOK_INTO_WATERFALL_STEP';
 import { MAX_ERROR_COUNT}  from '../../utils'
 import { callbackCard } from '../../cards/callbackCard';
+import { NEXT_OPTION_STEP } from './unblockNext';
 
 export class ConfirmLookIntoStep extends ComponentDialog {
   constructor() {
@@ -170,8 +171,11 @@ export class ConfirmLookIntoStep extends ComponentDialog {
         const linkText = i18n.__('unblock_lookup_decline_final_link_text');
 
         adaptiveCard(stepContext, TextBlockWithLink(text, link, linkText));
-        return await stepContext.endDialog(unblockBotDetails);
-
+        // return await stepContext.endDialog(unblockBotDetails);
+        return await stepContext.replaceDialog(
+          NEXT_OPTION_STEP,
+          unblockBotDetails
+        );
       // Could not understand / No intent
       default: {
         unblockBotDetails.confirmLookIntoStep = -1;

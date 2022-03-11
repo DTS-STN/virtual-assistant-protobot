@@ -149,7 +149,6 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
       // Proceed with Email
       case 'promptConfirmSendEmailYes':
       case 'promptConfirmChoiceEmail':
-        console.log('INTENT choose email: ', intent);
         callbackBotDetails.getPreferredMethodOfContactStep = true;
         callbackBotDetails.preferredEmail = true;
 

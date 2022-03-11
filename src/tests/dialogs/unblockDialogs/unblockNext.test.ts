@@ -45,6 +45,7 @@ import {
 import { UnblockDirectDepositMasterErrorStep } from '../../../dialogs/unblockDialogs/unblockDirectDepositMasterErrorStep';
 import { CallbackBotDialog } from '../../../dialogs/callbackDialogs/callbackBotDialog';
 import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNext';
+import { AlwaysOnBotDialog } from '../../../dialogs/alwaysOnDialogs/alwaysOnBotDialog';
 
   /**
    * The lookup step more or less the same as bot
@@ -57,17 +58,19 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
     );
   };
 
-    describe('Unblock Direct Deposit Master Error Step', () => {
+    describe('Unblock Next Option Step', () => {
       afterEach(() => {
         tsSinon.default.restore();
       });
-      const testCases = require('../../testData/unblockTestData/unblockDirectDepositMasterErrorStepTestData');
+      const testCases = require('../../testData/unblockTestData/unblockNextTestData');
       testCases.map((testData) => {
         it('Should show initial messages when enter this step', async () => {
-          const sut = new UnblockDirectDepositMasterErrorStep();
+          const sut = new UnblockNextOptionStep();
+         // sut.addDialog( new AlwaysOnBotDialog());
           const client = new DialogTestClient('test', sut, testData.initialData, [
             new DialogTestLogger(console)
           ]);
+
 
           tsSinon.default
           .stub(UnblockRecognizer.prototype, 'executeLuisQuery')
@@ -77,29 +80,27 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
             )
           );
           const updatedActivity: Partial<Activity> = {
-            text: testData.steps[0][0],
+            text: '',
             locale: 'en'
           };
-          const expectedInitialMsg = i18n.__('directDepositMasterErrorMsg');
+          const expectedInitialMsg = i18n.__('unblockToAlwaysOnBotOrCallbackBotQueryMsg');
           const reply = await client.sendActivity(updatedActivity);
-
-
           assert.strictEqual(
             reply.text,
-            expectedInitialMsg  + ` (1) Setup a call or (2) Not for now`
+            expectedInitialMsg  + ` (1) Yes or (2) No`
           );
         });
 
-        it('Should go to callback flow if user choose set up a call', async () => {
-          const sut = new UnblockDirectDepositMasterErrorStep();
+        it('Should go to end of flow if user choose no', async () => {
+          const sut = new UnblockNextOptionStep();
+          sut.addDialog( new AlwaysOnBotDialog());
+          sut.addDialog( new MainDialog());
           const client = new DialogTestClient('test', sut, testData.initialData, [
             new DialogTestLogger(console)
           ]);
-          sut.addDialog(new UnblockDirectDepositStep());
-          sut.addDialog(new  CallbackBotDialog());
-          const expectedMsg = i18n.__('confirmCallbackPhoneNumberStepStandardMsg');
+          const expectedMsg = i18n.__('mainDialogFeedbackMsg');
           const updatedActivity: Partial<Activity> = {
-            text: 'yes I do',
+            text: 'No',
             locale: 'en'
           };
 
@@ -107,24 +108,27 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
             .stub(UnblockRecognizer.prototype, 'executeLuisQuery')
             .callsFake(() =>
               JSON.parse(
-                `{"intents": {"promptConfirmYes": {"score": 1}}, "entities": {"$instance": {}}}`
+                `{"intents": {"promptConfirmNo": {"score": 1}}, "entities": {"$instance": {}}}`
               )
             );
-           await client.sendActivity(updatedActivity);
+            await client.sendActivity(updatedActivity);
+
           const reply = await client.sendActivity(updatedActivity);
 
 
-        assert.strictEqual(
-          reply.text,
-          expectedMsg + ` (1) Yes, correct or (2) No, it's not`
+       assert.strictEqual(
+          client.dialogTurnResult.result.nextOptionStep,
+          false
         );
-
+        assert.strictEqual(
+            reply,
+           undefined
+          );
         });
 
 
-        it('Should go to always on bot if user choose nothing for right now option', async () => {
-          const sut = new ConfirmLookIntoStep();
-          sut.addDialog(new UnblockNextOptionStep());
+        it('Should go to always on bot if user choose yes  option', async () => {
+            const sut = new UnblockNextOptionStep();
           const client = new DialogTestClient('test', sut, testData.initialData, [
             new DialogTestLogger(console)
           ]);
@@ -138,45 +142,35 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
             .stub(UnblockRecognizer.prototype, 'executeLuisQuery')
             .callsFake(() =>
               JSON.parse(
-                `{"intents": {"promptConfirmNo": {"score": 1}}, "entities": {"$instance": {}}}`
+                `{"intents": {"promptConfirmYes": {"score": 1}}, "entities": {"$instance": {}}}`
               )
             );
           await client.sendActivity(updatedActivity);
-          await client.getNextReply();
-          await client.getNextReply();
+
           const reply = await client.sendActivity(updatedActivity);
 
-          const expectedManualMsg = i18n.__('unblock_lookup_decline_final_text');
+          const expectedManualMsg = i18n.__('AlwaysOnBotPromptMessage');
 
           assert.strictEqual(
-            reply.attachments[0].contentType,
-            'application/vnd.microsoft.card.adaptive'
-          );
-          assert.strictEqual(
-            reply.attachments[0].contentType,
-            'application/vnd.microsoft.card.adaptive'
-          );
-          assert.strictEqual(
-            reply.attachments[0].content.body[0].text,
+            reply.text,
             expectedManualMsg
           );
           assert.strictEqual(
-            reply.attachments[0].content.actions[0].type,
-            'Action.OpenUrl'
+            reply.suggestedActions.actions[0].title,
+            'I want to update my personal information'
           );
           assert.strictEqual(
-            reply.attachments[0].content.actions[0].title,
-            'Apply for Old Age Security pension'
+            reply.suggestedActions.actions[1].title,
+            'I have a question about my Old Age Security pension'
+
           );
-          assert.strictEqual(
-            reply.attachments[0].content.actions[0].url,
-            'https://canada.ca'
-          );
+
         });
 
 
         it('Should provide retry msg when user input something that bot does not understand', async () => {
-          const sut = new ConfirmLookIntoStep();
+            const sut = new UnblockNextOptionStep();
+            sut.addDialog( new AlwaysOnBotDialog());
           const client = new DialogTestClient('test', sut, testData.initialData, [
             new DialogTestLogger(console)
           ]);
@@ -192,7 +186,7 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
             locale: 'en'
           };
           await client.sendActivity(updatedActivity);
-          const expectedRetryMsg = i18n.__('confirmLookIntoStepRetryMsg');
+          const expectedRetryMsg = i18n.__('unblockToAlwaysOnBotOrCallbackBotQueryRetryMsg');
           await client.getNextReply();
           await client.getNextReply();
           updatedActivity = {
@@ -204,12 +198,13 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
 
           assert.strictEqual(
             replyOne.text,
-            expectedRetryMsg + ` (1) Yes, I do or (2) No, I don't`
+            expectedRetryMsg + ` (1) Yes or (2) No`
           );
         });
 
         it('Should fail gracefully after 2 gibberish input', async () => {
-          const sut = new UnblockDirectDepositMasterErrorStep();
+            const sut = new UnblockNextOptionStep();
+            sut.addDialog( new AlwaysOnBotDialog());
           const client = new DialogTestClient('test', sut, testData.initialData, [
             new DialogTestLogger(console)
           ]);
@@ -230,8 +225,8 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
           const steps = [
             [
               'hahahaha',
-              i18n.__('confirmCallbackStepRetryMsg') +
-                ` (1) Setup a call or (2) Not for now`
+              i18n.__('unblockToAlwaysOnBotOrCallbackBotQueryRetryMsg') +
+                ` (1) Yes or (2) No`
             ],
 
             ['thirdError!', i18n.__('unblockBotDialogMasterErrorMsg')]
