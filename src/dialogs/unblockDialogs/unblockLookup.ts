@@ -170,7 +170,7 @@ export class ConfirmLookIntoStep extends ComponentDialog {
         const link = i18n.__('unblock_lookup_decline_callback_link');
         const linkText = i18n.__('unblock_lookup_decline_final_link_text');
 
-        adaptiveCard(stepContext, TextBlockWithLink(text, link, linkText));
+        await adaptiveCard(stepContext, TextBlockWithLink(text, link, linkText));
         // return await stepContext.endDialog(unblockBotDetails);
         return await stepContext.replaceDialog(
           NEXT_OPTION_STEP,
