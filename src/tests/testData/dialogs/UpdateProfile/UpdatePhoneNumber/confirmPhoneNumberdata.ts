@@ -14,7 +14,7 @@ module.exports=[
                     ['hi', 'Ok, what\'s your new phone number? (here’s an example: 123-456-7890)'],
                     ['123-123-1234', 'Perfect! I have updated your phone number to 123-123-1234'],
                     ['', 'Ok, you’re all set then!'],
-                    ['', 'Anything else that I can help you with today?']
+                    ['', 'Is there anything else I can help you with today?']
                 ]
             },
             {
