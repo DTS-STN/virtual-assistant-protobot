@@ -195,7 +195,7 @@
 	"oasBenefitCheckProfile": "Right now, you're in the process of being automatically enrolled in Old Age Security.",
 	"oasBenefitPaymentDue": "That means, we're in the process of calculating how much you'll be getting per month. Based on the information we have today, you should receive for $642.25 Old Age Security every month.",
 	"oasBenefitShowDeposit": "Closer to your birthday, you'll receive a letter confirming your eligibility, and the amount you'll receive each month.",
-	"continueAndFeedPromptMessage": "Anything else that I can help you with today?",
+	"continueAndFeedPromptMessage": "Is there anything else I can help you with today?",
 	"continueAndFeedRetryPromptMessage": "Hmm, I'm not sure what you meant. How can I help?",
 	"continueAndFeedPromptOptions": [
 		"Yes",
@@ -210,7 +210,7 @@
 		"4=🙂",
 		"5=😀"
 	],
-	"continueAndFeedExcellent": "Thank you for your time",
+	"continueAndFeedExcellent": "Thank you for your time!",
 	"UpdateMyProfilePromptMessage": "Ok, here are few more options below.",
 	"UpdateMyProfileRetryPromptMessage": "Hmm, I'm not sure what you meant. What do you want to update today?",
 	"UpdateMyProfilePromptOptions": [
