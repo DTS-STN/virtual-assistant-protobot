@@ -7,7 +7,7 @@
 	"directDepositMasterErrorMsg": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada representative call you on the phone to help you with your missing banking information. \n\n Would you like me to set up a call?",
 	"directDepositMasterErrorRetryMsg": "Hmm, I'm not sure what you meant. What do you want ?",
 	"directDepositMasterErrorPromptRetryOpts": [
-		"Setup a call",
+		"Set up a call",
 		"Not for now"
 	],
 	"unblock_lookup_welcome_msg": "Hi Hafsa, I’m your virtual assistant!",
@@ -101,7 +101,7 @@
 		"Email",
 		"Text message",
 		"Both",
-		"No need at all"
+		"No, I don't want a confirmation"
 	],
 	"confirmEmailStepStandMsg": "The email address I have for you is [test@test.com]. Is this the correct email address?",
 	"confirmEmailStepRetryMsg": "Hmm, I'm not sure what you meant. Is this the correct email address?",

@@ -86,7 +86,7 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
 
           assert.strictEqual(
             reply.text,
-            expectedInitialMsg  + ` (1) Setup a call or (2) Not for now`
+            expectedInitialMsg  + ` (1) Set up a call or (2) Not for now`
           );
         });
 
@@ -231,7 +231,7 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
             [
               'hahahaha',
               i18n.__('confirmCallbackStepRetryMsg') +
-                ` (1) Setup a call or (2) Not for now`
+                ` (1) Set up a call or (2) Not for now`
             ],
 
             ['thirdError!', i18n.__('unblockBotDialogMasterErrorMsg')]

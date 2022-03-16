@@ -48,6 +48,41 @@ describe('GetPreferredMethodOfContactStep', () => {
             step[1],
             `${reply ? reply.text : null} != ${step[1]}`
           );
+          if(step[0] === null) {
+
+
+          assert.strictEqual(
+             reply.suggestedActions.actions[0].title,
+           "Email"
+          );
+          assert.strictEqual(
+            reply.suggestedActions.actions[0].value,
+          "Email"
+         );
+         assert.strictEqual(
+          reply.suggestedActions.actions[1].title,
+        "Text message"
+       );
+       assert.strictEqual(
+         reply.suggestedActions.actions[1].value,
+       "Text message"
+      );
+      assert.strictEqual(
+        reply.suggestedActions.actions[2].title,
+      "Both"
+     );
+     assert.strictEqual(
+       reply.suggestedActions.actions[2].value,
+     "Both"
+    );
+    assert.strictEqual(
+      reply.suggestedActions.actions[3].title,
+    "No, I don't want a confirmation"
+   );
+   assert.strictEqual(
+     reply.suggestedActions.actions[3].value,
+     "No, I don't want a confirmation"
+  ); }
         }else {
           assert.strictEqual(
             reply.attachments[0].content.body[0].type,

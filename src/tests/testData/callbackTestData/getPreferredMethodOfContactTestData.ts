@@ -38,7 +38,7 @@ module.exports = [
     steps: [
       [
         null,
-        `Would you like to receive this confirmation code via email, text message, or both?\n\n   1. Email\n   2. Text message\n   3. Both\n   4. No need at all`
+        `Would you like to receive this confirmation code via email, text message, or both?`
       ],
       [
         'Yes, email please',
@@ -85,7 +85,7 @@ module.exports = [
     steps: [
       [
         null,
-        `Would you like to receive this confirmation code via email, text message, or both?\n\n   1. Email\n   2. Text message\n   3. Both\n   4. No need at all`
+        `Would you like to receive this confirmation code via email, text message, or both?`
       ],
       [
         `yes, text message`,
@@ -162,7 +162,7 @@ module.exports = [
     steps: [
       [
         null,
-        `Would you like to receive this confirmation code via email, text message, or both?\n\n   1. Email\n   2. Text message\n   3. Both\n   4. No need at all`
+        `Would you like to receive this confirmation code via email, text message, or both?`
       ],
       ['yes, both email and text', null]
     ]
@@ -237,9 +237,9 @@ module.exports = [
     steps: [
       [
         null,
-        `Would you like to receive this confirmation code via email, text message, or both?\n\n   1. Email\n   2. Text message\n   3. Both\n   4. No need at all`
+        `Would you like to receive this confirmation code via email, text message, or both?`
       ],
-      ['none', `Ok sounds good, you're all set then!`]
+      [`No, I don't want a confirmation`, `Ok sounds good, you're all set then!`]
     ]
   },
   {
@@ -280,11 +280,11 @@ module.exports = [
     steps: [
       [
         null,
-        `Would you like to receive this confirmation code via email, text message, or both?\n\n   1. Email\n   2. Text message\n   3. Both\n   4. No need at all`
+        `Would you like to receive this confirmation code via email, text message, or both?`
       ],
       [
         'haha',
-        `Hmm, I'm not sure what you meant. Do you prefer to receive your confirmation code via email, text message, or both?\n\n   1. Email\n   2. Text message\n   3. Both\n   4. No need at all`
+        `Hmm, I'm not sure what you meant. Do you prefer to receive your confirmation code via email, text message, or both?`
       ]
     ]
   },
@@ -358,11 +358,11 @@ module.exports = [
     steps: [
       [
         null,
-        `Would you like to receive this confirmation code via email, text message, or both?\n\n   1. Email\n   2. Text message\n   3. Both\n   4. No need at all`
+        `Would you like to receive this confirmation code via email, text message, or both?`
       ],
       [
         `hha`,
-        `Hmm, I'm not sure what you meant. Do you prefer to receive your confirmation code via email, text message, or both?\n\n   1. Email\n   2. Text message\n   3. Both\n   4. No need at all`
+        `Hmm, I'm not sure what you meant. Do you prefer to receive your confirmation code via email, text message, or both?`
       ],
 
       [
