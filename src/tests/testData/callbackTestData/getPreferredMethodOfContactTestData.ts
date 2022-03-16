@@ -89,7 +89,7 @@ module.exports = [
       ],
       [
         `yes, text message`,
-        `The phone number I have for you is [123-456-7890]. Can this number receive text messages? (1) Yes correct! or (2) No it's not`
+        `The phone number I have for you is [123-456-7890]. Can this number receive text messages? (1) Yes or (2) No`
       ]
     ]
   },

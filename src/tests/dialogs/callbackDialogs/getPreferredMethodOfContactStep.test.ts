@@ -53,35 +53,35 @@ describe('GetPreferredMethodOfContactStep', () => {
 
           assert.strictEqual(
              reply.suggestedActions.actions[0].title,
-           "Email"
+           'Email'
           );
           assert.strictEqual(
             reply.suggestedActions.actions[0].value,
-          "Email"
+          'Email'
          );
          assert.strictEqual(
           reply.suggestedActions.actions[1].title,
-        "Text message"
+        'Text message'
        );
        assert.strictEqual(
          reply.suggestedActions.actions[1].value,
-       "Text message"
+       'Text message'
       );
       assert.strictEqual(
         reply.suggestedActions.actions[2].title,
-      "Email and text message"
+      'Email and text message'
      );
      assert.strictEqual(
        reply.suggestedActions.actions[2].value,
-     "Email and text message"
+     'Email and text message'
     );
     assert.strictEqual(
       reply.suggestedActions.actions[3].title,
-    "No, I don't want a confirmation"
+    'No, I don\'t want a confirmation'
    );
    assert.strictEqual(
      reply.suggestedActions.actions[3].value,
-     "No, I don't want a confirmation"
+     'No, I don\'t want a confirmation'
   ); }
         }else {
           assert.strictEqual(

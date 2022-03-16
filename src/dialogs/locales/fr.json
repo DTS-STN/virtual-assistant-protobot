@@ -97,10 +97,10 @@
 		"Non ce n'est pas"
 	],
 	"confirmPhoneStepStandMsg": "Le numéro de téléphone que j'ai est le [123-456-7890]. Est-ce que ce numéro peut recevoir des messages texte?",
-	"confirmPhoneStepRetryMsg": "Hum, je ne comprends pas. Est-ce le bon numéro de téléphone?",
+	"confirmPhoneStepRetryMsg": "Hum, je ne comprends pas. Est-ce que ce numéro peut recevoir des messages texte?",
 	"confirmPhoneStepStandardPromptOptions": [
-		"Oui correct",
-		"Non ce n'est pas"
+		"Oui",
+		"Non"
 	],
 	"callbackGoodByeGreetingStandardPromptOptions": [
 		"Oui ",

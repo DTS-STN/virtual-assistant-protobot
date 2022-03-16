@@ -114,14 +114,14 @@
 		"No, I'm OK for now."
 	],
 	"confirmPhoneStepStandMsg": "The phone number I have for you is [123-456-7890]. Can this number receive text messages?",
-	"confirmPhoneStepRetryMsg": "Hmm, I'm not sure what you meant. Is this the correct phone number?",
+	"confirmPhoneStepRetryMsg": "Hmm, I'm not sure what you meant. Can this number receive text messages??",
 	"confirmPhoneStepStandardPromptOptions": [
-		"Yes correct!",
-		"No it's not"
+		"Yes",
+		"No"
 	],
 	"callbackGoodByeGreetingStandardPromptOptions": [
-		"Yes ",
-		"No "
+		"Yes",
+		"No"
 	],
 	"callbackCloseMsg": "Ok, no problem. I'll be here if you need me!",
 	"getAndSendEmailStepStandardMsg": "Ok, what email address should I send it to?",
@@ -166,7 +166,7 @@
 	"getUserBothContactsConfirmMsg": "Ok, I'll email your confirmation code to [EMAIL], and text it to [PHONE NUMBER].",
 	"getUserPhoneStepStandardMsg": "Can you give me a cell phone number where I can send you the text message?",
 	"getCallbackPhoneNumberStandardMsg": "No problem , let's update your profile.  What's your new phone number?",
-	"getUserPhoneStepRetryMsg": "Hmm, I'm not sure what you meant. Is this the correct phone number?",
+	"getUserPhoneStepRetryMsg": "Hmm, I'm not sure what you meant. Can this number receive text messages??",
 	"getUserPhoneConfirmMsg": "Ok, I'll text your confirmation code to [PHONE NUMBER].",
 	"getUserEmailFormatErrorMsg": "Oops, looks like the email address you entered isn’t formatted correctly (here’s an example: name@mail.com). Let’s try again.",
 	"getUserPhoneNumberFormatErrorMsg": "Oops, looks like the phone number you entered isn’t formatted correctly (here’s an example: 123-456-7890). Let’s try again.",
