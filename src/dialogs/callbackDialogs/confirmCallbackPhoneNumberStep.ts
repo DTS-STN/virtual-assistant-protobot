@@ -115,7 +115,8 @@ export class ConfirmCallbackPhoneNumberStep extends ComponentDialog {
     // Then change LUIZ appID when initial
     if (
       stepContext.context.activity.locale.toLowerCase() === 'fr-ca' ||
-      stepContext.context.activity.locale.toLowerCase() === 'fr-fr'
+      stepContext.context.activity.locale.toLowerCase() === 'fr-fr' ||
+      stepContext.context.activity.locale.toLowerCase() === 'fr'
     ) {
       lang = 'fr';
     }

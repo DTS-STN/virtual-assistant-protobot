@@ -70,7 +70,7 @@ module.exports = [
     steps: [
       [
         null,
-        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes or (2) No`
       ],
       [
         'Yes, correct',
@@ -118,7 +118,7 @@ module.exports = [
     steps: [
       [
         null,
-        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes or (2) No`
       ],
       [
         'Yes, correct',
@@ -167,11 +167,11 @@ module.exports = [
     steps: [
       [
         null,
-        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes or (2) No`
       ],
       [
         'haha',
-        `Hmm, I'm not sure what you meant. Is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Hmm, I'm not sure what you meant. Is [123-456-7890] still the best phone number to reach you? (1) Yes or (2) No`
       ]
     ]
   },
@@ -246,11 +246,11 @@ module.exports = [
     steps: [
       [
         null,
-        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Ok, is [123-456-7890] still the best phone number to reach you? (1) Yes or (2) No`
       ],
       [
         'haha',
-        `Hmm, I'm not sure what you meant. Is [123-456-7890] still the best phone number to reach you? (1) Yes, correct or (2) No, it's not`
+        `Hmm, I'm not sure what you meant. Is [123-456-7890] still the best phone number to reach you? (1) Yes or (2) No`
       ],
 
       [

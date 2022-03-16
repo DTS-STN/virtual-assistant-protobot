@@ -137,8 +137,8 @@
 	"confirmLookIntoStepCloseMsg": "Ok, no problem. Let me know if you change your mind!",
 	"confirmCallbackPhoneNumberStepStandardMsg": "Ok, is [123-456-7890] still the best phone number to reach you?",
 	"confirmCallbackPhoneNumberStepStandardPromptOptions": [
-		"Yes, correct",
-		"No, it's not"
+		"Yes",
+		"No"
 	],
 	"confirmCallbackPhoneNumberStepRetryPromptOptions": [
 		"Yes, Please!",

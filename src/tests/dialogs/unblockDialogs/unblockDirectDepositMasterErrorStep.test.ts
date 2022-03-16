@@ -116,7 +116,7 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
 
         assert.strictEqual(
           reply.text,
-          expectedMsg + ` (1) Yes, correct or (2) No, it's not`
+          expectedMsg + ` (1) Yes or (2) No`
         );
 
         });

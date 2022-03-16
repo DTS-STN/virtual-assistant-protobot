@@ -120,8 +120,8 @@
 	],
 	"confirmCallbackPhoneNumberStepStandardMsg": "D'accord! Est-ce que le [XXX-XXX-XXXX] est toujours le meilleur numéro de téléphone pour vous joindre?",
 	"confirmCallbackPhoneNumberStepStandardPromptOptions": [
-		"Oui correct",
-		"Non ce n'est pas"
+		"Oui",
+		"Non"
 	],
 	"confirmCallbackPhoneNumberStepRetryPromptOptions": [
 		"Oui s'il vous plaît!",
