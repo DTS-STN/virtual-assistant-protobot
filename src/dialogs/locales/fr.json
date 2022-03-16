@@ -64,9 +64,9 @@
 	"getPreferredMethodOfContactStepSendTextMsg": "D'accord, je vous enverrai un message texte à 123-456-789 dès que nous aurons reçu votre relevé d'emploi.",
 	"getPreferredMethodOfContactStepSendBothMsg": "D'accord, je vous enverrai un courriel à mary@adressefaux.com et un message texte au 123-456-7890 dès que nous aurons reçu votre relevé d'emploi.",
 	"getPreferredMethodOfContactStepStandardPromptOptions": [
-		"courriel",
-		"message texte",
-		"les deux",
+		"Courriel",
+		"Message texte",
+		"Courriel et message texte",
 		"Je ne veux pas recevoir de confirmation"
 	],
 	"confirmConfirmationStepStandardPromptOptions": [

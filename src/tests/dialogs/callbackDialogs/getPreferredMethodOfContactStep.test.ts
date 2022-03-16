@@ -69,11 +69,11 @@ describe('GetPreferredMethodOfContactStep', () => {
       );
       assert.strictEqual(
         reply.suggestedActions.actions[2].title,
-      "Both"
+      "Email and text message"
      );
      assert.strictEqual(
        reply.suggestedActions.actions[2].value,
-     "Both"
+     "Email and text message"
     );
     assert.strictEqual(
       reply.suggestedActions.actions[3].title,
