@@ -93,8 +93,8 @@
 	"confirmEmailStepStandMsg": "L'adresse de courrier électronique que j'ai est [test@test.com]. Est-ce que cette adresse est correcte?",
 	"confirmEmailStepRetryMsg": "Hum, je ne comprends pas. Est-ce la bonne adresse de courrier électonique?",
 	"confirmEmailStepStandardPromptOptions": [
-		"Oui correct!",
-		"Non ce n'est pas"
+		"Oui",
+		"Non"
 	],
 	"confirmPhoneStepStandMsg": "Le numéro de téléphone que j'ai est le [123-456-7890]. Est-ce que ce numéro peut recevoir des messages texte?",
 	"confirmPhoneStepRetryMsg": "Hum, je ne comprends pas. Est-ce que ce numéro peut recevoir des messages texte?",

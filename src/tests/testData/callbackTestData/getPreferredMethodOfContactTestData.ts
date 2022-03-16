@@ -42,7 +42,7 @@ module.exports = [
       ],
       [
         'Yes, email please',
-        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes correct! or (2) No it's not`
+        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes or (2) No`
       ]
     ]
   },
