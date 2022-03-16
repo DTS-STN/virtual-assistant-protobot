@@ -19,8 +19,8 @@ module.exports = [
         steps: [
             ['hi', 'What\'s your new postal code? (here’s an example: T2T 4M4)'],
             ['L4H3H5', '', 'I found more than one street for that postal code, Please select your street from the ones provided below.'],
-            ['Emily Anna St Woodbridge ON L4H3H5', 'Ok great, what\'s the street number?'],
-            ['233', 'Ok great, What\'s your new apartment or unit number?'],
+            ['Emily Anna St Woodbridge ON L4H3H5', 'what\'s your new street number?'],
+            ['233', 'What\'s your new apartment or unit number?'],
             ['121','Great! Your full address is #121  233 Emily Anna St Woodbridge ON L4H3H5. Is that correct?'],
             ['Yes','Perfect! I\'ve updated your address to #121  233 Emily Anna St Woodbridge ON L4H3H5']
         ]
@@ -45,7 +45,7 @@ module.exports = [
         steps: [
             ['hi', 'What\'s your new postal code? (here’s an example: T2T 4M4)'],
             ['L4H3H5', '', 'I found more than one street for that postal code, Please select your street from the ones provided below.'],
-            ['I can\'t see my street address here', 'I\'m sorry that I can\'t help you change your address today. If you\'d like, I can have a Service Canada representative call you on the phone to help you.']
+            ['I can\'t see my street address here', 'I\'m sorry that I can\'t help you change your address today. If you\'d like, I can have a Service Canada representative call to help you.']
         ]
     }
 ]

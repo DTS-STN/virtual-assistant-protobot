@@ -192,14 +192,14 @@ export class UnblockDirectDepositStep extends ComponentDialog {
   async unblockDirectDepositEnd(stepContext: any) {
     // Set the messages
     const unblockBotDetails = stepContext.options ;
-    const validReminder = i18n.__('unblock_direct_deposit_valid_reminder');
+    //const validReminder = i18n.__('unblock_direct_deposit_valid_reminder');
     const doneMsg = i18n.__('unblock_direct_deposit_complete');
     const validMsg = i18n.__('unblock_direct_deposit_valid_msg');
     const tipMsg = i18n.__('unblock_direct_deposit_valid_tip');
 
     // Display the prompts
     await adaptiveCard(stepContext, TwoTextBlock(validMsg, tipMsg));
-    await adaptiveCard(stepContext, TextBlock(validReminder));
+    //await adaptiveCard(stepContext, TextBlock(validReminder));
     await adaptiveCard(stepContext, TextBlock(doneMsg));
 
     unblockBotDetails.directDepositMasterError = false;

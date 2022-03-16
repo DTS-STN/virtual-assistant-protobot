@@ -13,7 +13,7 @@ module.exports=[
         name: 'address found check mock dialog test',
         steps: [
             ['hi', 'Great! Your full address is #121  233 Emily Anna  St  Woodbridge  ON L4H3H5. Is that correct?'],
-            ['haha', 'Hmm, I\'m not sure what you meant. Is that correct address?']
+            ['haha', 'Hmm, I\'m not sure what you meant. Please confirm your address.']
         ]
     }
 ];

@@ -225,7 +225,7 @@
 	"UpdateAddressPromptMessage": "D'accord, je peux vous aider. L'adresse que j'ai pour vous est 123 Fake Street, Markham, ON, C1C 1C1. Avez-vous une nouvelle adresse?",
 	"UpdateAddressRetryPromptMessage": "Hum, je ne comprends pas. Voulez-vous effectuer un changement d'adresse?",
 	"UpdateAddress": "Parfait! J'ai effectué votre changement d'adresse : ",
-	"updateAddressUnitNumberPrompt": "Très bien. Quel est votre numéro d'unité ou d'appartement?",
+	"updateAddressUnitNumberPrompt": "Quel est votre nouveau numéro d'appartement ou d'unité?",
 	"RetryAddressCheckResponse": "D'accord, essayons de voir pourquoi je ne trouve pas votre nouvelle adresse. Est-ce que votre nouveau code postal est le @Postal_Code?",
 	"ConcludeAddressNotFound": "Hum, je ne trouve pas votre adresse dans le système. Désirez-vous que je demande à un représentant de Service Canada de vous téléphoner pour compléter votre changement d'adresse?",
 	"ServiceRetryPostalCode": "D'accord, essayons à nouveau. Donnez-moi votre code postal.",
@@ -272,7 +272,7 @@
 		"Non"
 	],
 	"AddressFoundPromptMessage": "",
-	"AddressFoundRetryPromptMessage": "Hmm, je ne suis pas sûr de ce que tu voulais dire. est-ce la bonne adresse ?",
+	"AddressFoundRetryPromptMessage": "Hum, je ne comprends pas. Veuillez confirmer si cette adresse est exacte.",
 	"ServiceRepresentativePromptOptions": [
 		"Oui, appelez-moi",
 		"Non, pas pour l'instant"
