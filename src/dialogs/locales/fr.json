@@ -314,6 +314,7 @@
 	"StreetNamePromptMessage": "Quel est le nom de votre rue?",
 	"FullAddress": "#Unit_Number, @Postal_Code",
 	"StreetAddressNotFoundRetryPromptMessage": "Hum, je ne comprends pas. Comment puis-je vous aider?",
+	"ConfirmEmailRetryExceededMessage": "Je suis désolé, je ne crois pas pouvoir vous aider aujourd'hui. Par contre, je peux demander à un représentant de Service Canada de vous téléphoner pour vous aider à mettre à jour votre adresse de courrier électronique.\n\n Voulez-vous que je planifie un appel?",
 	"AddressNotFoundMessage":"Pas de problème! Nous pouvons réessayer.",
 	"UpdateAddressFinalMessage":"Pour le moment, vous avez tout ce qu'il vous faut!",
 	"UpdateAddressNoMessage":"D'accord, pas de problème.",

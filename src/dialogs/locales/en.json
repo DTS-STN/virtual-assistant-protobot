@@ -314,11 +314,7 @@
 	],
 	"UpdateMyEmailRetryPromptMessage": "Hmm, I'm not sure what you meant. Do you want to update this email address?",
 	"ConfirmEmailRetryPromptMessage": "Oops, looks like the email address you entered isn’t formatted correctly (here’s an example: name@mail.com). Let’s try again.",
-	"ConfirmEmailRetryExceededMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada represtentative call to help you with your email update.\n\n Would you like me to set up a call?",
-	"ConfirmEmailRetryExceededChoices": [
-		"Yes, I want to request a call",
-		"No, not for now"
-	],
+	"ConfirmEmailRetryExceededMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada representative call to help you with your email update.\n\n Would you like me to set up a call?",
 	"AskEmailAddress": "Ok, what's your new email address? (here’s an example: name@mail.com)",
 	"NoStatementEmail": "Ok, no problem!",
 	"StreetAddressNotFoundPromptOptions": [
