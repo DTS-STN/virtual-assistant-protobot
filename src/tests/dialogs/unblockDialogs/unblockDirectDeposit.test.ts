@@ -191,7 +191,7 @@ describe('Direct Deposit Happy Path', () => {
         expectedValidTipMsg
       );
 
-        const continueReply = await client.getNextReply();
+        /* const continueReply = await client.getNextReply();
         const expectedReminderMsg = i18n.__('unblock_direct_deposit_valid_reminder');
         assert.strictEqual(
           continueReply.attachments[0].contentType,
@@ -200,7 +200,7 @@ describe('Direct Deposit Happy Path', () => {
         assert.strictEqual(
           continueReply.attachments[0].content.body[0].text,
           expectedReminderMsg
-        );
+        ); */
         const finalReply = await client.getNextReply();
         const expectedCompleteMsg = i18n.__('unblock_direct_deposit_complete');
         assert.strictEqual(

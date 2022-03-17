@@ -14,11 +14,11 @@ module.exports = [
             currentCount: 0,
             currentStep: 'street number',
 
-            promptMessage: 'Ok great, what\'s the street number?'
+            promptMessage: 'what\'s your new street number?'
         },
         name: 'Validate Number Step proper Number',
         steps: [
-            ['52 Ave', 'Ok great, what\'s the street number?'],
+            ['52 Ave', 'what\'s your new street number?'],
             ['123',null]
         ]
     },{
@@ -35,7 +35,7 @@ module.exports = [
             AddressType: 'MULTIPLE',
             currentCount: 0,
             currentStep: 'street number',
-            promptMessage: 'Ok great, what\'s the street number?',
+            promptMessage: 'what\'s your new street number?',
             promptRetryMessage:'Hmm, I\'m not sure what you meant. Please enter your new street number.'
         },
         name: 'Validate Number Step Improper Number',
