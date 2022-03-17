@@ -23,6 +23,7 @@ const UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_WATERFALL_STEP =
 import { MAX_ERROR_COUNT}  from '../../utils'
 import { CommonPromptValidatorModel } from '../../models/commonPromptValidatorModel';
 import { AlwaysOnBotDialog, ALWAYS_ON_BOT_DIALOG } from '../alwaysOnDialogs/alwaysOnBotDialog';
+import { NEXT_OPTION_STEP } from './unblockNext';
 
 export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
   constructor() {
@@ -149,9 +150,10 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
       case 'NoNotForNow':
         unblockBotDetails.directDepositMasterError = false;
 
-        const commonPromptValidatorModel = new CommonPromptValidatorModel();
+        // const commonPromptValidatorModel = new CommonPromptValidatorModel();
+        return await stepContext.replaceDialog( NEXT_OPTION_STEP,unblockBotDetails);
         // call dialog
-        return await stepContext.replaceDialog(ALWAYS_ON_BOT_DIALOG, commonPromptValidatorModel);
+       // return await stepContext.replaceDialog(ALWAYS_ON_BOT_DIALOG, null);
       // Could not understand / No intent
       default: {
         unblockBotDetails.directDepositMasterError = -1;

@@ -70,7 +70,7 @@ module.exports = [
     steps: [
       [
         null,
-        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes correct! or (2) No it's not`
+        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes or (2) No`
       ],
       ['Yes, correct', `Ok, I'll email your confirmation code to [EMAIL].`]
     ]
@@ -115,7 +115,7 @@ module.exports = [
     steps: [
       [
         null,
-        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes correct! or (2) No it's not`
+        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes or (2) No`
       ],
       [
         'no, not correct',
@@ -164,11 +164,11 @@ module.exports = [
     steps: [
       [
         null,
-        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes correct! or (2) No it's not`
+        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes or (2) No`
       ],
       [
         'haha',
-        `Hmm, I'm not sure what you meant. Is this the correct email address? (1) Yes correct! or (2) No it's not`
+        `Hmm, I'm not sure what you meant. Is this the correct email address? (1) Yes or (2) No`
       ]
     ]
   },
@@ -243,11 +243,11 @@ module.exports = [
     steps: [
       [
         null,
-        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes correct! or (2) No it's not`
+        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes or (2) No`
       ],
       [
         'haha',
-        `Hmm, I'm not sure what you meant. Is this the correct email address? (1) Yes correct! or (2) No it's not`
+        `Hmm, I'm not sure what you meant. Is this the correct email address? (1) Yes or (2) No`
       ],
 
       [

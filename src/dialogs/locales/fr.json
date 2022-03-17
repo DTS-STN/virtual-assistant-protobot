@@ -64,10 +64,10 @@
 	"getPreferredMethodOfContactStepSendTextMsg": "D'accord, je vous enverrai un message texte à 123-456-789 dès que nous aurons reçu votre relevé d'emploi.",
 	"getPreferredMethodOfContactStepSendBothMsg": "D'accord, je vous enverrai un courriel à mary@adressefaux.com et un message texte au 123-456-7890 dès que nous aurons reçu votre relevé d'emploi.",
 	"getPreferredMethodOfContactStepStandardPromptOptions": [
-		"courriel",
-		"message texte",
-		"les deux",
-		"pas du tout"
+		"Courriel",
+		"Message texte",
+		"Courriel et message texte",
+		"Je ne veux pas recevoir de confirmation"
 	],
 	"confirmConfirmationStepStandardPromptOptions": [
 		"courriel",
@@ -93,14 +93,14 @@
 	"confirmEmailStepStandMsg": "L'adresse de courrier électronique que j'ai est [test@test.com]. Est-ce que cette adresse est correcte?",
 	"confirmEmailStepRetryMsg": "Hum, je ne comprends pas. Est-ce la bonne adresse de courrier électonique?",
 	"confirmEmailStepStandardPromptOptions": [
-		"Oui correct!",
-		"Non ce n'est pas"
+		"Oui",
+		"Non"
 	],
 	"confirmPhoneStepStandMsg": "Le numéro de téléphone que j'ai est le [123-456-7890]. Est-ce que ce numéro peut recevoir des messages texte?",
-	"confirmPhoneStepRetryMsg": "Hum, je ne comprends pas. Est-ce le bon numéro de téléphone?",
+	"confirmPhoneStepRetryMsg": "Hum, je ne comprends pas. Est-ce que ce numéro peut recevoir des messages texte?",
 	"confirmPhoneStepStandardPromptOptions": [
-		"Oui correct",
-		"Non ce n'est pas"
+		"Oui",
+		"Non"
 	],
 	"callbackGoodByeGreetingStandardPromptOptions": [
 		"Oui ",
@@ -120,8 +120,8 @@
 	],
 	"confirmCallbackPhoneNumberStepStandardMsg": "D'accord! Est-ce que le [XXX-XXX-XXXX] est toujours le meilleur numéro de téléphone pour vous joindre?",
 	"confirmCallbackPhoneNumberStepStandardPromptOptions": [
-		"Oui correct",
-		"Non ce n'est pas"
+		"Oui",
+		"Non"
 	],
 	"confirmCallbackPhoneNumberStepRetryPromptOptions": [
 		"Oui s'il vous plaît!",

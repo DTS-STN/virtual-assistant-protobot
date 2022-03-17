@@ -7,7 +7,7 @@
 	"directDepositMasterErrorMsg": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada representative call to help you with your missing banking information. \n\n Would you like me to set up a call?",
 	"directDepositMasterErrorRetryMsg": "Hmm, I'm not sure what you meant. What do you want ?",
 	"directDepositMasterErrorPromptRetryOpts": [
-		"Setup a call",
+		"Set up a call",
 		"Not for now"
 	],
 	"unblock_lookup_welcome_msg": "Hi Hafsa, I’m your virtual assistant!",
@@ -35,7 +35,7 @@
 	"unblock_direct_deposit_transit_name": "your 5-digit transit number",
 	"unblock_direct_deposit_account_name": "your 7-digit bank account number",
 	"unblock_direct_deposit_how_to_cheques": "All numbers can be found at the bottom of any personal cheques.",
-	"unblock_direct_deposit_how_to_bank": "You may also find these numbers by visiting your financial institution's website or log into your online bank account.",
+	"unblock_direct_deposit_how_to_bank": "You may also find these numbers by visiting your financial institution's website or by logging into your online bank account.",
 	"unblock_direct_deposit_cheque_path": "/attachments/cheque-en.svg",
 	"unblock_direct_deposit_cheque_altText": "An image of a cheque with the 3 numbers circled at the bottom.",
 	"unblock_direct_deposit_institute": "What is your 3-digit financial institution number?",
@@ -100,28 +100,28 @@
 	"getPreferredMethodOfContactStepStandardPromptOptions": [
 		"Email",
 		"Text message",
-		"Both",
-		"No need at all"
+		"Email and text message",
+		"No, I don't want a confirmation"
 	],
 	"confirmEmailStepStandMsg": "The email address I have for you is [test@test.com]. Is this the correct email address?",
 	"confirmEmailStepRetryMsg": "Hmm, I'm not sure what you meant. Is this the correct email address?",
 	"confirmEmailStepStandardPromptOptions": [
-		"Yes correct!",
-		"No it's not"
+		"Yes",
+		"No"
 	],
 	"confirmEmailStepErrorPromptOptions": [
 		"Yes, I want to try again.",
 		"No, I'm OK for now."
 	],
 	"confirmPhoneStepStandMsg": "The phone number I have for you is [123-456-7890]. Can this number receive text messages?",
-	"confirmPhoneStepRetryMsg": "Hmm, I'm not sure what you meant. Is this the correct phone number?",
+	"confirmPhoneStepRetryMsg": "Hmm, I'm not sure what you meant. Can this number receive text messages??",
 	"confirmPhoneStepStandardPromptOptions": [
-		"Yes correct!",
-		"No it's not"
+		"Yes",
+		"No"
 	],
 	"callbackGoodByeGreetingStandardPromptOptions": [
-		"Yes ",
-		"No "
+		"Yes",
+		"No"
 	],
 	"callbackCloseMsg": "Ok, no problem. I'll be here if you need me!",
 	"getAndSendEmailStepStandardMsg": "Ok, what email address should I send it to?",
@@ -137,8 +137,8 @@
 	"confirmLookIntoStepCloseMsg": "Ok, no problem. Let me know if you change your mind!",
 	"confirmCallbackPhoneNumberStepStandardMsg": "Ok, is [123-456-7890] still the best phone number to reach you?",
 	"confirmCallbackPhoneNumberStepStandardPromptOptions": [
-		"Yes, correct",
-		"No, it's not"
+		"Yes",
+		"No"
 	],
 	"confirmCallbackPhoneNumberStepRetryPromptOptions": [
 		"Yes, Please!",
@@ -166,7 +166,7 @@
 	"getUserBothContactsConfirmMsg": "Ok, I'll email your confirmation code to [EMAIL], and text it to [PHONE NUMBER].",
 	"getUserPhoneStepStandardMsg": "Can you give me a cell phone number where I can send you the text message?",
 	"getCallbackPhoneNumberStandardMsg": "No problem , let's update your profile.  What's your new phone number?",
-	"getUserPhoneStepRetryMsg": "Hmm, I'm not sure what you meant. Is this the correct phone number?",
+	"getUserPhoneStepRetryMsg": "Hmm, I'm not sure what you meant. Can this number receive text messages??",
 	"getUserPhoneConfirmMsg": "Ok, I'll text your confirmation code to [PHONE NUMBER].",
 	"getUserEmailFormatErrorMsg": "Oops, looks like the email address you entered isn’t formatted correctly (here’s an example: name@mail.com). Let’s try again.",
 	"getUserPhoneNumberFormatErrorMsg": "Oops, looks like the phone number you entered isn’t formatted correctly (here’s an example: 123-456-7890). Let’s try again.",

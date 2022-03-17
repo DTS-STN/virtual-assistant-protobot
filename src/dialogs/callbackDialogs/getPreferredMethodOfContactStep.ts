@@ -2,7 +2,12 @@ import {
   TextPrompt,
   ComponentDialog,
   WaterfallDialog,
-  ChoiceFactory
+  ChoiceFactory,
+  ListStyle,
+  ChoicePrompt,
+  WaterfallStepContext,
+  PromptValidatorContext,
+  Choice
 } from 'botbuilder-dialogs';
 
 import { LuisRecognizer } from 'botbuilder-ai';
@@ -17,17 +22,19 @@ export const GET_PREFERRED_METHOD_OF_CONTACT_STEP =
   'GET_PREFERRED_METHOD_OF_CONTACT_STEP';
 const GET_PREFERRED_METHOD_OF_CONTACT_WATERFALL_STEP =
   'GET_PREFERRED_METHOD_OF_CONTACT_WATERFALL_STEP';
-
+  const CHOICE_PROMPT = 'CHOICE_PROMPT';
   import { MAX_ERROR_COUNT}  from '../../utils'
 import { adaptiveCard } from '../../cards';
 import { callbackCard } from '../../cards/callbackCard';
+import { CallbackBotDetails } from './callbackBotDetails';
 
 export class GetPreferredMethodOfContactStep extends ComponentDialog {
   constructor() {
     super(GET_PREFERRED_METHOD_OF_CONTACT_STEP);
 
     // Add a text prompt to the dialog stack
-    this.addDialog(new TextPrompt(TEXT_PROMPT));
+   // this.addDialog(new TextPrompt(TEXT_PROMPT));
+    this.addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator));
 
     this.addDialog(
       new WaterfallDialog(GET_PREFERRED_METHOD_OF_CONTACT_WATERFALL_STEP, [
@@ -39,6 +46,9 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
     this.initialDialogId = GET_PREFERRED_METHOD_OF_CONTACT_WATERFALL_STEP;
   }
 
+  private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {
+    return true;
+}
   /**
    * Initial step in the waterfall. This will kick of this  step
    *
@@ -50,12 +60,9 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
    * If the user errors out then we're going to set the flag to false and assume they can't / don't
    * want to proceed
    */
-  async initialStep(stepContext) {
+  async initialStep(stepContext: WaterfallStepContext) {
     // Get the user details / state machine
-    const callbackDetails = stepContext.options;
-
-    // Set the text for the prompt
-    const standardMsg = i18n.__('callbackBotDialogWelcomeMsg');
+    const callbackDetails = stepContext.options as CallbackBotDetails ;
 
     // Set the text for the retry prompt
     const retryMsg = i18n.__('getPreferredMethodOfContactStepRetryMsg');
@@ -77,6 +84,7 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
     // Check the user state to see if unblockBotDetails.confirm_look_into_step is set to null or -1
     // If it is in the error state (-1) or or is set to null prompt the user
     // If it is false the user does not want to proceed
+
     if (
       callbackDetails.getPreferredMethodOfContactStep === null ||
       callbackDetails.getPreferredMethodOfContactStep === -1
@@ -85,27 +93,27 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
       let promptMsg = '';
       const queryMsg = i18n.__('callbackConfirmationQueryMsg');
       // The current step is an error state
-      if (callbackDetails.getPreferredMethodOfContactStep === -1) {
+      if (callbackDetails.getPreferredMethodOfContactStep === -1 ) {
+
         promptMsg = retryMsg;
       } else {
+
         promptMsg = queryMsg;
       }
 
-      // Set the options for the quick reply buttons
+         // displays prompt options to the user
+        // Set the options for the quick reply buttons
       const promptOptions = i18n.__(
         'getPreferredMethodOfContactStepStandardPromptOptions'
       );
+    return await stepContext.prompt(CHOICE_PROMPT, {
+             prompt: promptMsg,
+             choices: ChoiceFactory.toChoices(promptOptions),
+             style: ListStyle.suggestedAction
+         });
 
-      const promptDetails = {
-        prompt: ChoiceFactory.forChannel(
-          stepContext.context,
-          promptOptions,
-          promptMsg
-        )
-      };
-
-      return await stepContext.prompt(TEXT_PROMPT, promptDetails);
     } else {
+
       return await stepContext.next(false);
     }
   }
@@ -115,16 +123,18 @@ export class GetPreferredMethodOfContactStep extends ComponentDialog {
    * We use LUIZ to process the prompt reply and then
    * update the state machine (unblockBotDetails)
    */
-  async finalStep(stepContext) {
+  async finalStep(stepContext : WaterfallStepContext) {
+    console.log('test 9000000')
     // Get the user details / state machine
-    const callbackBotDetails = stepContext.options;
+    const callbackBotDetails = stepContext.options as CallbackBotDetails;
     let luisRecognizer;
     let lang = 'en';
     // Language check
     // Then change LUIZ appID
     if (
       stepContext.context.activity.locale.toLowerCase() === 'fr-ca' ||
-      stepContext.context.activity.locale.toLowerCase() === 'fr-fr'
+      stepContext.context.activity.locale.toLowerCase() === 'fr-fr' ||
+      stepContext.context.activity.locale.toLowerCase() === 'fr'
     ) {
       lang = 'fr';
     }
