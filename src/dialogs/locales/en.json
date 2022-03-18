@@ -170,8 +170,8 @@
 	"getUserPhoneConfirmMsg": "Ok, I'll text your confirmation code to [PHONE NUMBER].",
 	"getUserEmailFormatErrorMsg": "Oops, looks like the email address you entered isn’t formatted correctly (here’s an example: name@mail.com). Let’s try again.",
 	"getUserPhoneNumberFormatErrorMsg": "Oops, looks like the phone number you entered isn’t formatted correctly (here’s an example: 123-456-7890). Let’s try again.",
-	"emailFormatMaxErrorMsg": "Looks like the email addresses you've entered aren't the correct format. Please double check your email before continuing. Do you want to try again?",
-	"phoneNumberFormatMaxErrorMsg": "Looks like the phone numbers you've entered aren't the correct format. Please double check your phone number before continuing. Do you want to try again?",
+	"emailFormatMaxErrorMsg": "Looks like the email address you've entered aren't the correct format. Please double check your email before continuing. \n\n Do you want to try again?",
+	"phoneNumberFormatMaxErrorMsg": "Looks like the phone number you've entered aren't the correct format. Please double check your phone number before continuing. \n\n Do you want to try again?",
 	"rateRetryMsg": "Oops - I'm not sure what you meant. Can you rate the service you received today?",
 	"standardQueryMsg": [
 		" Yes,please",
@@ -272,7 +272,7 @@
 	"NewStreetNumberPrompt": "What's your new street number? (For example, 36 if your address is 36 Maple Avenue)",
 	"NewStreetNumberRetryPrompt": "Hmm, I'm not sure what you meant. Please enter your new street number.",
 	"StreetNumbersPrompt": "what's your new street number?",
-	"IncorrectPostalCodePrompt": "Oops,looks like the postal code you entered isn't formatted correctly (here's an example: T2T 4M4). Let's try again.",
+	"IncorrectPostalCodePrompt": "Oops, looks like the postal code you entered isn't formatted correctly (here's an example: T2T 4M4). Let's try again.",
 	"GetAddressPromptOptions": [
 		"Yes",
 		"No"
@@ -284,7 +284,7 @@
 	],
 	"OASBenefitPromptMessage": "Here's what I can answer:",
 	"OASBenefitRetryPromptMessage": "Hmm, I'm not sure what you meant. What question can I help you answer?",
-	"ServiceRepresentativePrompt": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a service Canada representative call to help you with your address update.\n\n Would you like me to set up a call?",
+	"ServiceRepresentativePrompt": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada representative call to help you with your address update.\n\n Would you like me to set up a call?",
 	"SetupCallPrompt": "Would you like me to setup up a call?",
 	"AddressFoundPromptOptions": [
 		"Yes",
@@ -295,7 +295,7 @@
 		"Yes, I want to request a call",
 		"No, not for now"
 	],
-	"ServiceRepresentativePromptMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a service Canada representative call with you to help you with your address update.\n\n Would you like me to set up a call?",
+	"ServiceRepresentativePromptMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada representative call with you to help you with your address update.\n\n Would you like me to set up a call?",
 	"ServiceRepresentativeRetryPromptMessage": "Hmm, I'm not sure what you meant. How can I help?",
 	"MaxRetryCount": "2",
 	"ConfirmEmailCallBackPromptOptions": [

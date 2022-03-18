@@ -229,7 +229,7 @@
 	"RetryAddressCheckResponse": "D'accord, essayons de voir pourquoi je ne trouve pas votre nouvelle adresse. Est-ce que votre nouveau code postal est le @Postal_Code?",
 	"ConcludeAddressNotFound": "Hum, je ne trouve pas votre adresse dans le système. Désirez-vous que je demande à un représentant de Service Canada de vous téléphoner pour compléter votre changement d'adresse?",
 	"ServiceRetryPostalCode": "D'accord, essayons à nouveau. Donnez-moi votre code postal.",
-	"AddressFoundCheck": "D'accord! Votre adresse complète est #Unit_Number, @Postal_Code. Est-ce exact?",
+	"AddressFoundCheck": "D'accord! Votre nouvelle adresse est #Unit_Number, @Postal_Code. Est-ce exact?",
 	"ConfirmUnitNumberResultInputPrompt": "D'accord, réessayez, le code postal que vous avez entré était @Postal_Code et le numéro de rue que vous avez entré est 517, cela vous semble-t-il correct?",
 	"unitAddressNotListedText": "Ok, voyons ce que nous avons. Le code postal que vous m'avez donné est @Postal_Code et le numéro de rue que vous m'avez donné est le 517. S'agit-il des informations correctes?",
 	"unitApartmentNumberChoice": "Je n'ai pas de numéro d'unité ou d'appartement",
@@ -311,7 +311,7 @@
 		"Oui, appelez-moi",
 		"Non, pas pour l'instant"
 	],
-	"StreetNamePromptMessage": "Quel est le nom de votre rue?",
+	"StreetNamePromptMessage": "Quel est le nom de votre nouvelle rue?",
 	"FullAddress": "#Unit_Number, @Postal_Code",
 	"StreetAddressNotFoundRetryPromptMessage": "Hum, je ne comprends pas. Comment puis-je vous aider?",
 	"ConfirmEmailRetryExceededMessage": "Je suis désolé, je ne crois pas pouvoir vous aider aujourd'hui. Par contre, je peux demander à un représentant de Service Canada de vous téléphoner pour vous aider à mettre à jour votre adresse de courrier électronique.\n\n Voulez-vous que je planifie un appel?",

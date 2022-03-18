@@ -289,7 +289,7 @@ module.exports = [
       ],
       [
         `hahaha`,
-        `Looks like the phone numbers you've entered aren't the correct format. Please double check your phone number before continuing. Do you want to try again?`
+        `Looks like the phone number you've entered aren't the correct format. Please double check your phone number before continuing. \n\n Do you want to try again?`
       ]
 
     ]
