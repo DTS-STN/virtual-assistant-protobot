@@ -170,7 +170,7 @@
   ],
   "unblock_lookup_decline_final_link_text": "Présenter une demande de pension de la Sécurité de la vieillesse",
   "unblock_lookup_add_prompt_msg": "J'ai juste besoin d'ajouter les renseignements bancaires manquants. Ça accélérera le processus et vous permettra de recevoir votre premier paiement à temps. Est-ce que ça vous convient?",
-  "unblock_lookup_decline_callback_link": "https://canada.qc.ca",
+  "unblock_lookup_decline_callback_link": "https://www.canada.ca/fr/services/prestations/pensionspubliques/rpc/securite-vieillesse/demande.html",
   "unblock_direct_deposit_msg": "D'accord, c'est parfait! J'aurais besoin des numéros suivants afin de m'assurer que vos renseignements bancaires sont à jour :",
   "unblock_direct_deposit_transit_name": "votre numéro de transit (5 chiffres)",
   "unblock_direct_deposit_account_name": "le numéro de votre compte bancaire (7 chiffres)",
