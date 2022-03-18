@@ -165,8 +165,8 @@
   "unblock_lookup_update_msg": "J'ai presque toute l'information pour vous inscrire à la pension de la Sécurité de la vieillesse.",
   "unblock_lookup_update_prompt_msg": "Je dois mettre à jour vos renseignements pour que vous puissiez recevoir votre premier paiement à temps. Avez-vous un compte bancaire dans une institution financière canadienne?",
   "unblock_lookup_prompt_confirm_opts": [
-    "Oui, c'est ce que je préfère",
-    "Non, j'aimerais mettre à jour mes renseignements bancaires"
+    "Oui",
+    "Non"
   ],
   "unblock_lookup_decline_final_link_text": "Présenter une demande de pension de la Sécurité de la vieillesse",
   "unblock_lookup_add_prompt_msg": "J'ai juste besoin d'ajouter les renseignements bancaires manquants. Ça accélérera le processus et vous permettra de recevoir votre premier paiement à temps. Est-ce que ça vous convient?",
