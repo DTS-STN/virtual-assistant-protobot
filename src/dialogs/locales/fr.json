@@ -148,8 +148,8 @@
 	],
 	"NoNotificationMsg": "D'accord, c'est bon. Vous avez tout alors!",
 	"directDepositMasterErrorPromptRetryOpts": [
-		"configurer un appel",
-		"rien à faire"
+		"Oui, appelez-moi",
+		"Non, pas pour l’instant"
 	],
   "mainDialogFeedbackMsg": "Avant de partir, puis-je vous demander d'évaluer le service que vous avez reçu aujourd'hui?",
     "mainDialogGreatDayMsg": "Merci pour votre temps!",

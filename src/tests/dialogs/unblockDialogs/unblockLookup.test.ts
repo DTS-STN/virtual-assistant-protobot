@@ -191,7 +191,7 @@ describe('Unblock LookUp Step', () => {
         );
         assert.strictEqual(
           reply.attachments[0].content.actions[0].url,
-          'https://canada.ca'
+          'https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security/apply.html'
         );
 
 

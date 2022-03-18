@@ -354,26 +354,28 @@ describe('Unblock Direct Deposit Step Error', () => {
         locale: 'en'
       };
      const replySecond =  await client.sendActivity(updatedActivity);
-   /*
-      assert.strictEqual(
-        replySecond ? replySecond.attachments[0].content.body[0].text : null,
-        steps[0][1],
-        `${replySecond ?replySecond.attachments[0].content.body[0].text  : null} != ${steps[0][1]}`
-      );
-      replyMsg = client.getNextReply();
-      assert.strictEqual(replyMsg.text, expectedTransitMsg);
-      updatedActivity= {
-        text: steps[1][0],
-        locale: 'en'
-      };
-      */
-    //  const replyLast = await client.sendActivity(updatedActivity);
+
       assert.strictEqual(
         replySecond ? replySecond.text : null,
-        steps[1][1] + ` (1) Set up a call or (2) Not for now`,
+        steps[1][1],
         `${replySecond ?replySecond.text  : null} != ${steps[1][1]}`
       );
-
+      assert.strictEqual(
+        replySecond.suggestedActions.actions[0].title,
+      'Set up a call'
+     );
+     assert.strictEqual(
+      replySecond.suggestedActions.actions[0].value,
+     'Set up a call'
+    );
+    assert.strictEqual(
+      replySecond.suggestedActions.actions[1].title,
+    'Not for now'
+   );
+   assert.strictEqual(
+    replySecond.suggestedActions.actions[1].value,
+   'Not for now'
+  );
 
   });
   it('Should prompt retry msg after user input wrong format of bank account number', async () => {

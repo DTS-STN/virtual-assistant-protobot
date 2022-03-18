@@ -86,9 +86,26 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
 
           assert.strictEqual(
             reply.text,
-            expectedInitialMsg  + ` (1) Set up a call or (2) Not for now`
+            expectedInitialMsg
           );
+          assert.strictEqual(
+            reply.suggestedActions.actions[0].title,
+          'Set up a call'
+         );
+         assert.strictEqual(
+           reply.suggestedActions.actions[0].value,
+         'Set up a call'
+        );
+        assert.strictEqual(
+          reply.suggestedActions.actions[1].title,
+        'Not for now'
+       );
+       assert.strictEqual(
+         reply.suggestedActions.actions[1].value,
+       'Not for now'
+      );
         });
+
 
         it('Should go to callback flow if user choose set up a call', async () => {
           const sut = new UnblockDirectDepositMasterErrorStep();
@@ -170,7 +187,7 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
           );
           assert.strictEqual(
             reply.attachments[0].content.actions[0].url,
-            'https://canada.ca'
+            'https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security/apply.html'
           );
         });
 
@@ -230,8 +247,7 @@ import { UnblockNextOptionStep } from '../../../dialogs/unblockDialogs/unblockNe
           const steps = [
             [
               'hahahaha',
-              i18n.__('confirmCallbackStepRetryMsg') +
-                ` (1) Set up a call or (2) Not for now`
+              i18n.__('confirmCallbackStepRetryMsg')
             ],
 
             ['thirdError!', i18n.__('unblockBotDialogMasterErrorMsg')]
