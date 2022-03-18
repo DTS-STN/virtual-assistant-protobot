@@ -195,7 +195,7 @@
 	"oasBenefitCheckProfile": "Votre inscription automatique à la pension de la Sécurité de la vieillesse est toujours en cours de traitement.",
 	"oasBenefitPaymentDue": "Nous sommes en train de calculer le montant que vous recevrez à chaque mois. Selon l'information disponible à ce jour, vous recevrez probablement 642.25 $ chaque mois.",
 	"oasBenefitShowDeposit": "Un peu avant votre anniversaire, vous recevrez une lettre confirmant votre éligibilité et le montant que vous recevrez chaque mois.",
-	"continueAndFeedPromptMessage": "Comment puis-je vous aider aujourd'hui?",
+	"continueAndFeedPromptMessage": "Y a-t-il autre chose que je puisse faire pour vous aujourd'hui?",
 	"continueAndFeedRetryPromptMessage": "OK ça sonne bien, vous êtes prêt alors!",
 	"continueAndFeedPromptOptions": [
 		"Oui",
