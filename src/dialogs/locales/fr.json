@@ -173,7 +173,7 @@
   "unblock_lookup_decline_callback_link": "https://canada.qc.ca",
   "unblock_direct_deposit_msg": "D'accord, c'est parfait! J'aurais besoin des numéros suivants afin de m'assurer que vos renseignements bancaires sont à jour :",
   "unblock_direct_deposit_transit_name": "votre numéro de transit (5 chiffres)",
-  "unblock_direct_deposit_account_name": " Le numéro de votre compte bancaire (7 chiffres)",
+  "unblock_direct_deposit_account_name": "le numéro de votre compte bancaire (7 chiffres)",
 
 
     "always-on-bot-block-start": "-------ALWAYS-ON-BOT-START------",
@@ -282,7 +282,7 @@
 	"MaxRetryCount": "2",
 	"ConfirmEmailCallBackRetryPromptMessage": "Souhaitez-vous que j'établisse un appel?",
 	"ConfirmEmailCallBackPromptMessage": "Je suis désolé, je ne crois pas pouvoir vous aider aujourd'hui. Par contre, je peux demander à un représentant de Service Canada de vous téléphoner pour vous aider à mettre à jour votre adresse de courrier électronique.\n\n Voulez-vous que je planifie un appel? ",
-	"EmailAddressConfirmStep": "Parfait! J'ai mis à jour votre adresse de courrier électronique @email",
+	"EmailAddressConfirmStep": "Parfait! J'ai mis à jour votre adresse de courrier électronique: @email",
 	"UpdateMyEmailPromptMessage": "D'accord, je peux vous aider. L'adresse de courrier électronique que j'ai est test@test.ca. Voulez-vous mettre à jour cette adresse?",
 	"UpdateMyEmailPromptOptions": [
 		"Oui",

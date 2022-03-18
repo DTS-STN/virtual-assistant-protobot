@@ -306,7 +306,7 @@
 	"ConfirmPhoneNumberCallBackRetryPromptMessage": "Would you like me to set up a call?",
 	"ConfirmEmailCallBackRetryPromptMessage": "Would you like me to set up a call?",
 	"ConfirmEmailCallBackPromptMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada representative call to help you with your email address update.\n\n Would you like me to set up a call?",
-	"EmailAddressConfirmStep": "Perfect! I have updated your email address to @email",
+	"EmailAddressConfirmStep": "Perfect! I have updated your email address to: @email",
 	"UpdateMyEmailPromptMessage": "Ok, great! I can help with that. The email address I have for you is test@test.ca. Do you want to update to a new email address?",
 	"UpdateMyEmailPromptOptions": [
 		"Yes",
