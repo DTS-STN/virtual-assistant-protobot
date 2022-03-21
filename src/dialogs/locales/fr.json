@@ -303,9 +303,9 @@
 	],
 	"NewStreetNumberRetryPrompt": "Hum, je ne comprends pas. Veuillez entrer le numéro de rue de votre nouvelle résidence.",
 	"UnitORApartmentRetryPrompt": "Hum, je ne comprends pas. Veuillez entrer votre nouveau numéro d'appartement ou d'unité.",
-	"PoNumberPromptRetryMessage": "Hmm, I'm not sure what you meant. Please enter your new post office box number.",
+	"PoNumberPromptRetryMessage": "Hum, je ne comprends pas. Veuillez entrer votre nouveau numéro de case postale.",
 	"CannotFindMyAddress": "Je ne peux pas voir mon adresse ici",
-	"StreetAddressNotFoundMessage": "Je suis désolé, je ne crois pas pouvoir vous aider à faire votre changement d'adresse aujourd'hui. Par contre, je peux demander à un représentant de Service Canada de vous téléphoner pour vous aider.\n\n Voulez-vous que je planifie un appel?",
+	"StreetAddressNotFoundMessage": "Je suis désolé, je ne crois pas pouvoir vous aider à faire votre changement d'adresse aujourd'hui. Par contre, je peux demander à un représentant de Service Canada de vous téléphoner pour vous aider.",
 	"StreetAddressNotFoundPromptMessage": "Voulez-vous que je planifie un appel?",
 	"StreetAddressNotFoundPromptOptions": [
 		"Oui, appelez-moi",
