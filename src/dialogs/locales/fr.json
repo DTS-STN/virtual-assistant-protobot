@@ -115,7 +115,7 @@
 	],
 	"botGreatMsg": "Je vois. Il semble que vous ayez besoin de plus d'aide que je ne peux vous en fournir pour le moment.",
 	"confirmEmailStepErrorPromptOptions": [
-		"Oui, appelez-moi",
+		"Oui, je veux réessayer",
 		"Non, pas pour l'instant"
 	],
 	"confirmCallbackPhoneNumberStepStandardMsg": "D'accord! Est-ce que le [XXX-XXX-XXXX] est toujours le meilleur numéro de téléphone pour vous joindre?",
@@ -139,8 +139,8 @@
 	"getUserPhoneConfirmMsg": "D'accord, je vous envoie votre code de confirmation par message texte au [NUMÉRO DE TÉLÉPHONE].",
 	"getUserEmailFormatErrorMsg": "Oups, il semble que l'adresse de courrier électronique que vous avez entrée n'utilise pas le bon format (voici un exemple : nom@courriel.com). Essayez à nouveau.",
 	"getUserPhoneNumberFormatErrorMsg": "Oups, il semble que le numéro de téléphone que vous avez entré n'utilise pas le bon format (voici un exemple : 123-456-7890). Essayez à nouveau.",
-	"emailFormatMaxErrorMsg": "Il semble que les adresses de courrier électronique que vous avez entrées n'utilisent pas le bon format. Veuillez vérifier votre adresse de courrier électronique avant de continuer. Voulez-vous réessayer?",
-	"phoneNumberFormatMaxErrorMsg": "Il semble que les numéros de téléphone que vous avez entrés n'utilisent pas le bon format. Veuillez vérifier votre numéro de téléphone avant de continuer. Voulez-vous réessayer?",
+	"emailFormatMaxErrorMsg": "Il semble que l'adresse de courrier électronique que vous avez entrée n'utilise pas le bon format. Veuillez vérifier votre adresse de courrier électronique avant de continuer. Voulez-vous réessayer?",
+	"phoneNumberFormatMaxErrorMsg": "Il semble que le numéro de téléphone que vous avez entré n'utilise pas le bon format. Veuillez vérifier votre numéro de téléphone avant de continuer. Voulez-vous réessayer?",
 	"rateRetryMsg": "Oops - I'm not sure what you meant. Can you rate the service you received today?",
 	"standardQueryMsg": [
 		"Oui s'il vous plaît",
