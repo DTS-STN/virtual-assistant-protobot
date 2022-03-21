@@ -3,7 +3,10 @@ import {
   ChoicePrompt,
   ComponentDialog,
   WaterfallDialog,
-  ChoiceFactory
+  ChoiceFactory,
+  PromptValidatorContext,
+  Choice,
+  ListStyle
 } from 'botbuilder-dialogs';
 
 import { LuisRecognizer } from 'botbuilder-ai';
@@ -31,7 +34,7 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
 
     // Add a text prompt to the dialog stack
     this.addDialog(new TextPrompt(TEXT_PROMPT));
-    this.addDialog(new ChoicePrompt(CHOICE_PROMPT));
+    this.addDialog(new ChoicePrompt(CHOICE_PROMPT, this.CustomChoiceValidator));
     this.addDialog(new AlwaysOnBotDialog());
     this.addDialog(
       new WaterfallDialog(UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_WATERFALL_STEP, [
@@ -43,6 +46,9 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
     this.initialDialogId = UNBLOCK_DIRECT_DEPOSIT_MASTER_ERROR_WATERFALL_STEP;
   }
 
+  private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {
+    return true;
+}
   /**
    * Initial step in the waterfall. This will kick of the ConfirmLookIntoStep step
    *
@@ -88,15 +94,13 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
       // Setup the prompt
       const promptText =
         unblockBotDetails.directDepositMasterError === -1 ? retryMsg : promptMsg;
-      const promptDetails = {
-        prompt: ChoiceFactory.forChannel(
-          stepContext.context,
-          promptOptions,
-          promptText
-        )
-      };
 
-      return await stepContext.prompt(TEXT_PROMPT, promptDetails);
+      return await stepContext.prompt(CHOICE_PROMPT, {
+        prompt: promptText,
+        choices: ChoiceFactory.toChoices(promptOptions),
+        style: ListStyle.suggestedAction
+    });
+
     } else {
       return await stepContext.next(false);
     }

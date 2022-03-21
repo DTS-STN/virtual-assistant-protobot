@@ -12,7 +12,7 @@ module.exports=[
         name: 'AskEmail Address Step',
         steps: [
             ['hi', 'Ok, what\'s your new email address? (here’s an example: name@mail.com)'],
-            ['testuser@domain.com', 'Perfect! I have updated your email address to testuser@domain.com'],
+            ['testuser@domain.com', 'Perfect! I have updated your email address to: testuser@domain.com'],
             ['', 'Ok, you’re all set then!'],
             ['', 'Is there anything else I can help you with today?']
         ]

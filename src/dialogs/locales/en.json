@@ -28,7 +28,7 @@
 	"unblock_lookup_add_msg": "I have nearly enough information to complete your auto-enrolment into OAS.",
 	"unblock_lookup_add_prompt_msg": "I just need to add your missing banking information to speed up our process and get you ready to receive your first payment on time. Does that sound good?",
 	"unblock_lookup_decline_callback_msg": "Ok, no problem. You can access the manual OAS application form in the following link.",
-	"unblock_lookup_decline_callback_link": "https://canada.ca",
+	"unblock_lookup_decline_callback_link": "https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security/apply.html",
 	"unblock_lookup_decline_callback_link_msg": "Access the application here.",
 	"unblock_direct_deposit_msg": "Ok, great! To get your updated banking information, I will need the following numbers:",
 	"unblock_direct_deposit_institution_name": "your 3-digit financial institution number",
@@ -306,7 +306,7 @@
 	"ConfirmPhoneNumberCallBackRetryPromptMessage": "Would you like me to set up a call?",
 	"ConfirmEmailCallBackRetryPromptMessage": "Would you like me to set up a call?",
 	"ConfirmEmailCallBackPromptMessage": "I'm sorry, but it looks like I can't help you today. If you'd like, I can have a Service Canada representative call to help you with your email address update.\n\n Would you like me to set up a call?",
-	"EmailAddressConfirmStep": "Perfect! I have updated your email address to @email",
+	"EmailAddressConfirmStep": "Perfect! I have updated your email address to: @email",
 	"UpdateMyEmailPromptMessage": "Ok, great! I can help with that. The email address I have for you is test@test.ca. Do you want to update to a new email address?",
 	"UpdateMyEmailPromptOptions": [
 		"Yes",

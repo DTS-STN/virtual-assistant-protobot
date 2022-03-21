@@ -148,8 +148,8 @@
 	],
 	"NoNotificationMsg": "D'accord, c'est bon. Vous avez tout alors!",
 	"directDepositMasterErrorPromptRetryOpts": [
-		"configurer un appel",
-		"rien à faire"
+		"Oui, appelez-moi",
+		"Non, pas pour l’instant"
 	],
   "mainDialogFeedbackMsg": "Avant de partir, puis-je vous demander d'évaluer le service que vous avez reçu aujourd'hui?",
     "mainDialogGreatDayMsg": "Merci pour votre temps!",
@@ -165,15 +165,15 @@
   "unblock_lookup_update_msg": "J'ai presque toute l'information pour vous inscrire à la pension de la Sécurité de la vieillesse.",
   "unblock_lookup_update_prompt_msg": "Je dois mettre à jour vos renseignements pour que vous puissiez recevoir votre premier paiement à temps. Avez-vous un compte bancaire dans une institution financière canadienne?",
   "unblock_lookup_prompt_confirm_opts": [
-    "Oui, c'est ce que je préfère",
-    "Non, j'aimerais mettre à jour mes renseignements bancaires"
+    "Oui",
+    "Non"
   ],
   "unblock_lookup_decline_final_link_text": "Présenter une demande de pension de la Sécurité de la vieillesse",
   "unblock_lookup_add_prompt_msg": "J'ai juste besoin d'ajouter les renseignements bancaires manquants. Ça accélérera le processus et vous permettra de recevoir votre premier paiement à temps. Est-ce que ça vous convient?",
-  "unblock_lookup_decline_callback_link": "https://canada.qc.ca",
+  "unblock_lookup_decline_callback_link": "https://www.canada.ca/fr/services/prestations/pensionspubliques/rpc/securite-vieillesse/demande.html",
   "unblock_direct_deposit_msg": "D'accord, c'est parfait! J'aurais besoin des numéros suivants afin de m'assurer que vos renseignements bancaires sont à jour :",
   "unblock_direct_deposit_transit_name": "votre numéro de transit (5 chiffres)",
-  "unblock_direct_deposit_account_name": " Le numéro de votre compte bancaire (7 chiffres)",
+  "unblock_direct_deposit_account_name": "le numéro de votre compte bancaire (7 chiffres)",
 
 
     "always-on-bot-block-start": "-------ALWAYS-ON-BOT-START------",
@@ -282,7 +282,7 @@
 	"MaxRetryCount": "2",
 	"ConfirmEmailCallBackRetryPromptMessage": "Souhaitez-vous que j'établisse un appel?",
 	"ConfirmEmailCallBackPromptMessage": "Je suis désolé, je ne crois pas pouvoir vous aider aujourd'hui. Par contre, je peux demander à un représentant de Service Canada de vous téléphoner pour vous aider à mettre à jour votre adresse de courrier électronique.\n\n Voulez-vous que je planifie un appel? ",
-	"EmailAddressConfirmStep": "Parfait! J'ai mis à jour votre adresse de courrier électronique @email",
+	"EmailAddressConfirmStep": "Parfait! J'ai mis à jour votre adresse de courrier électronique: @email",
 	"UpdateMyEmailPromptMessage": "D'accord, je peux vous aider. L'adresse de courrier électronique que j'ai est test@test.ca. Voulez-vous mettre à jour cette adresse?",
 	"UpdateMyEmailPromptOptions": [
 		"Oui",
