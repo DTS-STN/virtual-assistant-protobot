@@ -22,7 +22,7 @@ module.exports = [
         name: 'Get address Step Dialog with postal box',
         steps: [
             ['hi', 'What\'s your new postal code? (here’s an example: T2T 4M4)'],
-            ['X0E 1W0', 'what\'s your new post office box number?'],
+            ['X0E 1W0', 'What\'s your new post office box number?'],
             ['123','Great! Your full address is #PO BOX 123    Tsiigehtchic  NT X0E 1W0. Is that correct?'],
             ['Yes','Perfect! I\'ve updated your address to #PO BOX 123    Tsiigehtchic  NT X0E 1W0']
         ]
