@@ -19,7 +19,7 @@ module.exports = [
         steps: [
             ['hi', 'What\'s your new postal code? (here’s an example: T2T 4M4)'],
             ['L4H3H5', '', 'I found more than one street for that postal code, Please select your street from the ones provided below.'],
-            ['Emily Anna St Woodbridge ON L4H3H5', 'what\'s your new street number?'],
+            ['Emily Anna St Woodbridge ON L4H3H5', 'What\'s your new street number?'],
             ['233', 'What\'s your new apartment or unit number?'],
             ['121','Great! Your full address is #121  233 Emily Anna St Woodbridge ON L4H3H5. Is that correct?'],
             ['Yes','Perfect! I\'ve updated your address to #121  233 Emily Anna St Woodbridge ON L4H3H5']

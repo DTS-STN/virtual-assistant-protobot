@@ -264,14 +264,14 @@
 		"Yes, I want to request a call",
 		"No, not for now"
 	],
-	"PoNumberPromptMessage": "what's your new post office box number?",
+	"PoNumberPromptMessage": "What's your new post office box number?",
 	"PoNumberPromptRetryMessage": "Hmm, I'm not sure what you meant. Please enter your new post office box number.",
 	"MoreStreetNumbersPrompt": "I found more than one street for that postal code, Please select your street from the ones provided below.",
 	"UnitORApartmentPrompt": "What's your new apartment or unit number?",
 	"UnitORApartmentRetryPrompt": "Hmm, I'm not sure what you meant. Please enter your new apartment or unit number.",
 	"NewStreetNumberPrompt": "What's your new street number? (For example, 36 if your address is 36 Maple Avenue)",
 	"NewStreetNumberRetryPrompt": "Hmm, I'm not sure what you meant. Please enter your new street number.",
-	"StreetNumbersPrompt": "what's your new street number?",
+	"StreetNumbersPrompt": "What's your new street number?",
 	"IncorrectPostalCodePrompt": "Oops, looks like the postal code you entered isn't formatted correctly (here's an example: T2T 4M4). Let's try again.",
 	"GetAddressPromptOptions": [
 		"Yes",
