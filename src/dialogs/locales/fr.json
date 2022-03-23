@@ -242,6 +242,8 @@
 	"NewStreetNumberPrompt": "Quel est votre nouveau numéro de rue? Par exemple, « 36 » si votre adresse est le 36, rue des Érables",
 	"StreetNumbersPrompt": "Quel est votre nouveau numéro de rue?",
 	"IncorrectPostalCodePrompt": "Oups, il semble que le code postal que vous avez entré n'utilise pas le bon format (voici un exemple : T2T 4M4). Essayez à nouveau.",
+	"NoAddressInAPIPrompt": "Je suis désolé, je n'ai pas trouvé d'adresse pour ce code postal. Essayez à nouveau.",
+	"APIDownPrompt": "Ah non! Il semble qu'une erreur s'est produite de mon côté.",
 	"NoStatementPhoneNumber": "D'accord, pas de problème!",
 	"AskPhoneNUmber": "Quel est votre nouveau numéro de téléphone?(voici un exemple : 123-456-7890)",
 	"PhoneNumberConfirmStep": "Parfait! J'ai mis à jour votre numéro de téléphone @phoneNumber",

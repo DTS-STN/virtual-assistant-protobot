@@ -15,8 +15,9 @@ const CHOICE_PROMPT = 'CHOICE_PROMPT';
 const TEXT_PROMPT = 'TEXT_PROMPT';
 
 let fullAddress: string;
-
+let addressNotFoundAPI:string = "";
 let isCallBackPassed:boolean = false;
+let isValidPostalCode:boolean = false;
 export const GET_ADDRESS_STEP = 'GET_ADDRESS_STEP';
 const GET_ADDRESS_WATERFALL_STEP = 'GET_ADDRESS_WATERFALL_STEP';
 
@@ -64,13 +65,16 @@ export class GetAddressesStep extends ComponentDialog {
                 const addressAPI = new AddressAPI();
 
                 let addressResults;
-
-                const data = await addressAPI.getAddress(stepContext.context.activity.text,i18n.__('APILanguage'),i18n.__('subscriptionKey'));
-                let addressMatches;
                 try{
+                    const data = await addressAPI.getAddress(stepContext.context.activity.text,i18n.__('APILanguage'),i18n.__('subscriptionKey'));
+                    let addressMatches;
+                    isValidPostalCode = false;
+                    addressNotFoundAPI = "";
+                    isValidPostalCode = this.validatePostalCode(stepContext.context.activity.text);
                     addressResults = data['wsaddr:SearchResults'];
                     const addressRecordInfo = addressResults['wsaddr:Information'];
                     let isStreetNumberRequired:boolean = false;
+                    addressNotFoundAPI = addressRecordInfo['nc:MessageText'];
                     if(Number(addressRecordInfo['nc:MessageText'])>1)
                     {
                         isStreetNumberRequired = true;
@@ -198,8 +202,21 @@ export class GetAddressesStep extends ComponentDialog {
                 );
                 return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
             }else{
-            await stepContext.context.sendActivity(i18n.__('IncorrectPostalCodePrompt'));
-            return await stepContext.beginDialog(GET_ADDRESS_STEP,addressDetails);
+                console.log(addressNotFoundAPI.length);
+                console.log(addressNotFoundAPI);
+                if(addressNotFoundAPI.length>10){
+                 await stepContext.context.sendActivity(i18n.__('NoAddressInAPIPrompt'));
+                }
+                else{
+                    if(!isValidPostalCode){
+                        await stepContext.context.sendActivity(i18n.__('IncorrectPostalCodePrompt'));
+                    }
+                    else{
+                        await stepContext.context.sendActivity(i18n.__('APIDownPrompt'));
+                    }
+                
+                }
+                 return await stepContext.beginDialog(GET_ADDRESS_STEP,addressDetails);
             }
           }
         else {
@@ -375,4 +392,17 @@ export class GetAddressesStep extends ComponentDialog {
         }
      return sentence;
     }
+
+    private validatePostalCode(response:string)
+    {
+        let reg = /^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$/
+        let validPostalCode:boolean = false;
+        reg = new RegExp(reg);
+        if(response.match(reg))
+        {
+            validPostalCode = true;
+        }
+        return validPostalCode;
+    }
+
 }

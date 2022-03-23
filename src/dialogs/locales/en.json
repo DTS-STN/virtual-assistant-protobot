@@ -273,6 +273,8 @@
 	"NewStreetNumberRetryPrompt": "Hmm, I'm not sure what you meant. Please enter your new street number.",
 	"StreetNumbersPrompt": "What's your new street number?",
 	"IncorrectPostalCodePrompt": "Oops, looks like the postal code you entered isn't formatted correctly (here's an example: T2T 4M4). Let's try again.",
+	"NoAddressInAPIPrompt": "Sorry, I can't find any addresses with that postal code. Let's try again.",
+	"APIDownPrompt": "Oh, no! Looks like something's wrong on my end.",
 	"GetAddressPromptOptions": [
 		"Yes",
 		"No"
