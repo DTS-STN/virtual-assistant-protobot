@@ -2,9 +2,9 @@ import { LuisRecognizer } from 'botbuilder-ai';
 import { Choice, ChoiceFactory, ChoicePrompt, ComponentDialog, DialogTurnResult, ListStyle, PromptValidatorContext, TextPrompt, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
 import { CommonPromptValidatorModel } from '../../../../models/commonPromptValidatorModel';
 import { AddressAPI } from '../../../../utils/addressAPI';
-import i18n, { setLocale } from '../../../locales/i18nConfig';
-import { LUISAlwaysOnBotSetup } from '../../alwaysOnBotRecognizer';
 import { ContinueAndFeedbackStep, CONTINUE_AND_FEEDBACK_STEP } from '../../../common/continueAndFeedbackStep';
+import i18n from '../../../locales/i18nConfig';
+import { LUISAlwaysOnBotSetup } from '../../alwaysOnBotRecognizer';
 import { CommonCallBackStep, COMMON_CALL_BACK_STEP } from '../commonCallBackStep';
 import { AddressDetails } from './addressDetails';
 import { ChoiceCheckUpdateAddressStep, CHOICE_CHECK_UPDATE_ADDRESS_STEP } from './choiceCheckUpdateAddressStep';
@@ -15,7 +15,7 @@ const CHOICE_PROMPT = 'CHOICE_PROMPT';
 const TEXT_PROMPT = 'TEXT_PROMPT';
 
 let fullAddress: string;
-let addressNotFoundAPI:string = "";
+let addressNotFoundAPI:string = '';
 let isCallBackPassed:boolean = false;
 let isValidPostalCode:boolean = false;
 export const GET_ADDRESS_STEP = 'GET_ADDRESS_STEP';
@@ -69,8 +69,8 @@ export class GetAddressesStep extends ComponentDialog {
                     const data = await addressAPI.getAddress(stepContext.context.activity.text,i18n.__('APILanguage'),i18n.__('subscriptionKey'));
                     let addressMatches;
                     isValidPostalCode = false;
-                    addressNotFoundAPI = "";
-                    isValidPostalCode = this.validatePostalCode(stepContext.context.activity.text);
+                    addressNotFoundAPI = '';
+                    isValidPostalCode = this.validatePostalCode(stepContext.context.activity.text.toUpperCase());
                     addressResults = data['wsaddr:SearchResults'];
                     const addressRecordInfo = addressResults['wsaddr:Information'];
                     let isStreetNumberRequired:boolean = false;
@@ -214,7 +214,6 @@ export class GetAddressesStep extends ComponentDialog {
                     else{
                         await stepContext.context.sendActivity(i18n.__('APIDownPrompt'));
                     }
-                
                 }
                  return await stepContext.beginDialog(GET_ADDRESS_STEP,addressDetails);
             }
