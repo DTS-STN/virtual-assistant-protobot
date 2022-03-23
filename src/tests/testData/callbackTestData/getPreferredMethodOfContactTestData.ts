@@ -42,7 +42,7 @@ module.exports = [
       ],
       [
         'Yes, email please',
-        `The email address I have for you is [test@test.com]. Is this the correct email address? (1) Yes or (2) No`
+        `The email address I have for you is test@test.com. Is this the correct email address? (1) Yes or (2) No`
       ]
     ]
   },
@@ -89,7 +89,7 @@ module.exports = [
       ],
       [
         `yes, text message`,
-        `The phone number I have for you is [123-456-7890]. Can this number receive text messages? (1) Yes or (2) No`
+        `The phone number I have for you is 123-654-0987. Can this number receive text messages? (1) Yes or (2) No`
       ]
     ]
   },
