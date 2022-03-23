@@ -70,7 +70,7 @@ module.exports = [
     steps: [
       [
         null,
-        `The phone number I have for you is [123-456-7890]. Can this number receive text messages? (1) Yes or (2) No`
+        `The phone number I have for you is 123-654-0987. Can this number receive text messages? (1) Yes or (2) No`
       ],
       [
         'Yes, correct',
@@ -118,7 +118,7 @@ module.exports = [
     steps: [
       [
         null,
-        `The phone number I have for you is [123-456-7890]. Can this number receive text messages? (1) Yes or (2) No`
+        `The phone number I have for you is 123-654-0987. Can this number receive text messages? (1) Yes or (2) No`
       ],
       [
         'no, not correct',
@@ -167,7 +167,7 @@ module.exports = [
     steps: [
       [
         null,
-        `The phone number I have for you is [123-456-7890]. Can this number receive text messages? (1) Yes or (2) No`
+        `The phone number I have for you is 123-654-0987. Can this number receive text messages? (1) Yes or (2) No`
       ],
       [
         'haha',
@@ -246,7 +246,7 @@ module.exports = [
     steps: [
       [
         null,
-        `The phone number I have for you is [123-456-7890]. Can this number receive text messages? (1) Yes or (2) No`
+        `The phone number I have for you is 123-654-0987. Can this number receive text messages? (1) Yes or (2) No`
       ],
       [
         'haha',
