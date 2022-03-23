@@ -27,6 +27,7 @@ import { MAX_ERROR_COUNT}  from '../../utils'
 import { CommonPromptValidatorModel } from '../../models/commonPromptValidatorModel';
 import { AlwaysOnBotDialog, ALWAYS_ON_BOT_DIALOG } from '../alwaysOnDialogs/alwaysOnBotDialog';
 import { NEXT_OPTION_STEP } from './unblockNext';
+import { callbackCard } from '../../cards/callbackCard';
 
 export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
   constructor() {
@@ -72,7 +73,7 @@ export class UnblockDirectDepositMasterErrorStep extends ComponentDialog {
     ) {
       unblockBotDetails.masterError = true;
       const errorMsg = i18n.__('unblockBotDialogMasterErrorMsg');
-      await adaptiveCard(stepContext, TextBlock(errorMsg));
+      await adaptiveCard(stepContext, callbackCard(stepContext.context.activity.locale,errorMsg));
       return await stepContext.endDialog(unblockBotDetails);
     }
 
