@@ -10,6 +10,7 @@ import { AddressDetails } from './addressDetails';
 import { ChoiceCheckUpdateAddressStep, CHOICE_CHECK_UPDATE_ADDRESS_STEP } from './choiceCheckUpdateAddressStep';
 import { UPDATE_ADDRESS_STEP } from './updateAddressStep';
 import { ValidateNumberStep, VALIDATE_NUMBER_STEP } from './validateNumberStep';
+import { CommonChoiceCheckStepMultipleAddresses, COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP } from "./choiceCheckStepMultipleAddressesStep";
 
 const CHOICE_PROMPT = 'CHOICE_PROMPT';
 const TEXT_PROMPT = 'TEXT_PROMPT';
@@ -18,6 +19,8 @@ let fullAddress: string;
 let addressNotFoundAPI:string = '';
 let isCallBackPassed:boolean = false;
 let isValidPostalCode:boolean = false;
+var manyAddresses:string[] = new Array(); 
+
 export const GET_ADDRESS_STEP = 'GET_ADDRESS_STEP';
 const GET_ADDRESS_WATERFALL_STEP = 'GET_ADDRESS_WATERFALL_STEP';
 
@@ -31,6 +34,7 @@ export class GetAddressesStep extends ComponentDialog {
             .addDialog(new ChoiceCheckUpdateAddressStep())
             .addDialog(new ValidateNumberStep())
             .addDialog(new CommonCallBackStep())
+            .addDialog(new CommonChoiceCheckStepMultipleAddresses())
             .addDialog(new WaterfallDialog(GET_ADDRESS_WATERFALL_STEP, [
                 this.initialStep.bind(this),
                 this.continueStep.bind(this),
@@ -102,8 +106,8 @@ export class GetAddressesStep extends ComponentDialog {
                 }
                 else{
                     addressResults = data['wsaddr:SearchResults'];
-                     addressMatches = addressResults['wsaddr:AddressMatches'];
-                    const manyAddresses:string[] = new Array();
+                    addressMatches = addressResults['wsaddr:AddressMatches'];
+                    manyAddresses = [];
                     if(isStreetNumberRequired){
                         addressDetails.AddressType = 'MULTIPLE';
                         for (let i=0; i < addressMatches.length; i++) {
@@ -120,11 +124,12 @@ export class GetAddressesStep extends ComponentDialog {
                             return await stepContext.next();
                         }
                         else{
-                        return await stepContext.prompt(CHOICE_PROMPT, {
-                            prompt: promptmsg,
-                            choices: ChoiceFactory.toChoices(manyAddresses),
-                            style: ListStyle.heroCard
-                        });
+                            let commonPromptValidatorModel = new CommonPromptValidatorModel(
+                                manyAddresses,
+                                Number(i18n.__("MaxRetryCount")),
+                                "MultpleAddresses",promptmsg
+                            );
+                            return await stepContext.beginDialog(COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP, commonPromptValidatorModel);
                         }
                     }
                     else{
@@ -183,9 +188,19 @@ export class GetAddressesStep extends ComponentDialog {
                 return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
             }
             else{
-                        addressDetails.promptMessage = i18n.__('StreetNumbersPrompt');
-                        addressDetails.promptRetryMessage = i18n.__('NewStreetNumberRetryPrompt');
-                        return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails);
+
+                const matchFound = manyAddresses.includes(stepContext.context.activity.text);
+                if (matchFound)
+                {
+                    addressDetails.promptMessage = i18n.__('StreetNumbersPrompt');
+                    addressDetails.promptRetryMessage = i18n.__('NewStreetNumberRetryPrompt');
+                    return await stepContext.beginDialog(VALIDATE_NUMBER_STEP, addressDetails);
+                }
+                else{
+                    isCallBackPassed = true;
+                    return await stepContext.endDialog();
+                }
+ 
             }
            }
            else{
@@ -202,8 +217,6 @@ export class GetAddressesStep extends ComponentDialog {
                 );
                 return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
             }else{
-                console.log(addressNotFoundAPI.length);
-                console.log(addressNotFoundAPI);
                 if(addressNotFoundAPI.length>10){
                  await stepContext.context.sendActivity(i18n.__('NoAddressInAPIPrompt'));
                 }
