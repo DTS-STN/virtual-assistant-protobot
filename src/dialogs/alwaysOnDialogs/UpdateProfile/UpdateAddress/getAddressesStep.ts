@@ -10,7 +10,7 @@ import { AddressDetails } from './addressDetails';
 import { ChoiceCheckUpdateAddressStep, CHOICE_CHECK_UPDATE_ADDRESS_STEP } from './choiceCheckUpdateAddressStep';
 import { UPDATE_ADDRESS_STEP } from './updateAddressStep';
 import { ValidateNumberStep, VALIDATE_NUMBER_STEP } from './validateNumberStep';
-import { CommonChoiceCheckStepMultipleAddresses, COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP } from "./choiceCheckStepMultipleAddressesStep";
+import { CommonChoiceCheckStepMultipleAddresses, COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP } from './choiceCheckStepMultipleAddressesStep';
 
 const CHOICE_PROMPT = 'CHOICE_PROMPT';
 const TEXT_PROMPT = 'TEXT_PROMPT';
@@ -19,7 +19,7 @@ let fullAddress: string;
 let addressNotFoundAPI:string = '';
 let isCallBackPassed:boolean = false;
 let isValidPostalCode:boolean = false;
-var manyAddresses:string[] = new Array(); 
+let manyAddresses:string[] = new Array(); 
 
 export const GET_ADDRESS_STEP = 'GET_ADDRESS_STEP';
 const GET_ADDRESS_WATERFALL_STEP = 'GET_ADDRESS_WATERFALL_STEP';
@@ -126,8 +126,8 @@ export class GetAddressesStep extends ComponentDialog {
                         else{
                             let commonPromptValidatorModel = new CommonPromptValidatorModel(
                                 manyAddresses,
-                                Number(i18n.__("MaxRetryCount")),
-                                "MultpleAddresses",promptmsg
+                                Number(i18n.__('MaxRetryCount')),
+                                'MultpleAddresses',promptmsg
                             );
                             return await stepContext.beginDialog(COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP, commonPromptValidatorModel);
                         }
@@ -188,7 +188,6 @@ export class GetAddressesStep extends ComponentDialog {
                 return await stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModel);
             }
             else{
-
                 const matchFound = manyAddresses.includes(stepContext.context.activity.text);
                 if (matchFound)
                 {
@@ -200,7 +199,6 @@ export class GetAddressesStep extends ComponentDialog {
                     isCallBackPassed = true;
                     return await stepContext.endDialog();
                 }
- 
             }
            }
            else{
@@ -329,8 +327,8 @@ export class GetAddressesStep extends ComponentDialog {
     }
     /**
      * This is the final step in the waterfall.
-     * User selects the "Yes" prompt then navigate to the users"s continue and feedback flow.
-     * User selects the "No" prompt then bot again calls the update address flow.
+     * User selects the 'Yes' prompt then navigate to the users's continue and feedback flow.
+     * User selects the 'No' prompt then bot again calls the update address flow.
      */
     private async finalStep(stepContext: WaterfallStepContext<AddressDetails>): Promise<DialogTurnResult> {
        const addressDetails = stepContext.options as AddressDetails;

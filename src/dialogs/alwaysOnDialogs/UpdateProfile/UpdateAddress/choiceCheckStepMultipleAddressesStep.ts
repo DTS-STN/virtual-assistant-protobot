@@ -1,19 +1,19 @@
-import { LuisRecognizer } from "botbuilder-ai";
+import { LuisRecognizer } from 'botbuilder-ai';
 import {
     Choice, ChoiceFactory,
     ChoicePrompt, ComponentDialog, ListStyle, PromptValidatorContext, WaterfallDialog,
     WaterfallStepContext
-} from "botbuilder-dialogs";
-import { adaptiveCard } from "../../../../cards";
-import { callbackCard } from "../../../../cards/callbackCard";
-import { CommonPromptValidatorModel } from "../../../../models/commonPromptValidatorModel";
-import i18n from "../../../locales/i18nConfig";
-import { LUISAlwaysOnBotSetup } from "../../alwaysOnBotRecognizer";
-import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from "../commonCallBackStep";
+} from 'botbuilder-dialogs';
+import { adaptiveCard } from '../../../../cards';
+import { callbackCard } from '../../../../cards/callbackCard';
+import { CommonPromptValidatorModel } from '../../../../models/commonPromptValidatorModel';
+import i18n from '../../../locales/i18nConfig';
+import { LUISAlwaysOnBotSetup } from '../../alwaysOnBotRecognizer';
+import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from '../commonCallBackStep';
 
-const CHOICE_PROMPT = "CHOICE_PROMPT";
-export const COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP = "COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP";
-const COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_WATERFALL_STEP = "COMMON_CHOICE_CHECK_WATERFALL_STEP";
+const CHOICE_PROMPT = 'CHOICE_PROMPT';
+export const COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP = 'COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP';
+const COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_WATERFALL_STEP = 'COMMON_CHOICE_CHECK_WATERFALL_STEP';
 
 export class CommonChoiceCheckStepMultipleAddresses extends ComponentDialog {
     constructor() {
@@ -31,7 +31,7 @@ export class CommonChoiceCheckStepMultipleAddresses extends ComponentDialog {
     private async CustomChoiceValidator(promptContext: PromptValidatorContext<Choice>) {
         return true;
     }
-    /**
+    /*
     * 1. Initial step in the waterfall.
     * 2. prompt user with a message based on the step in the flow
     */
@@ -39,9 +39,8 @@ export class CommonChoiceCheckStepMultipleAddresses extends ComponentDialog {
         const commonPromptValidatorModel = stepContext.options as CommonPromptValidatorModel;
         let promptMessage: string;
         // displays initial prompt message to the user
-        
         if (commonPromptValidatorModel.retryCount === 0) {
-           if(!(commonPromptValidatorModel.initialPrompt === "")){
+           if(!(commonPromptValidatorModel.initialPrompt === '')){
             let promptMessage = commonPromptValidatorModel.initialPrompt;
             const promptOptions = commonPromptValidatorModel.intents;
             return await stepContext.prompt(CHOICE_PROMPT, {
@@ -57,9 +56,9 @@ export class CommonChoiceCheckStepMultipleAddresses extends ComponentDialog {
             const exceededRetryMessage = i18n.__(`MasterRetryExceededMessage`);
 
             let commonPromptValidatorModelNew = new CommonPromptValidatorModel(
-                ["YesIWantToRequestCall", "NoNotForNow"],
-                Number(i18n.__("MaxRetryCount")),
-                "ServiceRepresentative",i18n.__("ServiceRepresentativePromptMessage")
+                ['YesIWantToRequestCall', 'NoNotForNow'],
+                Number(i18n.__('MaxRetryCount')),
+                'ServiceRepresentative',i18n.__('ServiceRepresentativePromptMessage')
             );
             return stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModelNew);
         }
