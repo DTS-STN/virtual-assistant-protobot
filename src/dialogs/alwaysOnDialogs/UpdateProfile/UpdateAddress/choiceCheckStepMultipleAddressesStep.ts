@@ -1,15 +1,11 @@
-import { LuisRecognizer } from 'botbuilder-ai';
 import {
     Choice, ChoiceFactory,
     ChoicePrompt, ComponentDialog, ListStyle, PromptValidatorContext, WaterfallDialog,
     WaterfallStepContext
 } from 'botbuilder-dialogs';
-import { adaptiveCard } from '../../../../cards';
-import { callbackCard } from '../../../../cards/callbackCard';
 import { CommonPromptValidatorModel } from '../../../../models/commonPromptValidatorModel';
 import i18n from '../../../locales/i18nConfig';
-import { LUISAlwaysOnBotSetup } from '../../alwaysOnBotRecognizer';
-import { COMMON_CALL_BACK_STEP,CommonCallBackStep } from '../commonCallBackStep';
+import { COMMON_CALL_BACK_STEP } from '../commonCallBackStep';
 
 const CHOICE_PROMPT = 'CHOICE_PROMPT';
 export const COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP = 'COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP';
@@ -37,11 +33,11 @@ export class CommonChoiceCheckStepMultipleAddresses extends ComponentDialog {
     */
     async promptStep(stepContext: WaterfallStepContext) {
         const commonPromptValidatorModel = stepContext.options as CommonPromptValidatorModel;
-        let promptMessage: string;
+        const promptMessage: string = '';
         // displays initial prompt message to the user
         if (commonPromptValidatorModel.retryCount === 0) {
            if(!(commonPromptValidatorModel.initialPrompt === '')){
-            let promptMessage = commonPromptValidatorModel.initialPrompt;
+            const promptMessage = commonPromptValidatorModel.initialPrompt;
             const promptOptions = commonPromptValidatorModel.intents;
             return await stepContext.prompt(CHOICE_PROMPT, {
             prompt: promptMessage,
@@ -55,7 +51,7 @@ export class CommonChoiceCheckStepMultipleAddresses extends ComponentDialog {
             commonPromptValidatorModel.status = false;
             const exceededRetryMessage = i18n.__(`MasterRetryExceededMessage`);
 
-            let commonPromptValidatorModelNew = new CommonPromptValidatorModel(
+            const commonPromptValidatorModelNew = new CommonPromptValidatorModel(
                 ['YesIWantToRequestCall', 'NoNotForNow'],
                 Number(i18n.__('MaxRetryCount')),
                 'ServiceRepresentative',i18n.__('ServiceRepresentativePromptMessage')
@@ -64,7 +60,7 @@ export class CommonChoiceCheckStepMultipleAddresses extends ComponentDialog {
         }
         // on every rerty attempt made by the user
         else {
-            promptMessage = i18n.__(`${commonPromptValidatorModel.promptCode}RetryPromptMessage`);
+            const promptMessage = i18n.__(`${commonPromptValidatorModel.promptCode}RetryPromptMessage`);
         }
         // displays prompt options to the user
         const promptOptions = commonPromptValidatorModel.intents;
