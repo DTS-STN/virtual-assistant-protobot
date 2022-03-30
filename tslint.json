@@ -14,6 +14,7 @@
         "prefer-for-of": false,
         "quotemark": [true, "single"],
         "one-variable-per-declaration": false,
+        "no-shadowed-variable":true,
         "curly": [true, "ignore-same-line"],
         "trailing-comma": [true, {"multiline": "never", "singleline": "never"}]
     },

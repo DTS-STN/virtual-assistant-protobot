@@ -33,12 +33,13 @@ export class CommonChoiceCheckStepMultipleAddresses extends ComponentDialog {
     */
     async promptStep(stepContext: WaterfallStepContext) {
         const commonPromptValidatorModel = stepContext.options as CommonPromptValidatorModel;
-        const promptMessage: string = '';
+        let promptMessage: string = '';
+        let promptOptions;
         // displays initial prompt message to the user
         if (commonPromptValidatorModel.retryCount === 0) {
            if(!(commonPromptValidatorModel.initialPrompt === '')){
-            const promptMessage = commonPromptValidatorModel.initialPrompt;
-            const promptOptions = commonPromptValidatorModel.intents;
+            promptMessage = commonPromptValidatorModel.initialPrompt;
+            promptOptions  = commonPromptValidatorModel.intents;
             return await stepContext.prompt(CHOICE_PROMPT, {
             prompt: promptMessage,
             choices: ChoiceFactory.toChoices(promptOptions),
@@ -58,12 +59,12 @@ export class CommonChoiceCheckStepMultipleAddresses extends ComponentDialog {
             );
             return stepContext.replaceDialog(COMMON_CALL_BACK_STEP, commonPromptValidatorModelNew);
         }
-        // on every rerty attempt made by the user
+        // on every retry attempt made by the user
         else {
-            const promptMessage = i18n.__(`${commonPromptValidatorModel.promptCode}RetryPromptMessage`);
+            promptMessage = i18n.__(`${commonPromptValidatorModel.promptCode}RetryPromptMessage`);
         }
         // displays prompt options to the user
-        const promptOptions = commonPromptValidatorModel.intents;
+        promptOptions = commonPromptValidatorModel.intents;
         return await stepContext.prompt(CHOICE_PROMPT, {
             prompt: promptMessage,
             choices: ChoiceFactory.toChoices(promptOptions),
@@ -82,6 +83,6 @@ export class CommonChoiceCheckStepMultipleAddresses extends ComponentDialog {
         }
         commonPromptValidatorModel.result = stepContext.context.activity.text;
         commonPromptValidatorModel.retryCount++;
-        return await stepContext.replaceDialog(COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP, commonPromptValidatorModel);       
+        return await stepContext.replaceDialog(COMMON_CHOICE_CHECK_MULTIPLE_ADDRESSES_STEP, commonPromptValidatorModel);
    }
 }

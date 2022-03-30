@@ -19,7 +19,7 @@ let fullAddress: string;
 let addressNotFoundAPI:string = '';
 let isCallBackPassed:boolean = false;
 let isValidPostalCode:boolean = false;
-let manyAddresses:string[] = new Array(); 
+let manyAddresses:string[] = new Array();
 
 export const GET_ADDRESS_STEP = 'GET_ADDRESS_STEP';
 const GET_ADDRESS_WATERFALL_STEP = 'GET_ADDRESS_WATERFALL_STEP';
@@ -124,7 +124,7 @@ export class GetAddressesStep extends ComponentDialog {
                             return await stepContext.next();
                         }
                         else{
-                            let commonPromptValidatorModel = new CommonPromptValidatorModel(
+                            const commonPromptValidatorModel = new CommonPromptValidatorModel(
                                 manyAddresses,
                                 Number(i18n.__('MaxRetryCount')),
                                 'MultpleAddresses',promptmsg
@@ -255,7 +255,7 @@ export class GetAddressesStep extends ComponentDialog {
         }
         else{
             const inputStreetName = stepContext.context.activity.text;
-            const manyAddresses:string[] = addressDetails.manyAddresses;
+            manyAddresses = addressDetails.manyAddresses;
             let outAddress = '';
             for (let i=0; i < manyAddresses.length; i++) {
                 const streetName = manyAddresses[i];
